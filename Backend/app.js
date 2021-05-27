@@ -22,6 +22,4 @@ app.use((req, res, next) => {//CORS (cross origine ressources sharing) pour évi
 app.use(bodyParser.json());
 app.use(helmet());// Helmet pour securiser les cookies
 
-
-
 module.exports = app;
