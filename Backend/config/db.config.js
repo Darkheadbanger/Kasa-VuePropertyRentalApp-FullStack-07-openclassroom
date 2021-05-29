@@ -2,7 +2,7 @@ module.exports = {
 HOST: "localhost",
 USER: "root",
 PASSWORD: "",
-DB:"groupomaniasocialnetwork",
+DB:"groupomania_social_network",
 dialect: "mysql",
     pool: {
         max: 5,//nombre maximum de connexions autorisées

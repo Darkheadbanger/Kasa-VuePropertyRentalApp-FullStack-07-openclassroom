@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -32,5 +31,6 @@
   "bugs": {
     "url": "https://github.com/Darkheadbanger/DavidBouhaben_7_groupomania_fullstack/issues"
   },
-  "homepage": "https://github.com/Darkheadbanger/DavidBouhaben_7_groupomania_fullstack#readme"
+  "homepage": "https://github.com/Darkheadbanger/DavidBouhaben_7_groupomania_fullstack#readme",
+  "description": ""
 }

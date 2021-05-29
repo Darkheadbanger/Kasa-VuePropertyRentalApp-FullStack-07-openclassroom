@@ -1,6 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         'user', {
+        id: {// Ici création de la clé primaire qui sert à identifié de manière unique
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         username: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -30,6 +43,15 @@ module.exports = (sequelize, DataTypes) => {
         {
             freezeTableName: true,
         }
-    );
-        return User;
+    )
+    // User.sync({force: true}).then(function () {
+    //     // Table created
+    //     return User.create({
+    //       firstName: 'John',
+    //       lastName: 'Hancock',
+    //       username: "dada",
+    //       email: "davidbouhaben@yahoo.co.id",
+    //       password: "dada"
+    //     });
+    //   });
 }

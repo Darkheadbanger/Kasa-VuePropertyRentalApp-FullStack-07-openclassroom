@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "groupomaniasocialnetwork",
+    "database": "groupomania_social_network",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "groupomaniasocialnetwork",
+    "database": "groupomania_social_network",
     "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "groupomaniasocialnetwork",
+    "database": "groupomania_social_network",
     "host": "localhost",
     "dialect": "mysql"
   }

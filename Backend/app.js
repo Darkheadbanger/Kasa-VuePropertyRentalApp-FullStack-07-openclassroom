@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 const helmet = require('helmet');
-const db = require('./models');
+const db = require('./models/connexion');
+const userRoutes = require('./routes/user.routes')
 const app = express();
+
+db.sequelize.sync();
 
 require('dotenv').config();
 
@@ -36,5 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Helmet pour securiser les cookies
 app.use(helmet());
+
+app.use('/api/signup', userRoutes)
 
 module.exports = app;
