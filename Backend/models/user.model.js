@@ -1,24 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('user', {
-        id: {// Ici création de la clé primaire qui sert à identifié de manière unique
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        firstName: {
+    const User = sequelize.define(
+        'user', {
+        username: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            unique: true
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },
-        password: DataTypes.STRING,
+        password: {
+            type: DataTypes.STRING
+        },
         createdAt: {
             //Type: DataTypes.DATETIME,
             type: 'TIMESTAMP',

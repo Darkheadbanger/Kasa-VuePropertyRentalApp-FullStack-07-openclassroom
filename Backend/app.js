@@ -1,35 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const Sequelize = require('sequelize');
-const dbConfig = require("./config/db.config.js")
- 
 const helmet = require('helmet');
+const db = require('./models');
+const app = express();
 
 require('dotenv').config();
 
-// On se connecte sur MySQL
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASS, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.DIALECT, /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
-    operatorsAliases: false,
+// Met le view engine dans le ejs
+app.set('view engine', 'ejs');
 
-    pool: {
-        max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle
-    }
-  }
-)
-sequelize.authenticate()
-.then(() => console.log('Connexion à MySQL réussie !'))
-.catch(() => console.log('Connexion à MySQL échouée !'));
-
-module.exports = sequelize;
-global.sequelize = sequelize;
-
-const app = express();
+/*On verra, peut être je vais utiliser multer
+app.use('/images', express.static(path.join(__dirname, 'images')));//multer, endoroit ou telecharger les images
+app.use(express.static(_dirname + '/public));
+*/
 
 const corsOption = {
     origin: process.env.FRONTEND_ORIGIN
@@ -52,10 +36,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Helmet pour securiser les cookies
 app.use(helmet());
-
-//Route tests
-app.use('/', (req, res, next) => {
-    res.json({message: "Ici, c'est david bouhaben !"})
-})
 
 module.exports = app;
