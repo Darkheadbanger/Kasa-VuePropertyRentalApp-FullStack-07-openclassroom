@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const helmet = require('helmet');
+const helmet = require('helmet'); 
+//Connexion
 const db = require('./models/connexion');
-const userRoutes = require('./routes/user.routes')
+const authRoutes = require('./routes/auth.routes')
 const app = express();
 
 db.sequelize.sync();
@@ -12,11 +13,6 @@ require('dotenv').config();
 
 // Met le view engine dans le ejs
 app.set('view engine', 'ejs');
-
-/*On verra, peut être je vais utiliser multer
-app.use('/images', express.static(path.join(__dirname, 'images')));//multer, endoroit ou telecharger les images
-app.use(express.static(_dirname + '/public));
-*/
 
 const corsOption = {
     origin: process.env.FRONTEND_ORIGIN
@@ -40,6 +36,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Helmet pour securiser les cookies
 app.use(helmet());
 
-app.use('/api/signup', userRoutes)
+app.use('/api/auth', authRoutes)
 
 module.exports = app;

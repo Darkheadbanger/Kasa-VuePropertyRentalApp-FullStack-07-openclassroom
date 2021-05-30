@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        username: {
+        userName: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
         }
     )
+    return User
     // User.sync({force: true}).then(function () {
     //     // Table created
     //     return User.create({

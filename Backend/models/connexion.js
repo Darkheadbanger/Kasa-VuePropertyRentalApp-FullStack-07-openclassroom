@@ -26,7 +26,6 @@ sequelize.authenticate()
     return res.status(400).json({ error });
 });
 
-
 const db = {};
 
 db.Sequelize = Sequelize;
