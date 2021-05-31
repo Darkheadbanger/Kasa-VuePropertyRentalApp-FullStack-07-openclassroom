@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const helmet = require('helmet'); 
 //Connexion
-const db = require('./models/connexion');
+const db = require('./models');
 const authRoutes = require('./routes/auth.routes')
 const app = express();
 
@@ -36,7 +36,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Helmet pour securiser les cookies
 app.use(helmet());
 
-//app.use('/api/auth', authRoutes)
-app.use('/inscription', authRoutes)
+app.use('/api/auth', authRoutes)
 
 module.exports = app;

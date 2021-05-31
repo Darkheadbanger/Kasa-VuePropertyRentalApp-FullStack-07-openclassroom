@@ -1,22 +1,22 @@
 //Ici pour la connexion à la base de données
-const config = require("../config/db.config")
+//const config = require("../config/db.config")
+require("dotenv").config()
 
 const Sequelize = require("sequelize");
-
 const sequelize = new Sequelize(
-  config.DB,
-  config.USER,
-  config.PASSWORD,
+  process.env.DB,
+  process.env.USER,
+  process.env.PASSWORD,
   {
-    host: config.HOST,
-    dialect: config.dialect,
+    host: process.env.HOST,
+    dialect: process.env.DIALECT,
     operatorsAliases: false,
 
     pool: {
-      max: config.pool.max,
-      min: config.pool.min,
-      acquire: config.pool.acquire,
-      idle: config.pool.idle
+        max: 5,//nombre maximum de connexions autorisées
+        min: 0,//nombre minimum de connexions autorisées
+        acquire: 30000,//durée maximale, en millisecondes, pendant laquelle le pool cherche à établir la connexion avant qu'un message d'erreur n'apparaisse à l'écran
+        idle:10000,//durée maximale, en millisecondes, pendant laquelle une connexion peut être suspendue avant d'être libérée
     }
   }
 )

@@ -1,45 +1,46 @@
-module.exports = (sequelize, DataTypes) => {
+'user strict';
+module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define(
     "user",
     {
       id: {
         // Ici création de la clé primaire qui sert à identifié de manière unique
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       firstName: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       lastName: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       userName: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
       email: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
       password: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
-        //Type: DataTypes.DATETIME,
+        //Type: Sequelize.DATETIME,
         type: "TIMESTAMP",
-        defaultValue: DataTypes.NOW,
+        defaultValue: Sequelize.NOW,
         field: "Created_at",
       },
       updateAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        onUpdate: DataTypes.NOW,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+        onUpdate: Sequelize.NOW,
         field: "Update_at",
       },
     },
@@ -48,14 +49,4 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   return User;
-  // User.sync({force: true}).then(function () {
-  //     // Table created
-  //     return User.create({
-  //       firstName: 'John',
-  //       lastName: 'Hancock',
-  //       username: "dada",
-  //       email: "davidbouhaben@yahoo.co.id",
-  //       password: "dada"
-  //     });
-  //   });
 };
