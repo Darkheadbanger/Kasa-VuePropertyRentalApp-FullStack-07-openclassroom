@@ -12,6 +12,7 @@ exports.signup = (req, res) => {
   bcryptjs
     .hash(req.body.password, 10)
     .then((hash) => {
+      //sauvegarder dans la base de donées => User
       User.create({
         //...req.body,// pour tout récuperer
         firstName: req.body.firstName,
@@ -21,6 +22,7 @@ exports.signup = (req, res) => {
         password: hash,
         //email: CryptoJS.SHA256(req.body.email, process.env.EMAIL).toString()//ici je veux crypter
       })
+      
         .then(() => {
           res.status(201).json({
             message: "Félicitation, utilisateur crée !",

@@ -1,51 +1,39 @@
-'user strict';
+"user strict";
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define(
     "user",
     {
-      id: {
-        // Ici création de la clé primaire qui sert à identifié de manière unique
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       firstName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       lastName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       userName: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       createdAt: {
         //Type: Sequelize.DATETIME,
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
-        field: "Created_at",
-      },
-      updateAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
-        onUpdate: Sequelize.NOW,
-        field: "Update_at",
-      },
+        field: "Created_at"
+      }
     },
     {
-      freezeTableName: true,
+      freezeTableName: true
     }
   );
   return User;

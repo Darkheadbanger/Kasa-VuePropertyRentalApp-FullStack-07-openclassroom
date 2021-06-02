@@ -5,6 +5,8 @@ const helmet = require('helmet');
 //Connexion
 const db = require('./models');
 const authRoutes = require('./routes/auth.routes')
+//const roleRoutes = require('./routes/role.routes')// pour l'authorization
+const postRoutes = require('./routes/post.routes')
 const app = express();
 
 db.sequelize.sync();
@@ -37,5 +39,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(helmet());
 
 app.use('/api/auth', authRoutes)
+//app.use('/api/user', roleRoutes)
+app.use('/api/post', postRoutes)
 
 module.exports = app;
