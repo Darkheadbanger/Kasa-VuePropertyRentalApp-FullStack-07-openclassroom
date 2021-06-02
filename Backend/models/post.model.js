@@ -6,36 +6,37 @@ module.exports = (sequelize, Sequelize) => {
       postContent: {
         //Le post en string, quand on post sur facebook par exxemple
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       imageUrl: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       videoUrl: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
+      /*
       likes: {
-        type: Sequelize.MEDIUMINT
+        type: Sequelize.MEDIUMINT,
       },
       dislikes: {
-        type: Sequelize.MEDIUMINT
+        type: Sequelize.MEDIUMINT,
       },
       userLikes: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       usersDislikes: {
-        type: Sequelize.STRING
-      },
+        type: Sequelize.STRING,
+      },*/
       createdAt: {
-          type: "TIMESTAMP",
-          defaultValue: Sequelize.NOW,
-          field: "created_at"
-      }
+        type: "TIMESTAMP",
+        defaultValue: Sequelize.NOW,
+        field: "created_at",
+      },
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
   return Post;

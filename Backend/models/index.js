@@ -1,6 +1,6 @@
 //Ici pour la connexion à la base de données
 //const config = require("../config/db.config")
-require("dotenv").config()
+require("dotenv").config();
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
@@ -13,19 +13,20 @@ const sequelize = new Sequelize(
     operatorsAliases: false,
 
     pool: {
-        max: 5,//nombre maximum de connexions autorisées
-        min: 0,//nombre minimum de connexions autorisées
-        acquire: 30000,//durée maximale, en millisecondes, pendant laquelle le pool cherche à établir la connexion avant qu'un message d'erreur n'apparaisse à l'écran
-        idle:10000,//durée maximale, en millisecondes, pendant laquelle une connexion peut être suspendue avant d'être libérée
-    }
+      max: 5, //nombre maximum de connexions autorisées
+      min: 0, //nombre minimum de connexions autorisées
+      acquire: 30000, //durée maximale, en millisecondes, pendant laquelle le pool cherche à établir la connexion avant qu'un message d'erreur n'apparaisse à l'écran
+      idle: 10000, //durée maximale, en millisecondes, pendant laquelle une connexion peut être suspendue avant d'être libérée
+    },
   }
-)
-sequelize.authenticate()
-.then(() => console.log('"Connexion à la base de donées réussie !'))
-.catch((error) => {
+);
+sequelize
+  .authenticate()
+  .then(() => console.log('"Connexion à la base de donées réussie !'))
+  .catch((error) => {
     console.error(error.message);
     return res.status(400).json({ error });
-});
+  });
 
 const db = {};
 

@@ -1,14 +1,46 @@
 const fse = require("fs-extra");
 const db = require("../models");
-const modelPost = require("../models/post.model");
+//const modelPost = require("../models/post.model");
 
 const Post = db.post; // post depuis model
 
-//Creation de post tel que creation d'une publication en tant que message, image, video, gif etc
 exports.createPost = (req, res) => {
-    const postObject = JSON.parse(req.body.modelPost);
-    
+    // ici il faut faire une identification qui crée la publication
+    // puis faire la promesse pour dit que l'utilisateur identifié envoie un message ou erreur
+  let content = req.body.postContent;
+  /*let imageFile = `${req.protocol}://${req.get("host")}/images/${
+    req.file.filename
+  }`;
+  let videoFile = `${req.protocol}://${req.get("host")}/videos/${
+    req.file.filename
+  }`;*/
+  //ici l'identification de quel id utilisateur qui post une publication
+  if (!content && !imageFile && !videoFile) {
+    res.status(400).json({
+      message: "La publication ne peut pas être vide !",
+    });
+    return;
+  }
+  const postPublication = {
+    postContent: content,
+    imageUrl: req.body.imageUrl,
+    videoUrl: req.body.videoUrl,
+  };
+  //en bas une autre promesse pour dire que le message peut etre envoyer ou erreur
+  Post.create(postPublication) //Creation dans la base de donées
+    .then((newPostData) => {
+      res.status(201).json({
+        message: "Félicitation, utilisateur crée !",
+        newPostData,
+      });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(500).json({ error });
+    });
+    //fin du premier promesse 
 };
+
 //Creation de like pour liker une publication
 exports.createLike = (req, res) => {};
 // Trouver toutes les publications et les lires (en tant qu'admin ou d'autres users)

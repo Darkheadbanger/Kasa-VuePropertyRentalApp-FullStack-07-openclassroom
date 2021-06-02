@@ -22,7 +22,7 @@ exports.signup = (req, res) => {
         password: hash,
         //email: CryptoJS.SHA256(req.body.email, process.env.EMAIL).toString()//ici je veux crypter
       })
-      
+
         .then(() => {
           res.status(201).json({
             message: "Félicitation, utilisateur crée !",
@@ -45,7 +45,7 @@ exports.login = (req, res) => {
   bcryptjs.hash(req.body.password, 10);
   User.findOne({
     where: {
-      email: req.body.email
+      email: req.body.email,
     },
   })
     .then((user) => {
@@ -53,10 +53,7 @@ exports.login = (req, res) => {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
       bcryptjs
-        .compare(
-          req.body.password,
-          user.password
-        )
+        .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
             return res.status(401).json({
@@ -81,12 +78,12 @@ exports.login = (req, res) => {
           }
         })
         .catch((error) => {
-          console.error(error.message, 'ici');
+          console.error(error.message, "ici");
           return res.status(500).json({ error: true });
         });
     })
     .catch((error) => {
-      console.error(error.message, 'aca');
+      console.error(error.message, "aca");
       return res.status(500).json({ error: true });
     });
 };
