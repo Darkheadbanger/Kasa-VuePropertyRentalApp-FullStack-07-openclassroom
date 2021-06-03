@@ -39,7 +39,7 @@ const commentDb = db.comment = require("./comment.model")(sequelize, Sequelize)
 const roleDb = db.role = require("./role.model")(sequelize, Sequelize)
 // userDb.hasMany(postDb, {
 //   foreignKey: "idUser",
-// })
+// }) 
 // postDb.belongsTo(userDb)
 
 //db.roles = require("./roles.model")(sequelize, Sequelize);
