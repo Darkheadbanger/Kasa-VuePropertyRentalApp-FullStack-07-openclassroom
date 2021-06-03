@@ -4,9 +4,8 @@ const router = express.Router();
 
 //Creation de post tel que creation d'une publication en tant que message, image, video, gif etc
 router.post('/', postCtrl.createPost);
-
 //Creation de like pour liker une publication
-router.post('/:id/like', postCtrl. createLike);
+//router.post('/:id/like', postCtrl. createLike);
 // Trouver toutes les publications et les lires (en tant qu'admin ou d'autres users)
 router.get('/', postCtrl.getAllPost);
 // Trouver toutes les publications qu'un utilisateur a publier avec son id (d'autres utilisateurs ne peuvent pas l'acceder)

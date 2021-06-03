@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         //Type: Sequelize.DATETIME,
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
-        field: "Created_at"
+        field: "createdAt"
       }
     },
     {

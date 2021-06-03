@@ -8,6 +8,11 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      idUser: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
       imageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -32,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
       createdAt: {
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
-        field: "created_at",
+        field: "createdAt",
       },
     },
     {
