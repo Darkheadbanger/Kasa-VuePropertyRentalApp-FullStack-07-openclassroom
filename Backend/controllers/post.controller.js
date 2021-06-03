@@ -23,7 +23,7 @@ exports.createPost = (req, res) => {
   }
   const postPublication = {
     postContent: content,
-    imageUrl: req.body.imageUrl,
+    imageUrl: req.body.imageUrl, 
     videoUrl: req.body.videoUrl,
   };
   //en bas une autre promesse pour dire que le message peut etre envoyer ou erreur
