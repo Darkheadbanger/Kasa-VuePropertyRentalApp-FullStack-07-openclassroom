@@ -1,4 +1,8 @@
 //Modele sequelize pour le role de chaque section d'authentification
+"use strict";
+
+const { Sequelize } = require("sequelize/types");
+
 module.exports = (sequelize, DataTypes) => {
   const Role = sequelize.define(
     "roles",
@@ -6,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      createdAt: {
+        type: "TIMESTAMP",
+        defaultValue: Sequelize.NOW,
+        field: "createdAt",
       },
     },
     {

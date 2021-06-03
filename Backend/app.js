@@ -7,6 +7,7 @@ const db = require("./models");
 const authRoutes = require("./routes/auth.routes");
 const commentRoutes = require('./routes/comment.routes')// pour l'authorization
 const postRoutes = require("./routes/post.routes");
+const roleRoutes = require("./routes/role.routes");
 const app = express();
 
 db.sequelize.sync();
@@ -49,5 +50,6 @@ app.use("/api/auth", authRoutes);
 //app.use('/api/user', roleRoutes)
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/role", roleRoutes);
 
 module.exports = app;
