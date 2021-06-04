@@ -30,5 +30,12 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableNmae: true,
     }
   );
+  Comment.associate = (model) => {
+    Comment.belongsTo(model.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
   return Comment;
 };

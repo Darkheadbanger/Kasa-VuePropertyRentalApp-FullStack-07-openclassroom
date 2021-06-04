@@ -1,4 +1,7 @@
 "user strict";
+
+//const { post } = require("../app");
+
 module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define(
     "post",
@@ -44,5 +47,12 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableName: true,
     }
   );
+  Post.associate = (model) => {
+    Post.belongsTo(model.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
   return Post;
 };

@@ -47,7 +47,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 app.use("/api/auth", authRoutes);
-//app.use('/api/user', roleRoutes)
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/role", roleRoutes);

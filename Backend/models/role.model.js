@@ -1,14 +1,12 @@
 //Modele sequelize pour le role de chaque section d'authentification
 "use strict";
-
-const { Sequelize } = require("sequelize/types");
-
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
   const Role = sequelize.define(
     "roles",
     {
-      name: {
-        type: DataTypes.STRING,
+      //Id se fait automatiquement
+      roleName: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       createdAt: {
@@ -21,5 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true,
     }
   );
+  Role.associate = (models) => {
+    User.hasMany(models.User);
+  };// pas de delete cascade car ca n'as pas de sens, on efface pas yous les roles
   return Role;
 };
