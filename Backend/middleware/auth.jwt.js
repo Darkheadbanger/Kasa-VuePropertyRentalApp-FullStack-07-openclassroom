@@ -1,28 +1,18 @@
-//Creation de '=l'authentification et l'autorisation
-//Creation du token legal, et avoir ce token depuis x-access-token de l'entête du header, ensuite on tuilise la function verify() de jsonwebtoken
-//On va voir si le role de user peut contenir le role ou non
+const jwt = require("jsonwebtoken");
 
-const jwt = require('jsonwebtoken')
-const config = require('../config/auth.config')
-const db = require('../models')
-const User = db.user
+require("dotenv").config();
 
-verifyToken = (req, res, next) =>{
-    //On prends le tokken depuis l'entête de HTTP/ x-access-token 
-    let token = req.headers["x-access-token"];
-
-    if(!token){
-        return res.status(403).json({ message:'Désolé, il n\'y a aucun token trouvé'}
-        )
+verifyToken = (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env. ACCES_TOKEN_SECRET)
+    const userId = decodedToken.userId
+    if(req.body.userId && req.body.userId !== userId) {
+      throw "user ID invalid"
+    }else{
+      next()
     }
-}
-
-jwt.verify(token, config.secret, (err, decoded) => {
-    if(error) {
-        return res.status(401).json({
-            message: 'Vous n\'avez pas l\'authorisation'
-        })
-    }
-    req.userId = decoded.id
-    next()
-})
+  }catch {
+    res.status(401).json({error: new Error("Reqête invalide")})
+  }
+};

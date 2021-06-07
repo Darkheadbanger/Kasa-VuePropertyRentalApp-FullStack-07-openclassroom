@@ -33,8 +33,40 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-(db.user = require("./auth.model")(sequelize, Sequelize));
-(db.post = require("./post.model")(sequelize, Sequelize));
-(db.comment = require("./comment.model")(sequelize,Sequelize));
-(db.roles = require("./role.model")(sequelize, Sequelize));
+const user = (db.user = require("./auth.model")(sequelize, Sequelize));
+const post = (db.post = require("./post.model")(sequelize, Sequelize));
+const comment = (db.comment = require("./comment.model")(sequelize, Sequelize));
+
+//Un usert peut avoir plusieurs post, et un post appartient à cet users la
+user.hasMany(post, {
+  as: "posts",
+});
+post.belongsTo(user, {
+  foreignKey: "idUser",
+  as: "user",
+  allowNull: false,
+  onDelete: "cascade", // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
+});
+
+//un User peut avoir plusieurs comments, et les comments appartients a cet users la
+user.hasMany(comment, {
+  as: "comments",
+});
+comment.belongsTo(user, {
+  foreignKey: "idUser",
+  as: "user",
+  allowNull: false,
+  onDelete: "cascade",
+});
+
+//Un post peut avoir plusieurs comments, et les comments appartiennent à l'id du post respectifs
+post.hasMany(comment, {
+  as: "comments",
+});
+comment.belongsTo(post, {
+  foreignKey: "idUser",
+  as: "post",
+  allowNull: false,
+});
+
 module.exports = db;

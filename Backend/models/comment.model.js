@@ -7,11 +7,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      idUser: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
       imageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -30,12 +25,5 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableNmae: true,
     }
   );
-  Comment.associate = (model) => {
-    Comment.belongsTo(model.User, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
   return Comment;
 };

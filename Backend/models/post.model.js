@@ -1,7 +1,5 @@
 "user strict";
-
 //const { post } = require("../app");
-
 module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define(
     "post",
@@ -11,20 +9,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      idUser: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
       imageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      videoUrl: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      /*
       likes: {
         type: Sequelize.MEDIUMINT,
       },
@@ -36,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       usersDislikes: {
         type: Sequelize.STRING,
-      },*/
+      },
       createdAt: {
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
@@ -47,12 +35,5 @@ module.exports = (sequelize, Sequelize) => {
       freezeTableName: true,
     }
   );
-  Post.associate = (model) => {
-    Post.belongsTo(model.User, {
-      foreignKey: {
-        allowNull: false,
-      },
-    });
-  };
   return Post;
 };

@@ -5,9 +5,9 @@ const helmet = require("helmet");
 //Connexion
 const db = require("./models");
 const authRoutes = require("./routes/auth.routes");
-const commentRoutes = require('./routes/comment.routes')// pour l'authorization
+const commentRoutes = require("./routes/comment.routes"); // pour l'authorization
 const postRoutes = require("./routes/post.routes");
-const roleRoutes = require("./routes/role.routes");
+const UserRoutes = require("./routes/users.routes");
 const app = express();
 
 db.sequelize.sync();
@@ -46,9 +46,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Helmet pour securiser les cookies
 app.use(helmet());
 
+app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
-app.use("/api/role", roleRoutes);
+app.use("/api/users", UserRoutes);
 
 module.exports = app;
