@@ -1,12 +1,12 @@
 const express = require("express");
 const postCtrl = require("../controllers/post.controller");
-//const auth = require("../middleware/auth.jwt")
+const auth = require("../middleware/auth.jwt")
 const router = express.Router();
 
 //const auth = require('../middleware/auth.jwt');
 
 //Creation de post tel que creation d'une publication en tant que message, image, video, gif etc
-router.post("/", postCtrl.createPost);
+router.post("/", auth, postCtrl.createPost);
 //Creation de like pour liker une publication
 //router.post('/:id/like', postCtrl. createLikeDislike);
 // Trouver toutes les publications et les lires (en tant qu'admin ou d'autres users)
