@@ -4,6 +4,7 @@ const User = db.user;
 const Post = db.post;
 
 const { Op } = require("sequelize");
+const { post } = require("../app");
 
 exports.findAllUsers = (req, res, next) => {
   User.findAll({
@@ -56,8 +57,15 @@ exports.deleteOneAccount = (req, res) => {
       where: { id: _id, id:{
           [Op.gte]: 0,
       }},
+    }).then((user) => {
+        user.destroy();
+        return res.status(200).json({user})
+    }).then((error) => {
+        console.log(error.message)
+        return res.status(401).json({error})
     })
-    user.destroy();
+    post.destroy();
+    comment.destroy();  
   }
 };
 
