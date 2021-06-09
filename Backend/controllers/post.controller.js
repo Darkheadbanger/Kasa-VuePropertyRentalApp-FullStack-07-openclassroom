@@ -43,11 +43,11 @@ exports.createPost = (req, res, next) => {
 
 //exports.createLikeDislike = (req, res, next) => {};
 
-exports.getAllPost = (res) => {
+exports.getAllPost = (req, res, next) => {
   //On trouve tous les posts, ensuite on montre tous les posts qu'on trouve
   Post.findAll()
     .then((post) => {
-      res.status(200).json({ post });
+      return res.status(200).json({ post });
     })
     .catch((error) => {
       console.error(error.message);

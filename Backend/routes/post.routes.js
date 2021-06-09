@@ -10,14 +10,14 @@ router.post("/", auth, postCtrl.createPost);
 //Creation de like pour liker une publication
 //router.post('/:id/like', postCtrl. createLikeDislike);
 // Trouver toutes les publications et les lires (en tant qu'admin ou d'autres users)
-router.get("/", postCtrl.getAllPost);
+router.get("/", auth, postCtrl.getAllPost);
 // Trouver toutes les publications qu'un utilisateur a publier avec son id (d'autres utilisateurs ne peuvent pas l'acceder)
-router.get("/:id", postCtrl.getMyPost);
+router.get("/:id", auth, postCtrl.getMyPost);
 // Acceder tous les post que j'ai fait, tous le monde peut acceder pour voir tous les posts d'un seul utilisateur
-router.get('/all/:id'), postCtrl.getMyAllPost
+router.get('/all/:id'), auth, postCtrl.getMyAllPost
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
-router.put("/:id", postCtrl.updatePost);
+router.put("/:id", auth, postCtrl.updatePost);
 //Supprimer une publication avec l'id
-router.delete("/:id", postCtrl.deletePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 module.exports = router;
