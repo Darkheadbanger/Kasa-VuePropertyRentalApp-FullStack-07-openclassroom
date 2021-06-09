@@ -7,36 +7,37 @@ const User = db.user; // user depuis model User/Auth
 const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
+  console.log(req.body);
   //Declarations des varibales pour récuperer les données du modèles
-  const isAdmin = req.body.isAdmin;
-  //const imageUrl = req.body.imageUrl;
-  const bodyPost = req.body;
-
-  if (!isAdmin && !User) {
-    console.error(error.message);
-    return res.status(403).json({ message: "Vous n'avez pas acces!" });
-  } else {
-    //Le post est collé de commentaires
-    if (isAdmin && User == _id) {
-      const post = new Post({
-        ...bodyPost,
-        likes: 0,
-        dislikes: 0,
-        usersLikes: [],
-        usersDislikes: [],
+  const userId = req.body.userId;
+  console.log(userId);
+  //const bodyPost = req.body;
+  console.log("createPost");
+  if (userId) {
+    console.log("rararar : ");
+    const post = new Post({
+      //...bodyPost,
+      // likes: 0,
+      // dislikes: 0,
+      // usersLikes: [],
+      // usersDislikes: [],
+      postContent: req.body.postContent,
+      imageUrl: req.body.imageUrl,
+      idUser: userId,
+    });
+    post
+      .save()
+      .then(() => {
+        res
+          .status(200)
+          .json({ message: "Objet enregistrée à la base de donées" });
+      })
+      .catch((error) => {
+        console.error(error.message);
+        return res.status(400).json({ error });
       });
-      post
-        .save()
-        .then(() => {
-          res
-            .status(200)
-            .json({ message: "Objet enregistrée à la base de donées" });
-        })
-        .catch((error) => {
-          console.error(error.message);
-          return res.status(400).json({ error });
-        });
-    }
+  } else {
+    return res.status(403).json({ message: "Vous n'avez pas acces!" });
   }
 };
 

@@ -33,7 +33,9 @@ exports.signup = async (req, res) => {
   const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
   const regexName = /(.*[a-z]){3,30}/;
 
-  if (regexMail.test(email) &&regexPassword.test(password) &&regexName.test(firstName) &&regexName.test(lastName) && regexName.test(username))
+  console.log(regexPassword.test(password)) 
+  if (regexMail.test(email) && regexPassword.test(password) &&regexName.test(firstName) &&regexName.test(lastName) && regexName.test(userName))
+  {
     bcryptjs
       .hash(password, 10) //On hash et on salt 10 fois
       .then((hash) => {
@@ -47,23 +49,28 @@ exports.signup = async (req, res) => {
           password: hash,
           //email: CryptoJS.SHA256(req.body.email, process.env.EMAIL).toString()//ici je veux crypter
         });
-        user
-          .save() // On Sauvegarde tous cela dans la base de doneés
+        console.log("user")
+        user.save() // On Sauvegarde tous cela dans la base de doneés
           .then(() => {
-            res.status(201).json({
+            console.log('then')
+            return res.status(201).json({
               message: "Félicitation, utilisateur crée !",
             });
-          })
+          }) 
           .catch((error) => {
-            console.error(error.message);
+            console.error('test', error.message);
             return res
               .status(401)
               .json({ message: " L'utilisateur a déjà été crée !" });
           });
       })
       .catch((error) => {
-        res.status(500).json({ error });
+        return res.status(500).json({ error });
       });
+    }
+    else {
+      return res.status(401).json({ message: "Email, mot de passe ou le nom n'est pas bon" });
+    }
 };
 
 exports.login = async (req, res) => {
