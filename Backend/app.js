@@ -46,11 +46,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Helmet pour securiser les cookies
 app.use(helmet());
 
-app.use(express.json());
-
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
-app.use("/api/users", UserRoutes);
+app.use("/api/account", UserRoutes);
 
 module.exports = app;
