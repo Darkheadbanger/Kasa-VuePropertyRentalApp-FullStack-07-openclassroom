@@ -48,9 +48,8 @@ exports.getAllPost = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  console.log('bonjour')
+  console.log("bonjour");
   const userId = req.params.userId;
-  console.log("user id :", userId);
   Post.findOne({
     // On cherche un post
     where: {
@@ -58,7 +57,7 @@ exports.getOnePost = (req, res, next) => {
     },
     include: {
       model: User,
-      as: User,
+      //as: User,
     },
     order: [["id", "DESC"]], //Pour dire les derniers ID reçu
   })
@@ -71,18 +70,17 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
-exports.getMyAllPost = (req, res, next) => {
-  const userId = req.params.id;
+exports.getMyAllPost = (req, res, next) => {// Je ne sais pas encore
+  const userId = req.params.userId;
   Post.findAll({
     where: { id: userId },
     include: {
       model: User,
-      as: User,
     },
-    order: [["id"]],
+    order: [['id']]
   })
     .then((post) => {
-      return res.status(200).json({ post });
+      res.status(200).json({ post });
     })
     .catch((error) => {
       console.error(error.message);
