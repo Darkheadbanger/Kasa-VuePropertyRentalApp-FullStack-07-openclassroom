@@ -48,44 +48,46 @@ exports.getAllPost = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  console.log("bonjour");
-  Post.findOne(
-    {
-      // On cherche un post
-      id: req.params.id// On compare
+  console.log('bonjour')
+  const userId = req.params.userId;
+  console.log("user id :", userId);
+  Post.findOne({
+    // On cherche un post
+    where: {
+      id: userId, // On compare
     },
-    {
-      include: {
-        model: User,
-        as: User,
-        required: true,
-        attribute: [],
-      },
-      // order: [["id", "DESC"]],
-    }
-  )
+    include: {
+      model: User,
+      as: User,
+    },
+    order: [["id", "DESC"]], //Pour dire les derniers ID reçu
+  })
     .then((user) => {
       return res.status(200).json({ user });
     })
     .catch((error) => {
       console.error(error.message);
-      return res.status(404).json({ message: "ici erreur : ", error });
+      return res.status(404).json({ error });
     });
 };
 
 exports.getMyAllPost = (req, res, next) => {
-  const _id = req.params.id;
-  const isAdmin = req.body.isAdmin;
-  if (isAdmin && User) {
-    Post.findAll({ id: _id })
-      .then((post) => {
-        res.status(200).json({ post });
-      })
-      .catch((error) => {
-        console.error(error.message);
-        return res.status(400).json({ error });
-      });
-  }
+  const userId = req.params.id;
+  Post.findAll({
+    where: { id: userId },
+    include: {
+      model: User,
+      as: User,
+    },
+    order: [["id"]],
+  })
+    .then((post) => {
+      return res.status(200).json({ post });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(400).json({ error });
+    });
 };
 
 exports.updatePost = (req, res, next) => {
