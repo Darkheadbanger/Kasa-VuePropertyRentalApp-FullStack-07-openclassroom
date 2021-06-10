@@ -12,7 +12,7 @@ router.post("/", auth, postCtrl.createPost);
 // Trouver toutes les publications et les lires (en tant qu'admin ou d'autres users)
 router.get("/", auth, postCtrl.getAllPost);
 // Trouver toutes les publications qu'un utilisateur a publier avec son id (d'autres utilisateurs ne peuvent pas l'acceder)
-router.get("/:id", auth, postCtrl.getMyPost);
+router.get("/:id", auth, postCtrl.getOnePost);
 // Acceder tous les post que j'ai fait, tous le monde peut acceder pour voir tous les posts d'un seul utilisateur
 router.get('/all/:id'), auth, postCtrl.getMyAllPost
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
