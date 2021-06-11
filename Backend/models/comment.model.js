@@ -11,15 +11,11 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      vdeoUrl: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       createdAt: {
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
         field: "createdAt",
-      },
+      }, 
     },
     {
       freezeTableNmae: true,
