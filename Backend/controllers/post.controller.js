@@ -32,7 +32,6 @@ exports.createPost = (req, res, next) => {
     return res.status(403).json({ message: "Vous n'avez pas acces!" });
   }
 };
-
 //exports.createLikeDislike = (req, res, next) => {};
 
 exports.getAllPost = (req, res, next) => {
