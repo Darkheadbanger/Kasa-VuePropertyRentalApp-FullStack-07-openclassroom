@@ -119,11 +119,8 @@ exports.deletePost = (req, res, next) => {
   if (userId || isAdmin) {
     Post.destroy({
       // On cherche un post
-      where: {
-        //id: userId, // On compare
-        idUser: userId,
-      },
-    })
+      where: { /*id: userId, // On compare*/ idUser: userId },
+    });
     Comment.destroy({
       // On cherche un post
       where: {
@@ -138,8 +135,9 @@ exports.deletePost = (req, res, next) => {
         console.error(error.message);
         return res.status(400).json({ error });
       });
-  }else {
-    console.error(error.message)
-    return res.status(404).json({ error, message: "Vous n'avez le drot d'éffacef ce message"})
+  } else {
+    return res
+      .status(404)
+      .json({ error, message: "Vous n'avez le drot d'éffacef ce message" });
   }
 };

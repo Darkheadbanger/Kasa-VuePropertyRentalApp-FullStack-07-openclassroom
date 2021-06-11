@@ -30,9 +30,51 @@ exports.createComment = (req, res) => {
     });
 };
 exports.getAllComments = (req, res) => {
-  Comment.findAll()
+  Comment.findAll({
+    include: { model: Post }
+  })
     .then((comment) => {
       res.status(200).json({ comment });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(400).json({ error });
+    });
+};
+
+exports.getOneComment = (req, res) => {
+  //Je ne comprend pas
+  const userId = req.params.userId;
+  Comment.findOne({
+    where: {
+      idUser: userId,
+    },
+    include: {
+      model: User,
+      required: true,
+    },
+    order: [["id", "DESC"]],
+  })
+    .then((comment) => {
+      return res.status(200).json({ comment });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(404).json({ error });
+    });
+};
+
+exports.getAllComment = (req, res) => {
+  const userId = req.params.userId;
+  Comment.findAll({
+    where: { /*id: userId*/ idUser: userId },
+    include: {
+      model: User,
+    },
+    order: [["id", "DESC"]],
+  })
+    .then((post) => {
+      res.status(200).json({ post });
     })
     .catch((error) => {
       console.error(error.message);
@@ -64,17 +106,27 @@ exports.updateComments = (req, res) => {
     });
 };
 exports.deleteComments = (req, res) => {
-  const _id = req.params.id;
-  const isAdmin = req.body.isAdmin;
+  const userId = req.params.userId;
+  const isAdmin = req.query.isAdmin; //demander au prof
 
-  if (isAdmin) {
-    Comment.findOne({ id: _id })
+  if (userId || isAdmin) {
+    Comment.destroy({
+      where: { idUser: userId },
+    })
       .then(() => {
+        console.log("a");
+
         res.status(200).json({ message: "Commentaires effacée!" });
       })
       .catch((error) => {
+        console.log("Bonjour");
         console.error(error.message);
         return res.status(400).json({ error });
       });
+  } else {
+    console.error(error.message);
+    return res
+      .status(404)
+      .json({ error, message: "Vous n'avez le drot d'éffacef ce message" });
   }
 };
