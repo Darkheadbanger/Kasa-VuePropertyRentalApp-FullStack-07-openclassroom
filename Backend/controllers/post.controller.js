@@ -53,7 +53,8 @@ exports.getOnePost = (req, res, next) => {
   Post.findOne({
     // On cherche un post
     where: {
-      id: userId, // On compare
+      //id: userId, // On compare
+      idUser: userId,
     },
     include: {
       model: User,
@@ -70,14 +71,15 @@ exports.getOnePost = (req, res, next) => {
     });
 };
 
-exports.getMyAllPost = (req, res, next) => {// Je ne sais pas encore
+exports.getMyAllPost = (req, res, next) => {
+  // Je ne sais pas encore
   const userId = req.params.userId;
   Post.findAll({
-    where: { id: userId },
+    where: { /*id: userId*/ id: userId },
     include: {
       model: User,
     },
-    order: [['id']]
+    order: [["id", "DESC"]],
   })
     .then((post) => {
       res.status(200).json({ post });
@@ -89,36 +91,46 @@ exports.getMyAllPost = (req, res, next) => {// Je ne sais pas encore
 };
 
 exports.updatePost = (req, res, next) => {
-  const isAdmin = req.body.isAdmin;
-  const _id = req.params.id;
-  const reqBodyPost = req.body;
-
-  if (!isAdmin) {
-    Post.updateOne({ id: _id }, { ...reqBodyPost, id: _id })
-      .then((user) => {
-        res.status(200).json({ message: "Objet modifiée" + user });
-      })
-      .catch((error) => {
-        console.error(error.message);
-        return res.status(400).json({ error });
-      });
-  } else {
-    if (isAdmin) {
-      res
-        .status(403)
-        .json({ message: "Vous ne pouvez pas modifier cette publication !" });
+  const userId = req.params.userId;
+  console.log("Bonjour", userId);
+  Post.update(
+    {
+      postContent: req.body.postContent,
+      imageUrl: req.body.imageUrl,
+      idUser: userId,
+    },
+    {
+      where: { idUser: userId },
     }
-  }
+  )
+    .then((user) => {
+      return res.status(200).json({ message: "Objet modifiée" + user });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(400).json({ error });
+    });
 };
 
 exports.deletePost = (req, res, next) => {
-  const _id = req.params.id;
-  const isAdmin = req.body.isAdmin;
+  const userId = req.params.userId;
+  const isAdmin = req.query.isAdmin; //demander au prof
+  console.log(isAdmin);
   //const reqBodyPost = req.body;
-
-  if (isAdmin) {
-    Post.findOne({
-      id: _id,
+  if (userId || isAdmin) {
+    Post.destroy({
+      // On cherche un post
+      where: {
+        //id: userId, // On compare
+        idUser: userId,
+      },
+    })
+    Comment.destroy({
+      // On cherche un post
+      where: {
+        //id: userId, // On compare
+        idUser: userId,
+      },
     })
       .then(() => {
         res.status(200).json({ message: "La publication supprimé !" });
@@ -127,9 +139,8 @@ exports.deletePost = (req, res, next) => {
         console.error(error.message);
         return res.status(400).json({ error });
       });
-  } else {
-    res
-      .status(403)
-      .json({ message: "Vous ne pouvez pas effacer cette publication !" });
+  }else {
+    console.error(error.message)
+    return res.status(404).json({ error, message: "Vous n'avez le drot d'éffacef ce message"})
   }
 };
