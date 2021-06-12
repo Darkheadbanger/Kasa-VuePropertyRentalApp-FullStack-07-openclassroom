@@ -25,9 +25,8 @@ sequelize
   .then(() => console.log('"Connexion à la base de donées réussie !'))
   .catch((error) => {
     console.error(error.message);
-    return res.status(400).json({ error });
   });
-
+ 
 const db = {};
 
 db.Sequelize = Sequelize;

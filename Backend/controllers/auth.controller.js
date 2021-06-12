@@ -2,17 +2,16 @@ const bcryptjs = require("bcryptjs"); // On déclare l'encryption bcryptJs, pour
 const jwt = require("jsonwebtoken"); // On déckare le jsonwebtoken pour pouvoir utiliser le token
 const db = require("../models");
 
-const User = db.user;
+const User = db.user; 
 //const CryptoJS = require("crypto-js/sha256")
-require("dotenv").config(); //process.env
-
+require("dotenv").config(); //process
 exports.signup = async (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const userName = req.body.userName;
   const email = req.body.email;
   const password = req.body.password;
-
+ 
   if (!firstName || !lastName) {
     return res.status(400).json({ message: "Le prénom ou le nom est vide !" });
   } else {
@@ -32,9 +31,8 @@ exports.signup = async (req, res) => {
     /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
   const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
   const regexName = /(.*[a-z]){3,30}/;
-
-  console.log(regexPassword.test(password)) 
-  if (regexMail.test(email) && regexPassword.test(password) &&regexName.test(firstName) &&regexName.test(lastName) && regexName.test(userName))
+  if (regexMail.test(email) && regexPassword.test(password) && regexName.test(firstName) 
+    && regexName.test(lastName) && regexName.test(userName))
   {
     bcryptjs
       .hash(password, 10) //On hash et on salt 10 fois
@@ -65,7 +63,7 @@ exports.signup = async (req, res) => {
           });
       })
       .catch((error) => {
-        return res.status(500).json({ error });
+        return res.status(500).json({ error }); 
       });
     }
     else {

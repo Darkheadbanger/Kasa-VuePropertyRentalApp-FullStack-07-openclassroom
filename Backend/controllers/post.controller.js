@@ -46,60 +46,59 @@ exports.getAllPost = (req, res, next) => {
     });
 };
 
-exports.getOnePost = (req, res, next) => {
-  console.log("bonjour");
-  const userId = req.params.userId;
-  Post.findOne({
-    // On cherche un post
-    where: {
-      //id: userId, // On compare
-      idUser: userId,
-    },
-    include: {
-      model: User,
-      //as: User,
-    },
-    order: [["id", "DESC"]], //Pour dire les derniers ID reçu
-  })
-    .then((user) => {
-      return res.status(200).json({ user });
-    })
-    .catch((error) => {
-      console.error(error.message);
-      return res.status(404).json({ error });
-    });
-};
+// exports.getOnePost = (req, res, next) => {
+//   const userId = req.params.userId;
+//   Post.findOne({
+//     // On cherche un post
+//     where: {
+//       //id: userId, // On compare
+//       idUser: userId,
+//     },
+//     include: {
+//       model: User,
+//       //as: User,
+//     },
+//     order: [["id", "DESC"]], //Pour dire les derniers ID reçu
+//   })
+//     .then((user) => {
+//       return res.status(200).json({ user });
+//     })
+//     .catch((error) => {
+//       console.error(error.message);
+//       return res.status(404).json({ error });
+//     });
+// };
 
-exports.getMyAllPost = (req, res, next) => {
-  // Je ne sais pas encore
-  const userId = req.params.userId;
-  Post.findAll({
-    where: { /*id: userId*/ id: userId },
-    include: {
-      model: User,
-    },
-    order: [["id", "DESC"]],
-  })
-    .then((post) => {
-      res.status(200).json({ post });
-    })
-    .catch((error) => {
-      console.error(error.message);
-      return res.status(400).json({ error });
-    });
-};
+// exports.getMyAllPost = (req, res, next) => {
+//   // Je ne sais pas encore
+//   const userId = req.params.userId;
+//   Post.findAll({
+//     where: { /*id: userId*/ id: userId },
+//     include: {
+//       model: User,
+//     },
+//     order: [["id", "DESC"]],
+//   })
+//     .then((post) => {
+//       res.status(200).json({ post });
+//     })
+//     .catch((error) => {
+//       console.error(error.message);
+//       return res.status(400).json({ error });
+//     });
+// };
 
 exports.updatePost = (req, res, next) => {
-  const userId = req.params.userId;
+  const userId = req.params.id;
   console.log("Bonjour", userId);
   Post.update(
     {
       postContent: req.body.postContent,
       imageUrl: req.body.imageUrl,
-      idUser: userId,
-    },
+      id: userId,
+    }, 
     {
-      where: { idUser: userId },
+      where: { id: userId },
     }
   )
     .then((user) => {
@@ -112,32 +111,34 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  const userId = req.params.userId;
-  const isAdmin = req.query.isAdmin; //demander au prof
-  console.log(isAdmin);
-  //const reqBodyPost = req.body;
-  if (userId || isAdmin) {
-    Post.destroy({
-      // On cherche un post
-      where: { /*id: userId, // On compare*/ idUser: userId },
-    });
-    Comment.destroy({
-      // On cherche un post
-      where: {
-        //id: userId, // On compare
-        idUser: userId,
-      },
-    })
-      .then(() => {
-        res.status(200).json({ message: "La publication supprimé !" });
+  const postId = req.params.id;
+  const userId = req.body.userId; //demander au prof
+  // TODO chercher dans la table user
+  // regarder la partie get
+  // TODO vérifier si ce user a isAdmin à true
+  console.log("ici:", req)
+  Post.findOne({
+    where: { id: userId }
+  }).then(() => {
+    if (postId == userId || userId == 1) {
+      Post.destroy({
+        // On cherche un post
+        where: { id: postId },
       })
-      .catch((error) => {
-        console.error(error.message);
-        return res.status(400).json({ error });
-      });
-  } else {
-    return res
-      .status(404)
-      .json({ error, message: "Vous n'avez le drot d'éffacef ce message" });
-  }
+        .then(() => {
+          res.status(200).json({ message: "La publication supprimé !" });
+        })
+        .catch((error) => {
+          console.error(error.message);
+          return res.status(400).json({ error });
+        });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "Vous n'avez le droit d'éffacer ce message" });
+    }
+  }).catch((error) => {
+    error.console(error.message)
+    return res.status(401).json({error})
+  })
 };
