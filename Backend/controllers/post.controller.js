@@ -124,7 +124,7 @@ exports.deletePost = (req, res) => {
   }).then((user) => {
     console.log(user.isAdmin = true)
     console.log("ici c'est", user.id = userId)
-    if (user && (user.isAdmin || user.id == userId)) {
+    if (user && (user.isAdmin || user.id == userId)) {//user.isAdmin peut acceder isAdmin pour qu'elle deviens true
       Post.findOne({
         //attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
         where: { id: postId }
