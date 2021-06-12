@@ -60,7 +60,7 @@ exports.getAllPost = (req, res, next) => {
 //     },
 //     order: [["id", "DESC"]], //Pour dire les derniers ID reçu
 //   })
-//     .then((user) => {
+//     .then((user) => { 
 //       return res.status(200).json({ user });
 //     })
 //     .catch((error) => {
