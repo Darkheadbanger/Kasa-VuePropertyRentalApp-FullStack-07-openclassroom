@@ -69,24 +69,25 @@ exports.getAllPost = (req, res, next) => {
 //     });
 // };
 
-// exports.getMyAllPost = (req, res, next) => {
-//   // Je ne sais pas encore
-//   const userId = req.params.userId;
-//   Post.findAll({
-//     where: { /*id: userId*/ id: userId },
-//     include: {
-//       model: User,
-//     },
-//     order: [["id", "DESC"]],
-//   })
-//     .then((post) => {
-//       res.status(200).json({ post });
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//       return res.status(400).json({ error });
-//     });
-// };
+exports.getMyAllPost = (req, res, next) => {
+  // Je ne sais pas encore
+  const userId = req.params.userId;
+
+  Post.findAll({
+    where: { /*id: userId*/ id: userId },
+    include: {
+      model: User,
+    },
+    order: [["id", "DESC"]],
+  })
+    .then((post) => {
+      res.status(200).json({ post });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(400).json({ error });
+    });
+};
 
 exports.updatePost = (req, res, next) => {
   const userId = req.params.id;
@@ -96,7 +97,7 @@ exports.updatePost = (req, res, next) => {
       postContent: req.body.postContent,
       imageUrl: req.body.imageUrl,
       id: userId,
-    }, 
+    },
     {
       where: { id: userId },
     }
@@ -110,35 +111,49 @@ exports.updatePost = (req, res, next) => {
     });
 };
 
-exports.deletePost = (req, res, next) => {
-  const postId = req.params.id;
-  const userId = req.body.userId; //demander au prof
+exports.deletePost = (req, res) => {
+  const postId = req.params.id;// l'id du post
+  const userId = req.params.userId; //l'id de user
   // TODO chercher dans la table user
   // regarder la partie get
   // TODO vérifier si ce user a isAdmin à true
-  console.log("ici:", req)
-  Post.findOne({
-    where: { id: userId }
-  }).then(() => {
-    if (postId == userId || userId == 1) {
-      Post.destroy({
-        // On cherche un post
-        where: { id: postId },
+  //console.log("ici:", req)
+  User.findOne({
+    attributes: ['id', 'email', "userName", 'isAdmin'],
+    where: { id: userId }//l'id de user
+  }).then((user) => {
+    console.log(user.isAdmin = true)
+    console.log("ici c'est", user.id = userId)
+    if (user && (user.isAdmin || user.id == userId)) {
+      Post.findOne({
+        //attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
+        where: { id: postId }
       })
-        .then(() => {
-          res.status(200).json({ message: "La publication supprimé !" });
+        .then((userFind) => {
+          console.log("ici :", userFind)
+          Post.destroy({
+            // On cherche un post
+            where: { id: postId },
+          })
+            .then(() => {
+              res.status(200).json({ message: "La publication supprimé !" });
+            })
+            .catch((error) => {
+              console.error(error.message);
+              return res.status(500).json({ error });
+            });
+        }).catch((error) => {
+          console.error(error.message)
+          res.status(500).json({ error })
         })
-        .catch((error) => {
-          console.error(error.message);
-          return res.status(400).json({ error });
-        });
     } else {
+      console.error(error.message)
       return res
-        .status(404)
-        .json({ message: "Vous n'avez le droit d'éffacer ce message" });
+        .status(403)
+        .json({ message: "Vous n'avez pas d'authorization d'effacer ce message ici" });
     }
   }).catch((error) => {
     error.console(error.message)
-    return res.status(401).json({error})
+    return res.status(500).json({ error })
   })
 };
