@@ -36,13 +36,23 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
   //On trouve tous les posts, ensuite on montre tous les posts qu'on trouve
-  Post.findAll()
-    .then((post) => {
-      return res.status(200).json({ post });
+  Post.findAll({
+    include: [{
+      model: User,
+      attributes: ['userName'],
+    }],
+    order: ['createdAt'],//DESC ou non ?
+  })
+    .then((user) => {
+      if (user <= null) {
+        return res.status(404).json({ message: "Pas de publication!" })
+      } else {
+        return res.status(200).json({ user });
+      }
     })
     .catch((error) => {
       console.error(error.message);
-      return res.status(400).json({ error });
+      return res.status(500).json({ message: "ici", error });
     });
 };
 
@@ -69,91 +79,121 @@ exports.getAllPost = (req, res, next) => {
 //     });
 // };
 
-exports.getMyAllPost = (req, res, next) => {
-  // Je ne sais pas encore
-  const userId = req.params.userId;
+// exports.getMyAllPost = (req, res, next) => {
+//   // Je ne sais pas encore
+//   const userId = req.body.userId;
 
-  Post.findAll({
-    where: { /*id: userId*/ id: userId },
-    include: {
-      model: User,
-    },
-    order: [["id", "DESC"]],
-  })
-    .then((post) => {
-      res.status(200).json({ post });
-    })
-    .catch((error) => {
-      console.error(error.message);
-      return res.status(400).json({ error });
-    });
-};
+//   Post.findAll({
+//     where: { id: userId },
+//     include: {
+//       model: User,
+//     },
+//     order: [["id", "DESC"]],
+//   })
+//     .then((post) => {
+//       res.status(200).json({ post });
+//     })
+//     .catch((error) => {
+//       console.error(error.message);
+//       return res.status(400).json({ error });
+//     });
+// };
 
 exports.updatePost = (req, res, next) => {
-  const userId = req.params.id;
+  const postId = req.params.id;// l'id du post
+  const userId = req.body.userId; //l'id de user
   console.log("Bonjour", userId);
-  Post.update(
-    {
-      postContent: req.body.postContent,
-      imageUrl: req.body.imageUrl,
-      id: userId,
-    },
-    {
-      where: { id: userId },
-    }
-  )
+  User.findOne({
+    attributes: ['id', 'email', "userName", 'isAdmin'],
+    where: { id: userId },
+  })
     .then((user) => {
-      return res.status(200).json({ message: "Objet modifiée" + user });
+      Post.findOne({
+        where: {
+          id: postId
+        }
+      })
+        .then((postFind) => {
+          console.log("Hey :", postFind.idUser)
+          if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
+            if (postFind) {
+              Post.update(
+                {
+                  postContent: req.body.postContent,
+                  imageUrl: req.body.imageUrl,
+                  // id: userId,
+                },
+                {
+                  where: { id: postId },
+                },
+              )
+                .then(() => {
+                  return res.status(200).json({ message: "Objet modifiée" });
+                })
+                .catch((error) => {
+                  console.error(error.message);
+                  return res.status(500).json({ error });
+                });
+            }else{
+              res.status(404).json({message: "Le post introuvable !"})
+            }
+          }else {
+            res.status(403).json({message: "Vous n'avez pas l'autorisation pour modifier ce message!"})
+          }
+        }).catch((error) => {
+          console.error(error.message)
+          return res.status(500).json({ error })
+        })
     })
     .catch((error) => {
-      console.error(error.message);
-      return res.status(400).json({ error });
-    });
+      console.error(error.message)
+      return res.status(403).json({ message: "Vous n'avez pas d'autorisation pour modifier ce post !" })
+    })
 };
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id;// l'id du post
-  const userId = req.params.userId; //l'id de user
-  // TODO chercher dans la table user
-  // regarder la partie get
-  // TODO vérifier si ce user a isAdmin à true
-  //console.log("ici:", req)
-  User.findOne({
+  const userId = req.body.userId; //l'id de user
+  User.findOne({//On cherche une id d'utilisateur
     attributes: ['id', 'email', "userName", 'isAdmin'],
-    where: { id: userId }//l'id de user
-  }).then((user) => {
-    console.log(user.isAdmin = true)
-    console.log("ici c'est", user.id = userId)
-    if (user && (user.isAdmin || user.id == userId)) {//user.isAdmin peut acceder isAdmin pour qu'elle deviens true
+    where: { id: userId }//l'id de user est trouvé et compare avec l'id dans la base de données
+  })
+    .then((user) => {//après avoir trouvé l'id de user
+      console.log("aca", user.isAdmin)
+      console.log("ici c'est", userId)
       Post.findOne({
-        //attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
-        where: { id: postId }
+        where: {
+          id: postId
+        }
       })
-        .then((userFind) => {
-          console.log("ici :", userFind)
-          Post.destroy({
-            // On cherche un post
-            where: { id: postId },
-          })
-            .then(() => {
-              res.status(200).json({ message: "La publication supprimé !" });
-            })
-            .catch((error) => {
-              console.error(error.message);
-              return res.status(500).json({ error });
-            });
+        .then((postFind) => {
+          console.log("Hey :", postFind.idUser)
+          if (user && (user.isAdmin == true || user.id == postFind.idUser)) {//on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
+            if (postFind) {//Si l'id de post a été envoyé dans la requête
+              //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
+              Post.destroy({
+                // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
+                where: { id: postId }// Alors, on trouve l'id du poste cet utilisateur là
+              }).then(() => {
+                return res.status(200).json({ message: "Publication supprimée" });
+              }).catch(() => {
+                console.error(error.message)
+                return res.status(500).json({ error })
+              })
+            } else {
+              res.status(404).json({ message: "La publication introuvable!" })
+            }
+          } else {// Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
+            return res
+              .status(403)
+              .json({ message: "Vous ne pouvez pas effacer ce post !" });
+          }
         }).catch((error) => {
           console.error(error.message)
-          res.status(500).json({ error })
+          res.status(404).json({ message: "La publication n'existe pas!" })
         })
-    } else {
-      console.error(error.message)
-      return res
-        .status(403)
-        .json({ message: "Vous n'avez pas d'authorization d'effacer ce message ici" });
-    }
-  }).catch((error) => {
-    error.console(error.message)
-    return res.status(500).json({ error })
-  })
+    }).catch((error) => {
+      error.console(error.message)
+      return res.status(500).json({ error })
+    })
 };
