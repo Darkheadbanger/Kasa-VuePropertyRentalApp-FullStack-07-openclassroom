@@ -2,6 +2,7 @@
 const db = require("../models");
 // const modelPost = require("../models/post.model");
 
+
 const Post = db.post; // post depuis model Post
 const User = db.user; // user depuis model User/Auth
 const Comment = db.comment;
