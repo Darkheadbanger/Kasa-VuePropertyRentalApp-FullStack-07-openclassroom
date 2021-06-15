@@ -97,7 +97,7 @@ exports.getAllComments = (req, res) => {
 // };
 
 exports.updateComments = (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.params.userId; 
   const commentPost = req.body.comment;
   const commentId = req.params.id
   const imageUrl = req.body.imageUrl;
