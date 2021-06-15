@@ -1,19 +1,20 @@
 const express = require("express");
 const commentCtrl = require("../controllers/comment.controller");
 const auth = require("../middleware/auth.jwt")
+const multer = require("../middleware/multer-config")
 const router = express.Router();
 
 //Creation de post tel que creation d'une publication en tant que message, image, video, gif etc
-router.post("/", commentCtrl.createComment);
+router.post("/", auth, multer, commentCtrl.createComment);
 // Trouver toutes les commentaires et les lires (en tant qu'admin ou d'autres users)
-router.get("/", commentCtrl.getAllComments);
+router.get("/", auth, commentCtrl.getAllComments);
 //Recuperer un commentaire
-router.get("/:id", commentCtrl.getOneComment);
-//recuperer tous les comments 
-router.get("/all/:id", commentCtrl.getAllComment);
+// router.get("/:id", commentCtrl.getOneComment);
+// //recuperer tous les comments 
+// router.get("/all/:id", commentCtrl.getAllMyComment);
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
-router.put("/:id", commentCtrl.updateComments);
+router.put("/:id", auth, multer, commentCtrl.updateComments);
 //Supprimer une publication avec l'id
-router.delete("/:id", commentCtrl.deleteComments);
+router.delete("/:id", auth, multer, commentCtrl.deleteComments);
 
 module.exports = router;

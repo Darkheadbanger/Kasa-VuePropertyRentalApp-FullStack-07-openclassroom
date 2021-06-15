@@ -5,7 +5,7 @@ const fs = require("fs");
 
 const Post = db.post; // post depuis model Post
 const User = db.user; // user depuis model User/Auth
-const Comment = db.comment;
+//const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
@@ -45,16 +45,16 @@ exports.getAllPost = (req, res, next) => {
     ],
     order: ["createdAt"], //DESC ou non ?
   })
-    .then((user) => {
-      if (user <= null) {
+    .then((post) => {
+      if (post <= null) {
         return res.status(404).json({ message: "Pas de publication!" });
       } else {
-        return res.status(200).json({ user });
+        return res.status(200).json({ post });
       }
     })
     .catch((error) => {
       console.error(error.message);
-      return res.status(500).json({ message: "ici", error });
+      return res.status(500).json({ error });
     });
 };
 
@@ -113,7 +113,7 @@ exports.updatePost = (req, res, next) => {
         }`,
     }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
-  console.log("Bonjour", userId);
+  // console.log("Bonjour", userId);
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
     where: { id: userId },
@@ -139,7 +139,7 @@ exports.updatePost = (req, res, next) => {
                   }
                 )
                   .then(() => {
-                    return res.status(200).json({ message: "Objet modifiée" });
+                    return res.status(200).json({ message: "Post modifiée" });
                   })
                   .catch((error) => {
                     console.error(error.message);
