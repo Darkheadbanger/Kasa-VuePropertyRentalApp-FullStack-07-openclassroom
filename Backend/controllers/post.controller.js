@@ -187,11 +187,12 @@ exports.deletePost = (req, res) => {
         },
       })
         .then((postFind) => {
+          console.log("Bonjour", postId)
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = postFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
             console.log("Hey :", postFind.idUser);
-            if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
+            if (user && (user.isAdmin || user.id == postFind.idUser)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               if (postFind) {
                 //Si l'id de post a été envoyé dans la requête

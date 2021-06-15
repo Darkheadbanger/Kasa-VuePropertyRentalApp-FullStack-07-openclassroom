@@ -34,7 +34,7 @@ db.sequelize = sequelize;
 
 const user = (db.user = require("./auth.model")(sequelize, Sequelize));
 const post = (db.post = require("./post")(sequelize, Sequelize));
-const comment = (db.comment = require("./comment.model")(sequelize, Sequelize));
+const comment = (db.comment = require("./comment")(sequelize, Sequelize));
 
 //Un usert peut avoir plusieurs post, et un post appartient à cet users la
 user.hasMany(post, {

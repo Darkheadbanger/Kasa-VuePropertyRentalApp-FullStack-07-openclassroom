@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
       imageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
+      }, 
       createdAt: {
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,
