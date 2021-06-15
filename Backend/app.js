@@ -2,14 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-const multer = require('multer')
+const multer = require("multer");
 //Connexion
 const db = require("./models");
 const authRoutes = require("./routes/auth.routes");
 const commentRoutes = require("./routes/comment.routes"); // pour l'authorization
-const postRoutes = require("./routes/post.routes");
+const postRoutes = require("./routes/post.route");
 const UserRoutes = require("./routes/users.routes");
 const app = express();
+const path = require("path");
 
 db.sequelize.sync();
 
@@ -47,7 +48,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Helmet pour securiser les cookies
 app.use(helmet());
 
-app.use()
+//app.use()
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
