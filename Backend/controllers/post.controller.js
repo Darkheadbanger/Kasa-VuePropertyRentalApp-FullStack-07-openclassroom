@@ -127,7 +127,6 @@ exports.updatePost = (req, res, next) => {
         .then((postFind) => {
           console.log("ici :", postFind)
           const fileName = postFind.imageUrl.split("/images/")[1];
-          console.log("ici  c'est :", fileName)
           fs.unlink(`images/${fileName}`, () => {
             console.log("Hey :", postFind.idUser);
             if (user && (user.isAdmin == true || user.id == postFind.idUser)) {

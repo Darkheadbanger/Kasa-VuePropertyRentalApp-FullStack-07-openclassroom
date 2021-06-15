@@ -101,51 +101,50 @@ exports.updateComments = (req, res) => {
   const userId = req.params.userId;
   const commentPost = req.body.comment;
   const commentId = req.params.id
-  const imageUrl = req.body.imageUrl;
-
   const commentObject = req.file ? {
     commentPost: commentPost,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
       }`
   } : { commentPost: commentPost }
 
-  console.log("Bonjour", commentId)
-  Comment.findOne({
-    attributes: ["id"],
+  User.findOne({
+    attributes: ["id", "email", "userName", "isAdmin"],
     where: { id: userId }
-  }).then((user) => {
-    Comment.findOne({
-      where: {
-        id: commentId
-      }
-    }).then((commentFind) => {
-      console.log("Ici, c'est :", commentFind)
-      filename = postFind.imageUrl.split("/images/")[1];
-      fs.unlink(`images/${filename}`, () => {
-        console.log("Hey :", commentFind.idUser)
-        if (user && (user.isAdmin == true || user.id == commentFind.idUser)) {
-          Comment.update(
-            commentObject,
-            {
-              where: { id: commebtId }
-            }
-          )
-            .then(() => {
-              return res.status(200).json({ message: "Commentaire modifié !" })
-            })
-            .catch((error) => {
-              console.error(error.message)
-              return res.status(500).json({ error })
-            })
-        } else {
-          res.status(403).json({ message: "Vous n'avez pas l'autorisation pour modifier ce commentaire!" })
+  })
+    .then((user) => {
+      Comment.findOne({
+        where: {
+          id: commentId
         }
       })
-    }).catch((error) => {
-      console.error(error.message)
-      return res.status({ message: "Commentaire introuvable!" })
+        .then((commentFind) => {
+          console.log("Ici, c'est :", commentFind)
+          filename = commentFind.imageUrl.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {
+            console.log("Hey :", commentFind.idUser)
+            if (user && (user.isAdmin == true || user.id == commentFind.idUser)) {
+              Comment.update(
+                commentObject,
+                {
+                  where: { id: commentId }
+                }
+              )
+                .then(() => {
+                  return res.status(200).json({ message: "Commentaire modifié !" })
+                })
+                .catch((error) => {
+                  console.error(error.message)
+                  return res.status(500).json({ error })
+                })
+            } else {
+              res.status(403).json({ message: "Vous n'avez pas l'autorisation pour modifier ce commentaire!" })
+            }
+          })
+        }).catch((error) => {
+          console.error(error.message)
+          return res.status({ message: "Commentaire introuvable!" })
+        })
     })
-  })
     .catch((error) => {
       console.log(error.message);
       return res.status(403).json({ message: "Vous n'avez pas d'autorisation!" });
