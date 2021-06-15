@@ -9,38 +9,28 @@ const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
-  const userId = req.body.userId;
+  const userId = req.params.userId;
   // const postObject = JSON.parse(req.body.post)
-  console.log("Ici c'est object :", postObject);
-  const urlImage = `${req.protocol}://${req.get("host")}/images/${
-    req.file.filename
-  }`;
-  //const bodyPost = req.body;
-  console.log("Post created");
-  if (userId) {
-    const post = new Post({
-      // ...postObject,
-      postContent: req.body.postContent,
-      //imageUrl: req.body.imageUrl,
-      //Ici pour multer
-      //Ici pour multer, req.protocol pour récuperer le protocol donc http, on ajoute ://, esuite on utilise req.get('host') pour chopper le port qu'on écoute (port 3000) et nous ajoutons /images/ pour l'emplacement ou on stocke l'image et a la fin on on ajoute lenom de fichier de l'origine en utilisant la
-      imageUrl: urlImage,
-      idUser: userId,
+  const urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
+    }`;
+  console.log("Ici c'est object :", urlImage);
+  const post = new Post({
+    // ...postObject,
+    postContent: req.body.postContent,
+    imageUrl: urlImage,
+    idUser: userId,
+  });
+  post
+    .save()
+    .then(() => {
+      res
+        .status(200)
+        .json({ message: "Objet enregistrée à la base de données" });
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(500).json({ error });
     });
-    post
-      .save()
-      .then(() => {
-        res
-          .status(200)
-          .json({ message: "Objet enregistrée à la base de données" });
-      })
-      .catch((error) => {
-        console.error(error.message);
-        return res.status(500).json({ error });
-      });
-  } else {
-    return res.status(403).json({ message: "Vous n'avez pas acces!" });
-  }
 };
 //exports.createLikeDislike = (req, res, next) => {};
 
@@ -93,7 +83,7 @@ exports.getAllPost = (req, res, next) => {
 
 // exports.getMyAllPost = (req, res, next) => {
 //   // Je ne sais pas encore
-//   const userId = req.body.userId;
+//   const userId = req.params.userId;
 
 //   Post.findAll({
 //     where: { id: userId },
@@ -113,16 +103,15 @@ exports.getAllPost = (req, res, next) => {
 ///Multer fonctionne mais change pas d'image car on ne peut pas créer l'image et le sauvegarde dans le server
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
-  const userId = req.body.userId; //l'id de user
+  const userId = req.params.userId; //l'id de user
   const postObject = req.file
     ? {
-        // Si la personne rajoute un nouvel image
-        ...json.parse(req.body.post),
-        postContent: req.body.postContent,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
-          req.file.filename
+      // Si la personne rajoute un nouvel image
+      //...json.parse(req.body.post),
+      postContent: req.body.postContent,
+      imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
         }`,
-      }
+    }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
   console.log("Bonjour", userId);
   User.findOne({
@@ -136,41 +125,41 @@ exports.updatePost = (req, res, next) => {
         },
       })
         .then((postFind) => {
-          console.log("Hey :", postFind.idUser);
-          if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
-            if (postFind) {
-              Post.update(
-                {
+          console.log("ici :", postFind)
+          const fileName = postFind.imageUrl.split("/images/")[1];
+          console.log("ici  c'est :", fileName)
+          fs.unlink(`images/${fileName}`, () => {
+            console.log("Hey :", postFind.idUser);
+            if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
+              if (postFind) {
+                Post.update(
                   postObject,
-                  // postContent: req.body.postContent,
-                  // imageUrl: req.body.imageUrl,
-                  id: postId,
-                },
-                {
-                  where: { id: postId },
-                }
-              )
-                .then(() => {
-                  return res.status(200).json({ message: "Objet modifiée" });
-                })
-                .catch((error) => {
-                  console.error(error.message);
-                  return res.status(500).json({ error });
-                });
+                  {
+                    where: { id: postId },
+                  }
+                )
+                  .then(() => {
+                    return res.status(200).json({ message: "Objet modifiée" });
+                  })
+                  .catch((error) => {
+                    console.error(error.message);
+                    return res.status(500).json({ error });
+                  });
+              } else {
+                res.status(404).json({ message: "Le post introuvable !" });
+              }
             } else {
-              res.status(404).json({ message: "Le post introuvable !" });
+              res.status(403).json({
+                message:
+                  "Vous n'avez pas l'autorisation pour modifier ce message!",
+              });
             }
-          } else {
-            res.status(403).json({
-              message:
-                "Vous n'avez pas l'autorisation pour modifier ce message!",
+          })
+            .catch((error) => {
+              console.error(error.message);
+              return res.status(500).json({ error });
             });
-          }
         })
-        .catch((error) => {
-          console.error(error.message);
-          return res.status(500).json({ error });
-        });
     })
     .catch((error) => {
       console.error(error.message);
@@ -182,7 +171,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
-  const userId = req.body.userId; //l'id de user
+  const userId = req.params.userId; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],

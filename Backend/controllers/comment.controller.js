@@ -1,5 +1,6 @@
 // const fse = require("fs-extra");
 const db = require("../models");
+const fs = require("fs")
 //const modelComment = require("../models/comment.model");
 
 const Comment = db.comment; //Comment le nom du modele sequelize Comment
