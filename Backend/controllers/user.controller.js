@@ -1,4 +1,5 @@
 const db = require("../models");
+
 const Comment = db.comment;
 const User = db.user;
 const Post = db.post;
@@ -7,18 +8,20 @@ const { Op } = require("sequelize");
 const { post } = require("../app");
 
 exports.findAllUsers = (req, res, next) => {
-  User.findAll({
+  User.findAll(
+    {
     //SELECT * WHERE User WHERE id => 0 donc tous l'id de 0 à l'infiniit/tous les id
     where: {
       id: {
         [Op.gte]: 0,
       },
     },
-  })
+  }
+  )
     .then((users) => {
       res
         .status(200)
-        .json({ message: "Tous les utilisateurs trouvée !" + users });
+        .json({ users });
     })
     .catch((error) => {
       console.error(error.message);
@@ -47,6 +50,11 @@ exports.findOneUser = (req, res) => {
         res.status(200).json({ ...reqBodyComment }); //recuperer tous les comments de cette utilisateur la
       });
 };
+
+exports.updateUser = (req, res) => {
+  //Write to Update a User informations
+}
+
 // pour effqcer un
 exports.deleteOneAccount = (req, res) => {
   const isAdmin = req.body.isAdmin;//sois res.query.admin
@@ -54,18 +62,20 @@ exports.deleteOneAccount = (req, res) => {
   if (isAdmin && !User) {
     const user = User.findOne({
       //Il faut utiliser destroy
-      where: { id: _id, id:{
+      where: {
+        id: _id, id: {
           [Op.gte]: 0,
-      }},
+        }
+      },
     }).then((user) => {
-        user.destroy();
-        return res.status(200).json({user})
+      user.destroy();
+      return res.status(200).json({ user })
     }).then((error) => {
-        console.log(error.message)
-        return res.status(401).json({error})
+      console.log(error.message)
+      return res.status(401).json({ error })
     })
     post.destroy();
-    comment.destroy();  
+    comment.destroy();
   }
 };
 

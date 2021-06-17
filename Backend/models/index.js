@@ -26,7 +26,7 @@ sequelize
   .catch((error) => {
     console.error(error.message);
   });
- 
+
 const db = {};
 
 db.Sequelize = Sequelize;
@@ -42,7 +42,7 @@ user.hasMany(post, {
 post.belongsTo(user, {
   foreignKey: "idUser",
   allowNull: false,
-  onDelete: "cascade", // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
+  // onDelete: "cascade", // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 
 //un User peut avoir plusieurs comments, et les comments appartients a cet users la
@@ -51,15 +51,18 @@ user.hasMany(comment, {
 comment.belongsTo(user, {
   foreignKey: "idUser",
   allowNull: false,
-  onDelete: "cascade",
+  // onDelete: "cascade",
 });
 
 //Un post peut avoir plusieurs comments, et les comments appartiennent à l'id du post respectifs
 post.hasMany(comment, {
+  onDelete: 'CASCADE',
+  hooks: true
 });
 comment.belongsTo(post, {
-  foreignKey: "idUser",
+  foreignKey: "postId",//idUser
   allowNull: false,
+  // delete: "cascade",
 });
 
 module.exports = db;

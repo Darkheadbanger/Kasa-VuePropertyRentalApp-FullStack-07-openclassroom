@@ -110,11 +110,11 @@ exports.login = async (req, res) => {
             //Ici pour roles après
             res.status(200).json({
               message: "vous avez reussi a se connecter !",
-              userId: user.id,
+              idUser: user.id,
               role: user.isAdmin,
               userName: user.userName,
               token: jwt.sign(
-                { userId: user.id },
+                { idUser: user.id },
                 process.env.ACCES_TOKEN_SECRET,
                 { expiresIn: "24h" }
               ),
