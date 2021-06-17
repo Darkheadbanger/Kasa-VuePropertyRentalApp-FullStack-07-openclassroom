@@ -38,6 +38,8 @@ const comment = (db.comment = require("./comment")(sequelize, Sequelize));
 
 //Un usert peut avoir plusieurs post, et un post appartient à cet users la
 user.hasMany(post, {
+  onDelete: 'CASCADE',
+  hooks: true
 });
 post.belongsTo(user, {
   foreignKey: "idUser",
@@ -47,6 +49,8 @@ post.belongsTo(user, {
 
 //un User peut avoir plusieurs comments, et les comments appartients a cet users la
 user.hasMany(comment, {
+  onDelete: 'CASCADE',
+  hooks: true
 });
 comment.belongsTo(user, {
   foreignKey: "idUser",

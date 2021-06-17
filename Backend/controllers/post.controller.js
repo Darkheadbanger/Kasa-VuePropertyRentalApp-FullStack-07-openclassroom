@@ -181,8 +181,6 @@ exports.deletePost = (req, res) => {
   })
     .then((user) => {
       //après avoir trouvé l'id de user
-      console.log("aca", user.isAdmin);
-      console.log("ici c'est", idUser);
       Post.findOne({
         where: {
           id: postId,

@@ -26,6 +26,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN,
       },
