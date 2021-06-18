@@ -25,6 +25,7 @@ exports.findAllUsers = (req, res, next) => {
       console.error(error.message);
       return res.status(500).json({ message: "Internal error" + error });
     });
+  }
 
   // identification d'un compte d'un user
   exports.userProfil = (req, res) => {
@@ -137,12 +138,10 @@ exports.findAllUsers = (req, res, next) => {
                                   .json({ error: "Internal error !" });
                               });
                           } else {
-                            res
-                              .status(403)
-                              .json({
-                                error:
-                                  "L'utilisateur n'existe pas ici, impossible de supprimer",
-                              });
+                            res.status(403).json({
+                              error:
+                                "L'utilisateur n'existe pas ici, impossible de supprimer",
+                            });
                           }
                           // } else {
                           //   return res
@@ -158,22 +157,17 @@ exports.findAllUsers = (req, res, next) => {
                         .json({ error: "Impossible de supprimer!" });
                     }
                   } else {
-                    return res
-                      .status(403)
-                      .json({
-                        message:
-                          "Vous n'avez pas d'autorisation pour effacer ce compte !",
-                      });
+                    return res.status(403).json({
+                      message:
+                        "Vous n'avez pas d'autorisation pour effacer ce compte !",
+                    });
                   }
                 })
                 .catch((error) => {
                   console.error(error.message);
-                  return res
-                    .status(403)
-                    .json({
-                      error:
-                        "Il n'y a pas de message trouvé de cet utilisateur",
-                    });
+                  return res.status(403).json({
+                    error: "Il n'y a pas de message trouvé de cet utilisateur",
+                  });
                 });
             })
             .catch((error) => {
@@ -189,4 +183,3 @@ exports.findAllUsers = (req, res, next) => {
       return res.status(500).json({ error: "internal Error" });
     }
   };
-};
