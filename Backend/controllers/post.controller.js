@@ -5,14 +5,15 @@ const fs = require("fs");
 
 const Post = db.post; // post depuis model Post
 const User = db.user; // user depuis model User/Auth
-//const Comment = db.comment;
+const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
   const userId = req.params.userId;
   // const postObject = JSON.parse(req.body.post)
-  const urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
-    }`;
+  const urlImage = `${req.protocol}://${req.get("host")}/images/${
+    req.file.filename
+  }`;
   console.log("Ici c'est object :", urlImage);
   const post = new Post({
     // ...postObject,
@@ -41,6 +42,10 @@ exports.getAllPost = (req, res, next) => {
       {
         model: User,
         attributes: ["userName"],
+      },
+      {
+        model: Comment,
+        attributes: ["comment", "imageUrl"],
       },
     ],
     order: ["createdAt"], //DESC ou non ?
@@ -106,12 +111,13 @@ exports.updatePost = (req, res, next) => {
   const userId = req.params.userId; //l'id de user
   const postObject = req.file
     ? {
-      // Si la personne rajoute un nouvel image
-      //...json.parse(req.body.post),
-      postContent: req.body.postContent,
-      imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
+        // Si la personne rajoute un nouvel image
+        //...json.parse(req.body.post),
+        postContent: req.body.postContent,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
         }`,
-    }
+      }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
   // console.log("Bonjour", userId);
   User.findOne({
@@ -123,42 +129,37 @@ exports.updatePost = (req, res, next) => {
         where: {
           id: postId,
         },
-      })
-        .then((postFind) => {
-          console.log("ici :", postFind)
-          const fileName = postFind.imageUrl.split("/images/")[1];
-          fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", postFind.idUser);
-            if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
-              if (postFind) {
-                Post.update(
-                  postObject,
-                  {
-                    where: { id: postId },
-                  }
-                )
-                  .then(() => {
-                    return res.status(200).json({ message: "Post modifiée" });
-                  })
-                  .catch((error) => {
-                    console.error(error.message);
-                    return res.status(500).json({ error });
-                  });
-              } else {
-                res.status(404).json({ message: "Le post introuvable !" });
-              }
+      }).then((postFind) => {
+        console.log("ici :", postFind);
+        const fileName = postFind.imageUrl.split("/images/")[1];
+        fs.unlink(`images/${fileName}`, () => {
+          console.log("Hey :", postFind.idUser);
+          if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
+            if (postFind) {
+              Post.update(postObject, {
+                where: { id: postId },
+              })
+                .then(() => {
+                  return res.status(200).json({ message: "Post modifiée" });
+                })
+                .catch((error) => {
+                  console.error(error.message);
+                  return res.status(500).json({ error });
+                });
             } else {
-              res.status(403).json({
-                message:
-                  "Vous n'avez pas l'autorisation pour modifier ce message!",
-              });
+              res.status(404).json({ message: "Le post introuvable !" });
             }
-          })
-            .catch((error) => {
-              console.error(error.message);
-              return res.status(500).json({ error });
+          } else {
+            res.status(403).json({
+              message:
+                "Vous n'avez pas l'autorisation pour modifier ce message!",
             });
-        })
+          }
+        }).catch((error) => {
+          console.error(error.message);
+          return res.status(500).json({ error });
+        });
+      });
     })
     .catch((error) => {
       console.error(error.message);
@@ -183,14 +184,20 @@ exports.deletePost = (req, res) => {
       Post.findOne({
         where: {
           id: postId,
-        },
+        }, //Ajouter, demander au prof
+        include: [
+          {
+            model: Comment,
+            id: postId,
+          },
+        ],
       })
         .then((postFind) => {
-          console.log("Bonjour", postId)
+          console.log("Bonjour", postId);
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = postFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", postFind.idUser);
+            console.log("Hey :", postFind.idUser);//idUser
             if (user && (user.isAdmin || user.id == postFind.idUser)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               if (postFind) {
@@ -199,6 +206,19 @@ exports.deletePost = (req, res) => {
                 Post.destroy({
                   // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
                   where: { id: postId }, // Alors, on trouve l'id du poste cet utilisateur là
+                })
+                  .then(() => {
+                    return res
+                      .status(200)
+                      .json({ message: "Publication supprimée" });
+                  })
+                  .catch(() => {
+                    console.error(error.message);
+                    return res.status(500).json({ error });
+                  });
+                //Ajouter ici pour effacer comment en même temps
+                Comment.destroy({
+                  where: { id: postId },
                 })
                   .then(() => {
                     return res

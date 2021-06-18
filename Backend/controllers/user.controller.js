@@ -26,7 +26,7 @@ exports.findAllUsers = (req, res, next) => {
     });
 };
 // :odificqtion de users donc ;dp et username
-exports.findOneUser = (req, res) => {
+exports.updateUser = (req, res) => {
   const _id = req.params.id;
   const isAdmin = req.body.isAdmin;
   const reqBodyUser = req.body.User;

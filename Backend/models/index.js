@@ -60,6 +60,7 @@ post.hasMany(comment, {
 comment.belongsTo(post, {
   foreignKey: "idUser",
   allowNull: false,
+  delete: "cascade",
 });
 
 module.exports = db;

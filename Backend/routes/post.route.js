@@ -19,6 +19,6 @@ router.get("/", auth, postCtrl.getAllPost);
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
 router.put("/:id", auth, multer, postCtrl.updatePost);
 //Supprimer une publication avec l'id
-router.delete("/:id", auth, multer, postCtrl.deletePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 module.exports = router;
