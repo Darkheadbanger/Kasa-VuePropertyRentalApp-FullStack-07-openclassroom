@@ -8,11 +8,14 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.ACCES_TOKEN_SECRET);
     //idUser recois la vérification de jsonwebtoken du Token aux nombres aléatoires qu'on transmet dans idUser
-    
-    //Je change en userId mais pas sur, peut etre idUser
-    const userId = decodedToken.userId;
-    req.params.userId = userId;
-    
+    console.log("decodedToken :", decodedToken)
+
+    //Je change en idUser mais pas sur, peut etre idUser
+    const idUser = decodedToken.idUser;
+    console.log("idUser ici:", idUser)
+    req.params.idUser = idUser;
+    console.log(idUser)
+
     console.log("User ID Valid!");
     next();
   } catch {

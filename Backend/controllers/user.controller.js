@@ -75,77 +75,73 @@ exports.deleteMyAccount = (req, res) => {
       ],
       where: { id: loggedUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
     })
-      .then((userLogged) => {
+      .then((user) => {
         //après avoir trouvé l'id de user on cherche tous les id associé a l'id trouvé plus haut
         Post.findAll({
-          where: {
-            loggedUser: postId,
-          },
+          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
+          where: { id: loggedUser }
         })
           .then((post) => {
             // console.log("Il n'y a pas de publication trouvé de cet utilisateur", post)
             // Ic on trouve tous les commentaires associé au id de user trovuer plus haut
             Comment.findAll({
-              where: {
-                loggedUser: commentId,
-              },
+              attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "idUser", "postId"],
+              where: { id: loggedUser }
             })
               .then((comment) => {
                 // console.log("Tous les posts de l'utilisateur trouvé", comment)
                 // dans le cas ou l'un d'entre eux ont des immages, on supprime les images mais aussi le compte y compris le post et les comments associé
-                if (
-                  userLogged &&
-                  (userLogged.isAdmin ||
-                    userLogged.id == userLogged.loggedUser ||
-                    userLogged.id == comment.loggedUser ||
-                    userLogged.id == post.loggedUser)
-                ) {
-                  if (post.imageUrl != null || comment.imageUrl != null) {
-                    // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
-                    const fileNameComment =
-                      comment.imageUrl.split("/images/")[1];
-                    const fileNamePost = post.imageUrl.split("/images/")[1];
-                    const fileNameUser = userLogged.imageUrl.split("/images/")[1];
-                    fs.unlink(
-                      `images/${(fileNameComment, fileNamePost, fileNameUser)
-                      }`,
-                      () => {
-                        if (userLogged > null || post >= null || comment >= null) {
-                          // si le user, post et comment il y a des images, on les supprime de la base de donées et du serveur pour l'image
-                          // On supprime aussi le post et le comment même si il n'y a rien
-                          User.destroy({
-                            where: {
-                              id: deletedUser,
-                            },
-                          })
-                            .then((destroyed) => {
-                              res.status(200).json({ destroyed });
+                for (let i = 0; i < post.length; i++) {
+                  for (let i = 0; i < comment.length; i++) {
+                    if (user && (user.isAdmin || loggedUser)) {
+                      // if (post.imageUrl >= null || comment.imageUrl >= null) { //Je n'arrive pas recuperer imageUrl
+                      // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
+                      console.log("Bonojournoooo :")
+                      const fileNameComment = comment.imageUrl.split("/images/")[1];
+                      const fileNamePost = post.imageUrl.split("/images/")[1];
+                      const fileNameUser = user.imageUrl.split("/images/")[1];
+                      fs.unlink(
+                        `images/${(fileNameComment, fileNamePost, fileNameUser)
+                        }`,
+                        () => {
+                          if (user > null || post >= null || comment >= null) {
+                            // si le user, post et comment il y a des images, on les supprime de la base de donées et du serveur pour l'image
+                            // On supprime aussi le post et le comment même si il n'y a rien
+                            User.destroy({
+                              where: {
+                                loggedUser: deletedUser,
+                              },
                             })
-                            .catch((error) => {
-                              console.error(error.message);
-                              return res
-                                .status(500)
-                                .json({ error: "Internal error !" });
+                              .then((destroyed) => {
+                                res.status(200).json({ destroyed });
+                              })
+                              .catch((error) => {
+                                console.error(error.message);
+                                return res
+                                  .status(500)
+                                  .json({ error: "Internal error !" });
+                              });
+                          } else {
+                            res.status(403).json({
+                              error:
+                                "L'utilisateur n'existe pas ici, impossible de supprimer",
                             });
-                        } else {
-                          res.status(403).json({
-                            error:
-                              "L'utilisateur n'existe pas ici, impossible de supprimer",
-                          });
+                          }
                         }
-                      }
-                    );
-                  } else {
-                    // Si il y a moins que null, impossible
-                    res
-                      .status(403)
-                      .json({ error: "Impossible de supprimer!" });
+                      );
+                      // } else {
+                      //   // Si il y a moins que null, impossible
+                      //   res
+                      //     .status(403)
+                      //     .json({ error: "Impossible de supprimer!" });
+                      // }
+                    } else {
+                      return res.status(403).json({
+                        message:
+                          "Vous n'avez pas d'autorisation pour effacer ce compte !",
+                      });
+                    }
                   }
-                } else {
-                  return res.status(403).json({
-                    message:
-                      "Vous n'avez pas d'autorisation pour effacer ce compte !",
-                  });
                 }
               })
               .catch((error) => {
