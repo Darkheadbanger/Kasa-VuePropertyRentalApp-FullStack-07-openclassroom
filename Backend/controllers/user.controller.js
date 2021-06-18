@@ -9,6 +9,7 @@ const { Op } = require("sequelize");
 const { post } = require("../app");
 const { error } = require("console");
 const { user } = require("../models");
+const comment = require("../models/comment");
 
 exports.findAllUsers = (req, res, next) => {
   User.findAll({
@@ -80,6 +81,69 @@ exports.deleteMyAccount = (req, res) => {
         Post.findAll({
           attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
           where: { id: loggedUser }
+        }).then((comment) => {
+          Comment.findAll({
+            attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "idUser", "postId"],
+            where: { id: loggedUser }
+          }).then((comment) => {
+
+            if (user && (user.isAdmin || deletedUser == loggedUser)) {
+              User.destroy({
+                where: {
+                  id: deletedUser,
+                },
+              }).then(() => {
+                res.status(200).json({ message: "Utilisateur supprimée !" });
+              }).catch((error) => {
+                console.error(error.message);
+                return res
+                  .status(500)
+                  .json({ error: "Ici, Internal error !" });
+              });
+
+
+            } else {
+              res.status(403).json({ error: "Vous n'avez pas d'autorisation" })
+            }
+          }).catch((error) => {
+            console.error(error.message)
+            return res.status(404).json({ error: "Commentaires introuvable" })
+          })
+        }).catch((error) => {
+          console.error(error.message)
+          return res.status(404).json({ error: "Post introuvable" })
+        })
+
+      })
+      .catch((error) => {
+        console.error(error.message);
+        return res.status(403).json({ error: "Utilisateur n'existe pas !" });
+      });
+  } else {
+    return res.status(500).json({ error: "internal Error" });
+  }
+};
+
+/*    User.findOne({
+      //On cherche une id d'utilisateur
+      attributes: [
+        "id",
+        "firstName",
+        "lastName",
+        "userName",
+        "email",
+        "password",
+        "isAdmin",
+        "createdAt",
+        "updatedAt",
+      ],
+      where: { id: loggedUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    })
+      .then((user) => {
+        //après avoir trouvé l'id de user on cherche tous les id associé a l'id trouvé plus haut
+        Post.findAll({
+          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
+          where: { id: loggedUser }
         })
           .then((post) => {
             // console.log("Il n'y a pas de publication trouvé de cet utilisateur", post)
@@ -93,42 +157,40 @@ exports.deleteMyAccount = (req, res) => {
                 // dans le cas ou l'un d'entre eux ont des immages, on supprime les images mais aussi le compte y compris le post et les comments associé
                 if (user && (user.isAdmin || loggedUser)) {
                   // if (post.imageUrl >= null || comment.imageUrl >= null) { //Je n'arrive pas recuperer imageUrl
-                    console.log("Bonojournoooo :")
-                    // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
-                    const fileNameComment = comment.imageUrl.split("/images/")[1];
-                    const fileNamePost = post.imageUrl.split("/images/")[1];
-                    const fileNameUser = user.imageUrl.split("/images/")[1];
-                    fs.unlink(
-                      `images/${(fileNameComment, fileNamePost, fileNameUser)
-                      }`,
-                      () => {
-                        if (user > null || post >= null || comment >= null) {
-                          // si le user, post et comment il y a des images, on les supprime de la base de donées et du serveur pour l'image
-                          // On supprime aussi le post et le comment même si il n'y a rien
-                          for (let i = 0; i < post.length; i++) {
-                            for (let i = 0; i < comment.length; i++) {
-                              User.destroy({
-                                where: {
-                                  loggedUser: deletedUser,
-                                },
-                              }).then((destroyed) => {
-                                res.status(200).json({ destroyed });
-                              }).catch((error) => {
-                                console.error(error.message);
-                                return res
-                                  .status(500)
-                                  .json({ error: "Internal error !" });
-                              });
-                            }
+                  // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
+                  const fileNameComment = comment.imageUrl.split("/images/")[1];
+                  const fileNamePost = post.imageUrl.split("/images/")[1];
+                  fs.unlink(
+                    `images/${(fileNameComment, fileNamePost)
+                    }`,
+                    () => {
+                      if (user > null || post >= null || comment >= null) {
+                        // si le user, post et comment il y a des images, on les supprime de la base de donées et du serveur pour l'image
+                        // On supprime aussi le post et le comment même si il n'y a rien
+                        for (let i = 0; i < post.length; i++) {
+                          for (let i = 0; i < comment.length; i++) {
+                            User.destroy({
+                              where: {
+                                loggedUser: deletedUser,
+                              },
+                            }).then((destroyed) => {
+                              res.status(200).json({ destroyed });
+                            }).catch((error) => {
+                              console.error(error.message);
+                              return res
+                                .status(500)
+                                .json({ error: "Internal error !" });
+                            });
                           }
-                        } else {
-                          res.status(403).json({
-                            error:
-                              "L'utilisateur n'existe pas ici, impossible de supprimer",
-                          });
                         }
+                      } else {
+                        res.status(403).json({
+                          error:
+                            "L'utilisateur n'existe pas ici, impossible de supprimer",
+                        });
                       }
-                    );
+                    }
+                  );
                   // } else {
                   //   // Si il y a moins que null, impossible
                   //   res
@@ -161,5 +223,4 @@ exports.deleteMyAccount = (req, res) => {
       });
   } else {
     return res.status(500).json({ error: "internal Error" });
-  }
-};
+  }*/
