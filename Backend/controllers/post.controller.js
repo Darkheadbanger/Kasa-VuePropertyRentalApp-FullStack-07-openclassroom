@@ -9,7 +9,7 @@ const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
-  const idUser = req.params.idUser;
+  const userId = req.params.userId;
   // const postObject = JSON.parse(req.body.post)
   const urlImage = `${req.protocol}://${req.get("host")}/images/${
     req.file.filename
@@ -19,7 +19,7 @@ exports.createPost = (req, res, next) => {
     // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
-    idUser: idUser,
+    idUser: userId,
   });
   post
     .save()
@@ -67,12 +67,12 @@ exports.getAllPost = (req, res, next) => {
 };
 
 // exports.getOnePost = (req, res, next) => {
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 //   Post.findOne({
 //     // On cherche un post
 //     where: {
-//       //id: idUser, // On compare
-//       idUser: idUser,
+//       //id: userId, // On compare
+//       idUser: userId,
 //     },
 //     include: {
 //       model: User,
@@ -91,10 +91,10 @@ exports.getAllPost = (req, res, next) => {
 
 // exports.getMyAllPost = (req, res, next) => {
 //   // Je ne sais pas encore
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 
 //   Post.findAll({
-//     where: { id: idUser },
+//     where: { id: userId },
 //     include: {
 //       model: User,
 //     },
@@ -111,7 +111,7 @@ exports.getAllPost = (req, res, next) => {
 ///Multer fonctionne mais change pas d'image car on ne peut pas créer l'image et le sauvegarde dans le server
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
-  const idUser = req.params.idUser; //l'id de user
+  const userId = req.params.userId; //l'id de user
   const postObject = req.file
     ? {
         // Si la personne rajoute un nouvel image
@@ -122,10 +122,10 @@ exports.updatePost = (req, res, next) => {
         }`,
       }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
-  // console.log("Bonjour", idUser);
+  // console.log("Bonjour", userId);
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser },
+    where: { id: userId },
   })
     .then((user) => {
       Post.findOne({
@@ -174,11 +174,11 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
-  const idUser = req.params.idUser; //l'id de user
+  const userId = req.params.userId; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
       //après avoir trouvé l'id de user

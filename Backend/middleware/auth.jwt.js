@@ -9,8 +9,9 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.ACCES_TOKEN_SECRET);
     //idUser recois la vérification de jsonwebtoken du Token aux nombres aléatoires qu'on transmet dans idUser
     
-    const idUser = decodedToken.idUser;
-    req.params.idUser = idUser;
+    //Je change en userId mais pas sur, peut etre idUser
+    const userId = decodedToken.userId;
+    req.params.userId = userId;
     
     console.log("User ID Valid!");
     next();

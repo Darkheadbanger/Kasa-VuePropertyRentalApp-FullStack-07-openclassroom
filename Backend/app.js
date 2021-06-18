@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-const multer = require("multer");
 //Connexion
 const db = require("./models");
 const authRoutes = require("./routes/auth.routes");
