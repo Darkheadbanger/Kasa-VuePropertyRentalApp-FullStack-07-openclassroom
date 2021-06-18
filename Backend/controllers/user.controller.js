@@ -92,9 +92,9 @@ exports.deleteMyAccount = (req, res) => {
                 // console.log("Tous les posts de l'utilisateur trouvé", comment)
                 // dans le cas ou l'un d'entre eux ont des immages, on supprime les images mais aussi le compte y compris le post et les comments associé
                 if (user && (user.isAdmin || loggedUser)) {
-                  if (post.imageUrl >= null || comment.imageUrl >= null) { //Je n'arrive pas recuperer imageUrl
-                    // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
+                  // if (post.imageUrl >= null || comment.imageUrl >= null) { //Je n'arrive pas recuperer imageUrl
                     console.log("Bonojournoooo :")
+                    // On supprime peut importe si il y a l'image ou non (supérieur ou egal a null)
                     const fileNameComment = comment.imageUrl.split("/images/")[1];
                     const fileNamePost = post.imageUrl.split("/images/")[1];
                     const fileNameUser = user.imageUrl.split("/images/")[1];
@@ -129,12 +129,12 @@ exports.deleteMyAccount = (req, res) => {
                         }
                       }
                     );
-                  } else {
-                    // Si il y a moins que null, impossible
-                    res
-                      .status(403)
-                      .json({ error: "Impossible de supprimer!" });
-                  }
+                  // } else {
+                  //   // Si il y a moins que null, impossible
+                  //   res
+                  //     .status(403)
+                  //     .json({ error: "Impossible de supprimer!" });
+                  // }
                 } else {
                   return res.status(403).json({
                     message:

@@ -1,4 +1,4 @@
-// Importation des packages
+// Importation des packages image
 const multer = require('multer');
 
 // Déclaration des formats autorisés
