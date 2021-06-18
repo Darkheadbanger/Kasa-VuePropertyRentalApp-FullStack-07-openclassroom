@@ -1,10 +1,14 @@
 const express = require("express");
 const authCtrl = require("../controllers/user.controller")
+const auth = require("../middleware/auth.jwt")
+const multer = require("../middleware/multer-config")
 const router = express.Router()
 
-router.get('/profil', authCtrl.findAllUsers)
-router.put('/update', authCtrl.updateUser);//changer username, mot de passe
-router.delete('/deleteAccount', authCtrl.deleteOneAccount);
-router.delete('/deleteMyAccount', authCtrl.deleteMyAccount);
+
+router.get('/', auth, authCtrl.findAllUsers)
+router.get('/me/:id', auth, authCtrl.userProfil);//Recuperer mon user
+router.put('/me/:id', auth, multer, authCtrl.updateUser)
+// router.delete('/:id', auth, authCtrl.deleteOneAccount);
+router.delete('/me/:id', auth, authCtrl.deleteMyAccount);
 
 module.exports = router

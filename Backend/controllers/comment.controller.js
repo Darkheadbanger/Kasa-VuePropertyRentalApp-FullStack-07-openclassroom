@@ -11,15 +11,15 @@ const Post = db.post;
 
 exports.createComment = (req, res) => {
   //Declarations des varibales pour récuperer les données du modèles
-  const userId = req.params.userId;
+  const idUser = req.params.idUser;
   const commentPost = req.body.comment
   const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
     }`;
 
   const comment = new Comment({
-    comment: req.body.commentPost,
+    comment: commentPost,
     imageUrl: imageUrl,
-    idUser: userId,
+    idUser: idUser,
   });
   comment
     .save()
@@ -59,10 +59,10 @@ exports.getAllComments = (req, res) => {
 
 // exports.getOneComment = (req, res) => {
 //   //Je ne comprend pas
-//   const userId = req.params.userId;
+//   const idUser = req.params.idUser;
 //   Comment.findOne({
 //     where: {
-//       idUser: userId,
+//       idUser: idUser,
 //     },
 //     include: {
 //       model: User,
@@ -80,9 +80,9 @@ exports.getAllComments = (req, res) => {
 // };
 
 // exports.getAllMyComment = (req, res) => {
-//   const userId = req.params.userId;
+//   const idUser = req.params.idUser;
 //   Comment.findAll({
-//     where: { /*id: userId*/ idUser: userId },
+//     where: { /*id: idUser*/ idUser: idUser },
 //     include: {
 //       model: User,
 //     },
@@ -98,7 +98,7 @@ exports.getAllComments = (req, res) => {
 // };
 
 exports.updateComments = (req, res) => {
-  const userId = req.params.userId;
+  const idUser = req.params.idUser;
   const commentPost = req.body.comment;
   const commentId = req.params.id
   const commentObject = req.file ? {
@@ -109,7 +109,7 @@ exports.updateComments = (req, res) => {
 
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: userId }
+    where: { id: idUser }
   })
     .then((user) => {
       Comment.findOne({
@@ -152,17 +152,17 @@ exports.updateComments = (req, res) => {
 };
 exports.deleteComments = (req, res) => {
   const commentId = req.params.id; // l'id du post
-  const userId = req.params.userId; //l'id de user
+  const idUser = req.params.idUser; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
       console.log("Bonjour hey ici c'est", user)
       //après avoir trouvé l'id de user
       console.log("aca", user.isAdmin);
-      console.log("ici c'est", userId);
+      console.log("ici c'est", idUser);
       Comment.findOne({
         where: {
           id: commentId,

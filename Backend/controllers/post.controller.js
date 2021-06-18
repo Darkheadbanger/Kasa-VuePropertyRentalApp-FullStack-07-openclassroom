@@ -9,7 +9,7 @@ const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
-  const userId = req.params.userId;
+  const idUser = req.params.idUser;
   // const postObject = JSON.parse(req.body.post)
   const urlImage = `${req.protocol}://${req.get("host")}/images/${
     req.file.filename
@@ -19,7 +19,7 @@ exports.createPost = (req, res, next) => {
     // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
-    idUser: userId,
+    idUser: idUser,
   });
   post
     .save()
@@ -42,6 +42,9 @@ exports.getAllPost = (req, res, next) => {
       {
         model: User,
         attributes: ["userName"],
+      }, {
+        model: Comment,
+        attributes: ["comment", "imageUrl", "createdAt"]
       },
       {
         model: Comment,
@@ -64,12 +67,12 @@ exports.getAllPost = (req, res, next) => {
 };
 
 // exports.getOnePost = (req, res, next) => {
-//   const userId = req.params.userId;
+//   const idUser = req.params.idUser;
 //   Post.findOne({
 //     // On cherche un post
 //     where: {
-//       //id: userId, // On compare
-//       idUser: userId,
+//       //id: idUser, // On compare
+//       idUser: idUser,
 //     },
 //     include: {
 //       model: User,
@@ -88,10 +91,10 @@ exports.getAllPost = (req, res, next) => {
 
 // exports.getMyAllPost = (req, res, next) => {
 //   // Je ne sais pas encore
-//   const userId = req.params.userId;
+//   const idUser = req.params.idUser;
 
 //   Post.findAll({
-//     where: { id: userId },
+//     where: { id: idUser },
 //     include: {
 //       model: User,
 //     },
@@ -108,7 +111,7 @@ exports.getAllPost = (req, res, next) => {
 ///Multer fonctionne mais change pas d'image car on ne peut pas créer l'image et le sauvegarde dans le server
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
-  const userId = req.params.userId; //l'id de user
+  const idUser = req.params.idUser; //l'id de user
   const postObject = req.file
     ? {
         // Si la personne rajoute un nouvel image
@@ -119,10 +122,10 @@ exports.updatePost = (req, res, next) => {
         }`,
       }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
-  // console.log("Bonjour", userId);
+  // console.log("Bonjour", idUser);
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: userId },
+    where: { id: idUser },
   })
     .then((user) => {
       Post.findOne({
@@ -171,16 +174,14 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
-  const userId = req.params.userId; //l'id de user
+  const idUser = req.params.idUser; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
       //après avoir trouvé l'id de user
-      console.log("aca", user.isAdmin);
-      console.log("ici c'est", userId);
       Post.findOne({
         where: {
           id: postId,
