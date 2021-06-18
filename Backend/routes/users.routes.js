@@ -4,7 +4,6 @@ const auth = require("../middleware/auth.jwt")
 const multer = require("../middleware/multer-config")
 const router = express.Router()
 
-router.post('/:id', auth, authCtrl.createUsers)
 router.get('/', auth, authCtrl.findAllUsers)
 router.get('/me/:id', auth, authCtrl.userProfil);//Recuperer mon user
 router.put('/me/:id', auth, multer, authCtrl.updateUser)

@@ -17,7 +17,7 @@ exports.createComment = (req, res) => {
     }`;
 
   const comment = new Comment({
-    comment: req.body.commentPost,
+    comment: commentPost,
     imageUrl: imageUrl,
     idUser: idUser,
   });
