@@ -42,31 +42,30 @@ user.hasMany(post, {
   hooks: true
 });
 post.belongsTo(user, {
-  foreignKey: "idUser",
+  // foreignKey: "idUser",
   allowNull: false,
-  // onDelete: "cascade", // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 
 //un User peut avoir plusieurs comments, et les comments appartients a cet users la
 user.hasMany(comment, {
   onDelete: 'CASCADE',
   hooks: true
+  // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 comment.belongsTo(user, {
-  foreignKey: "idUser",
+  // foreignKey: "idUser",
   allowNull: false,
-  // onDelete: "cascade",
 });
 
 //Un post peut avoir plusieurs comments, et les comments appartiennent à l'id du post respectifs
 post.hasMany(comment, {
   onDelete: 'CASCADE',
   hooks: true
+  // Pour dire que si le poste est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 comment.belongsTo(post, {
-  foreignKey: "postId",//idUser
+  // foreignKey: "idUser",//idUser
   allowNull: false,
-  // delete: "cascade",
 });
 
 module.exports = db;

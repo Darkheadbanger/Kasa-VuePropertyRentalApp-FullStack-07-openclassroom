@@ -87,31 +87,43 @@ exports.deleteMyAccount = (req, res) => {
             where: { id: loggedUser }
           }).then((comment) => {
             if (user && (user.isAdmin || deletedUser == loggedUser)) {
+              console.log("Bonjour1:")
               User.destroy({
                 where: {
                   id: deletedUser,
                 },
-              }).then(() => {
-                for (let i = 0; post.length; i++) {
-                  // post[i].imageUrl
-                  console.log("hojhinjkds:", post[i])
+              }).then((destroy) => {
+                console.log("Bonjour2:")//consple
 
-                  const fileNamePost = post[i].imageUrl.split("/images/")[1];
-                  fs.unlink(`images/${(fileNamePost)}`, () => {
-                    if (err) throw err;
-                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                    console.log('File deleted!');
+                for (const comments of comment) {
+                  console.log("bonjour 3")
+                  console.log("CommentI :", comments[i])
+                  const fileNamecComment = comments.imageUrl.split("/images/")[1];
+                  fs.unlink(`images/${(fileNamecComment)}`, () => {
+                    console.log("bonjour 4")
+
+                    if (!destroy) {
+                      throw error;
+                    } else {
+                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                      console.log('File deleted!');
+                    }
                   })
                 }
-                for (let i = 0; comment.length; i++) {
-                  // comment[i].imageUrl
-                  console.log("hojhinjkds:", comment[i])
 
-                  const fileNamecComment = comment[i].imageUrl.split("/images/")[1];
-                  fs.unlink(`images/${(fileNamecComment)}`, () => {
-                    if (err) throw err;
-                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                    console.log('File deleted!');
+                for (const posts of post) {
+                  console.log("bonjour 5")
+
+                  const fileNamePost = posts.imageUrl.split("/images/")[1];
+                  fs.unlink(`images/${(fileNamePost)}`, () => {
+                    console.log("bonjour 6")
+
+                    if (!destroy) {
+                      throw error;
+                    } else {
+                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                      console.log('File deleted!');
+                    }
                   })
                 }
                 res.status(200).json({ message: "Utilisateur supprimée !" });
