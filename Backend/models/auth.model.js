@@ -1,5 +1,5 @@
 //Ce modele est pour auth.routes.js et user.routes.js
-"user strict";
+"user strict";//idUser
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define(
     "user",
