@@ -42,7 +42,7 @@ user.hasMany(post, {
   hooks: true
 });
 post.belongsTo(user, {
-  // foreignKey: "idUser",
+  // foreignKey: "userId",
   allowNull: false,
 });
 
@@ -53,7 +53,7 @@ user.hasMany(comment, {
   // Pour dire que si l'utilisateur est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 comment.belongsTo(user, {
-  // foreignKey: "idUser",
+  // foreignKey: "userId",
   allowNull: false,
 });
 
@@ -64,7 +64,7 @@ post.hasMany(comment, {
   // Pour dire que si le poste est effacé, on va effacer tous les posts associé a l'id d'un user
 });
 comment.belongsTo(post, {
-  // foreignKey: "idUser",//idUser
+  // foreignKey: "userId",//userId
   allowNull: false,
 });
 

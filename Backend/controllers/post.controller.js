@@ -9,7 +9,7 @@ const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
   //Declarations des varibales po ur récuperer les données du modèles
-  const idUser = req.params.idUser;
+  const userId = req.params.userId;
   // const postObject = JSON.parse(req.body.post)
   const urlImage = `${req.protocol}://${req.get("host")}/images/${req.file.filename
     }`;
@@ -18,7 +18,7 @@ exports.createPost = (req, res, next) => {
     // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
-    idUser: idUser,
+    userId: userId,
   });
   post
     .save()
@@ -66,12 +66,12 @@ exports.getAllPost = (req, res, next) => {
 };
 
 // exports.getOnePost = (req, res, next) => {
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 //   Post.findOne({
 //     // On cherche un post
 //     where: {
-//       //id: idUser, // On compare
-//       idUser: idUser,
+//       //id: userId, // On compare
+//       userId: userId,
 //     },
 //     include: {
 //       model: User,
@@ -90,10 +90,10 @@ exports.getAllPost = (req, res, next) => {
 
 // exports.getMyAllPost = (req, res, next) => {
 //   // Je ne sais pas encore
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 
 //   Post.findAll({
-//     where: { id: idUser },
+//     where: { id: userId },
 //     include: {
 //       model: User,
 //     },
@@ -110,7 +110,7 @@ exports.getAllPost = (req, res, next) => {
 ///Multer fonctionne mais change pas d'image car on ne peut pas créer l'image et le sauvegarde dans le server
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
-  const idUser = req.params.idUser; //l'id de user
+  const userId = req.params.userId; //l'id de user
   const postObject = req.file
     ? {
       // Si la personne rajoute un nouvel image
@@ -120,10 +120,10 @@ exports.updatePost = (req, res, next) => {
         }`,
     }
     : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
-  // console.log("Bonjour", idUser);
+  // console.log("Bonjour", userId);
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser },
+    where: { id: userId },
   })
     .then((user) => {
       Post.findOne({
@@ -134,8 +134,8 @@ exports.updatePost = (req, res, next) => {
         console.log("ici :", postFind);
         const fileName = postFind.imageUrl.split("/images/")[1];
         fs.unlink(`images/${fileName}`, () => {
-          console.log("Hey :", postFind.idUser);
-          if (user && (user.isAdmin == true || user.id == postFind.idUser)) {
+          console.log("Hey :", postFind.userId);
+          if (user && (user.isAdmin == true || user.id == postFind.userId)) {
             if (postFind) {
               Post.update(postObject, {
                 where: { id: postId },
@@ -172,11 +172,11 @@ exports.updatePost = (req, res, next) => {
 
 // exports.deletePost = (req, res) => {
 //   const postId = req.params.id; // l'id du post
-//   const idUser = req.params.idUser; //l'id de user
+//   const userId = req.params.userId; //l'id de user
 //   User.findOne({
 //     //On cherche une id d'utilisateur
 //     attributes: ["id", "email", "userName", "isAdmin"],
-//     where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
+//     where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
 //   })
 //     .then((user) => {
 //       //après avoir trouvé l'id de user
@@ -193,15 +193,15 @@ exports.updatePost = (req, res, next) => {
 //       })
 //         .then((postFind) => {
 //           Comment.findAll({
-//             where: { id: idUser }
+//             where: { id: userId }
 //           })
 //         }).then((commentFind) => {
 //           console.log("Bonjour", postId);
 //           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
 //           const fileName = postFind.imageUrl.split("/images/")[1];
 //           fs.unlink(`images/${fileName}`, () => {
-//             console.log("Hey :", postFind.idUser);//idUser
-//             if (user && (user.isAdmin || user.id == postFind.idUser)) {
+//             console.log("Hey :", postFind.userId);//userId
+//             if (user && (user.isAdmin || user.id == postFind.userId)) {
 //               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
 //               if (postFind) {
 //                 //Si l'id de post a été envoyé dans la requête
@@ -276,11 +276,11 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
-  const idUser = req.params.idUser; //l'id de user
+  const userId = req.params.userId; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
       //après avoir trouvé l'id de user
@@ -300,8 +300,8 @@ exports.deletePost = (req, res) => {
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = postFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", postFind.idUser);//idUser
-            if (user && (user.isAdmin || user.id == postFind.idUser)) {
+            console.log("Hey :", postFind.userId);//userId
+            if (user && (user.isAdmin || user.id == postFind.userId)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               if (postFind) {
                 //Si l'id de post a été envoyé dans la requête

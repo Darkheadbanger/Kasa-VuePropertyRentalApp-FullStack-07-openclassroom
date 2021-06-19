@@ -11,7 +11,7 @@ const Post = db.post;
 
 exports.createComment = (req, res) => {
   //Declarations des varibales pour récuperer les données du modèles
-  const idUser = req.params.idUser; //idUser original
+  const userId = req.params.userId; //userId original
   const commentPost = req.body.comment
   const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
     }`;
@@ -19,7 +19,7 @@ exports.createComment = (req, res) => {
   const comment = new Comment({
     comment: commentPost,
     imageUrl: imageUrl,
-    idUser: idUser,//original idUser
+    userId: userId,//original userId
   });
   comment
     .save()
@@ -59,10 +59,10 @@ exports.getAllComments = (req, res) => {
 
 // exports.getOneComment = (req, res) => {
 //   //Je ne comprend pas
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 //   Comment.findOne({
 //     where: {
-//       idUser: idUser,
+//       userId: userId,
 //     },
 //     include: {
 //       model: User,
@@ -80,9 +80,9 @@ exports.getAllComments = (req, res) => {
 // };
 
 // exports.getAllMyComment = (req, res) => {
-//   const idUser = req.params.idUser;
+//   const userId = req.params.userId;
 //   Comment.findAll({
-//     where: { /*id: idUser*/ idUser: idUser },
+//     where: { /*id: userId*/ userId: userId },
 //     include: {
 //       model: User,
 //     },
@@ -98,7 +98,7 @@ exports.getAllComments = (req, res) => {
 // };
 
 exports.updateComments = (req, res) => {
-  const idUser = req.params.idUser;
+  const userId = req.params.userId;
   const commentPost = req.body.comment;
   const commentId = req.params.id
   const commentObject = req.file ? {
@@ -109,7 +109,7 @@ exports.updateComments = (req, res) => {
 
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser }
+    where: { id: userId }
   })
     .then((user) => {
       Comment.findOne({
@@ -121,8 +121,8 @@ exports.updateComments = (req, res) => {
           console.log("Ici, c'est :", commentFind)
           filename = commentFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${filename}`, () => {
-            console.log("Hey :", commentFind.idUser)
-            if (user && (user.isAdmin == true || user.id == commentFind.idUser)) {
+            console.log("Hey :", commentFind.userId)
+            if (user && (user.isAdmin == true || user.id == commentFind.userId)) {
               Comment.update(
                 commentObject,
                 {
@@ -152,17 +152,17 @@ exports.updateComments = (req, res) => {
 };
 exports.deleteComments = (req, res) => {
   const commentId = req.params.id; // l'id du post
-  const idUser = req.params.idUser; //l'id de user
+  const userId = req.params.userId; //l'id de user
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: idUser }, //l'id de user est trouvé et compare avec l'id dans la base de données
+    where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
       console.log("Bonjour hey ici c'est", user)
       //après avoir trouvé l'id de user
       console.log("aca", user.isAdmin);
-      console.log("ici c'est", idUser);
+      console.log("ici c'est", userId);
       Comment.findOne({
         where: {
           id: commentId,
@@ -173,8 +173,8 @@ exports.deleteComments = (req, res) => {
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = commentId.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", commentId.idUser);
-            if (user && (user.isAdmin || user.id == commentId.idUser)) {
+            console.log("Hey :", commentId.userId);
+            if (user && (user.isAdmin || user.id == commentId.userId)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               //Si l'id de post a été envoyé dans la requête
               //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur

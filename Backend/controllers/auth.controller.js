@@ -1,7 +1,7 @@
 const bcryptjs = require("bcryptjs"); // On déclare l'encryption bcryptJs, pour crypter et salter le mot de passe
 const jwt = require("jsonwebtoken"); // On déckare le jsonwebtoken pour pouvoir utiliser le token
 const db = require("../models");
-
+//idUser
 const User = db.user; 
 //const CryptoJS = require("crypto-js/sha256")
 require("dotenv").config(); //process
@@ -110,11 +110,11 @@ exports.login = async (req, res) => {
             //Ici pour roles après
             res.status(200).json({
               message: "vous avez reussi a se connecter !",
-              idUser: user.id,//originel idUser
+              userId: user.id,//originel userId
               role: user.isAdmin,
               userName: user.userName,
               token: jwt.sign(
-                { idUser: user.id },// original idUser
+                { userId: user.id },// original userId
                 process.env.ACCES_TOKEN_SECRET,
                 { expiresIn: "24h" }
               ),

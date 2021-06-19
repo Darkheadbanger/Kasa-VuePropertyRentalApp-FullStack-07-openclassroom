@@ -30,10 +30,10 @@ exports.findAllUsers = (req, res, next) => {
 
 // identification d'un compte d'un user
 exports.userProfil = (req, res) => {
-  const idUser = req.params.id;
-  console.log("idUser :", idUser)
+  const userId = req.params.id;
+  console.log("userId :", userId)
   User.findOne({
-    id: idUser,
+    id: userId,
     attributes: [
       "firstName",
       "lastName",
@@ -57,7 +57,7 @@ exports.updateUser = (req, res) => {
 
 exports.deleteMyAccount = (req, res) => {
   const deletedUser = req.params.id
-  const loggedUser = req.params.idUser; //l'id de user
+  const loggedUser = req.params.userId; //l'id de user
   console.log("deletedUser :", deletedUser, "loggedUser :", loggedUser)
 
   if (loggedUser != null) {
@@ -79,11 +79,11 @@ exports.deleteMyAccount = (req, res) => {
       .then((user) => {
         //après avoir trouvé l'id de user on cherche tous les id associé a l'id trouvé plus haut
         Post.findAll({
-          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
+          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId"],
           where: { id: loggedUser }
         }).then((post) => {
           Comment.findAll({
-            attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "idUser", "postId"],
+            attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "postId"],
             where: { id: loggedUser }
           }).then((comment) => {
             if (user && (user.isAdmin || deletedUser == loggedUser)) {
@@ -172,14 +172,14 @@ exports.deleteMyAccount = (req, res) => {
       .then((user) => {
         //après avoir trouvé l'id de user on cherche tous les id associé a l'id trouvé plus haut
         Post.findAll({
-          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
+          attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId"],
           where: { id: loggedUser }
         })
           .then((post) => {
             // console.log("Il n'y a pas de publication trouvé de cet utilisateur", post)
             // Ic on trouve tous les commentaires associé au id de user trovuer plus haut
             Comment.findAll({
-              attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "idUser", "postId"],
+              attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "postId"],
               where: { id: loggedUser }
             })
               .then((comment) => {
