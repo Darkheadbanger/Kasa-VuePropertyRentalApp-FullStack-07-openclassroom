@@ -81,18 +81,39 @@ exports.deleteMyAccount = (req, res) => {
         Post.findAll({
           attributes: ["id", "postContent", "imageUrl", "likes", "dislikes", "userLikes", "usersDislikes", "createdAt", "updatedAt", "userId", "idUser"],
           where: { id: loggedUser }
-        }).then((comment) => {
+        }).then((post) => {
           Comment.findAll({
             attributes: ["id", "comment", "imageUrl", "createdAt", "updatedAt", "userId", "idUser", "postId"],
             where: { id: loggedUser }
           }).then((comment) => {
-
             if (user && (user.isAdmin || deletedUser == loggedUser)) {
               User.destroy({
                 where: {
                   id: deletedUser,
                 },
               }).then(() => {
+                for (let i = 0; post.length; i++) {
+                  // post[i].imageUrl
+                  console.log("hojhinjkds:", post[i])
+
+                  const fileNamePost = post[i].imageUrl.split("/images/")[1];
+                  fs.unlink(`images/${(fileNamePost)}`, () => {
+                    if (err) throw err;
+                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                    console.log('File deleted!');
+                  })
+                }
+                for (let i = 0; comment.length; i++) {
+                  // comment[i].imageUrl
+                  console.log("hojhinjkds:", comment[i])
+
+                  const fileNamecComment = comment[i].imageUrl.split("/images/")[1];
+                  fs.unlink(`images/${(fileNamecComment)}`, () => {
+                    if (err) throw err;
+                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                    console.log('File deleted!');
+                  })
+                }
                 res.status(200).json({ message: "Utilisateur supprimée !" });
               }).catch((error) => {
                 console.error(error.message);
@@ -100,8 +121,6 @@ exports.deleteMyAccount = (req, res) => {
                   .status(500)
                   .json({ error: "Ici, Internal error !" });
               });
-
-
             } else {
               res.status(403).json({ error: "Vous n'avez pas d'autorisation" })
             }
@@ -113,7 +132,6 @@ exports.deleteMyAccount = (req, res) => {
           console.error(error.message)
           return res.status(404).json({ error: "Post introuvable" })
         })
-
       })
       .catch((error) => {
         console.error(error.message);
