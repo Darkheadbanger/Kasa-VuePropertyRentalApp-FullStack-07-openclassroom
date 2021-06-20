@@ -65,28 +65,25 @@ exports.deleteMyAccount = (req, res) => {
     })
       .then((user) => {
         //après avoir trouvé l'id de user on cherche tous les id associé a l'id trouvé plus haut
-        Post.findOne({
-          where: {
-            id: loggedUser,
-          },
+        Post.findAll({
+          where: { userId: deletedUser },
         }).then((post) => {
           console.log('bonjour post', post)
           Comment.findAll({
-            where: { id: loggedUser },
+            where: { userId: deletedUser },
           }).then((comment) => {
             console.log('bonjour comment', comment)
             if (user && (user.isAdmin || deletedUser == loggedUser)) {
-              console.log("Bonjour1:")
               User.destroy({
                 where: {
                   id: deletedUser,
                 },
               }).then((destroy) => {
-                
+
                 for (const comments of comment) {
                   console.log("CommentI :", comments)
                   const fileName = comments.imageUrl.split("/images/")[1];
-                  console.log("fileNamecComment :", fileNamecComment)
+                  console.log("fileName :", fileName)
                   fs.unlink(`images/${(fileName)}`, () => {
                     console.log("bonjour 4")
                     if (!destroy) {
