@@ -170,110 +170,6 @@ exports.updatePost = (req, res, next) => {
     });
 };
 
-// exports.deletePost = (req, res) => {
-//   const postId = req.params.id; // l'id du post
-//   const userId = req.params.userId; //l'id de user
-//   User.findOne({
-//     //On cherche une id d'utilisateur
-//     attributes: ["id", "email", "userName", "isAdmin"],
-//     where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
-//   })
-//     .then((user) => {
-//       //après avoir trouvé l'id de user
-//       Post.findOne({
-//         where: {
-//           id: postId,
-//         }, //Ajouter, demander au prof
-//         include: [
-//           {
-//             model: Comment,
-//             id: postId,
-//           },
-//         ],
-//       })
-//         .then((postFind) => {
-//           Comment.findAll({
-//             where: { id: userId }
-//           })
-//         }).then((commentFind) => {
-//           console.log("Bonjour", postId);
-//           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-//           const fileName = postFind.imageUrl.split("/images/")[1];
-//           fs.unlink(`images/${fileName}`, () => {
-//             console.log("Hey :", postFind.userId);//userId
-//             if (user && (user.isAdmin || user.id == postFind.userId)) {
-//               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
-//               if (postFind) {
-//                 //Si l'id de post a été envoyé dans la requête
-//                 //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
-//                 Post.destroy({
-//                   // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
-//                   where: { id: postId }, // Alors, on trouve l'id du poste cet utilisateur là
-//                 })
-//                   .then(() => {
-//                     return res
-//                       .status(200)
-//                       .json({ message: "Publication supprimée" });
-//                   })
-//                   .catch(() => {
-//                     console.error(error.message);
-//                     return res.status(500).json({ error });
-//                   });
-//                 //Ajouter ici pour effacer comment en même temps
-//                 Comment.destroy({
-//                   where: { id: postId },
-//                 })
-//                   .then(() => {
-
-//                     for (let i = 0; commentFind.length; i++) {
-//                       const fileNamecComment = commentFind[i].imageUrl.split("/images/")[1];
-//                       fs.unlink(`images/${(fileNamecComment)}`, () => {
-//                         if (!destroy) {
-//                           throw error;
-//                         } else {
-//                           // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-//                           console.log('File deleted!');
-//                         }
-//                       })
-//                     }
-
-//                     return res
-//                       .status(200)
-//                       .json({ message: "Publication supprimée" });
-//                   })
-//                   .catch(() => {
-//                     console.error(error.message);
-//                     return res.status(500).json({ error });
-//                   });
-//               } else {
-//                 res
-//                   .status(404)
-//                   .json({ message: "La publication introuvable!" });
-//               }
-//             } else {
-//               // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
-//               return res
-//                 .status(403)
-//                 .json({ message: "Vous ne pouvez pas effacer ce post !" });
-//             }
-//           });
-//         }).catch((error) => {
-//           console.error(error.message)
-//           res.status(404).json({ error: "Message est vide" })
-//         })
-//         .catch((error) => {
-//           console.error(error.message);
-//           res.status(404).json({ message: "La publication n'existe pas!" });
-//         });
-//     })
-//     .catch((error) => {
-//       error.console(error.message);
-//       return res.status(500).json({ error });
-//     });
-// };
-
-
-
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
   const userId = req.params.userId; //l'id de user
@@ -296,7 +192,7 @@ exports.deletePost = (req, res) => {
         ],
       })
         .then((postFind) => {
-          console.log("Bonjour", postId);
+          console.log("postFind", postFind)
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = postFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
@@ -315,22 +211,8 @@ exports.deletePost = (req, res) => {
                       .status(200)
                       .json({ message: "Publication supprimée" });
                   })
-                  .catch(() => {
-                    console.error(error.message);
-                    return res.status(500).json({ error });
-                  });
-                //Ajouter ici pour effacer comment en même temps
-                Comment.destroy({
-                  where: { id: postId },
-                })
-                  .then(() => {
-                    return res
-                      .status(200)
-                      .json({ message: "Publication supprimée" });
-                  })
-                  .catch(() => {
-                    console.error(error.message);
-                    return res.status(500).json({ error });
+                  .catch((error) => {
+                    res.status(500).json({ error });
                   });
               } else {
                 res
