@@ -22,10 +22,14 @@ exports.createPost = (req, res, next) => {
   });
   post
     .save()
-    .then(() => {
-      res
-        .status(200)
-        .json({ message: "Objet enregistrée à la base de données" });
+    .then((created) => {
+      if (created) {
+        res
+          .status(200)
+          .json({ message: "Objet enregistrée à la base de données" });
+      } else {
+        return res.status(403).json({ error: "L'enregistrement dans la base de données échouée !" })
+      }
     })
     .catch((error) => {
       console.error(error.message);
@@ -140,8 +144,12 @@ exports.updatePost = (req, res, next) => {
               Post.update(postObject, {
                 where: { id: postId },
               })
-                .then(() => {
-                  return res.status(200).json({ message: "Post modifiée" });
+                .then((updated) => {
+                  if (updated) {
+                    return res.status(200).json({ message: "Post modifiée" });
+                  }else{
+                    return res.status(403).json({ error: "La modification de la post échouée !"})
+                  }
                 })
                 .catch((error) => {
                   console.error(error.message);
