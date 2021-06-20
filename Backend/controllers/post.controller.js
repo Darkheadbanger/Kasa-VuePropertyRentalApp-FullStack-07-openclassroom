@@ -190,8 +190,10 @@ exports.deletePost = (req, res) => {
             id: postId,
           },
         ],
-      })
-        .then((postFind) => {
+      }).then((postFind) => {
+        Comment.findAll({
+          postId //postId
+        }).then((commentFind) => {
           console.log("postFind", postFind)
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = postFind.imageUrl.split("/images/")[1];
@@ -206,7 +208,22 @@ exports.deletePost = (req, res) => {
                   // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
                   where: { id: postId }, // Alors, on trouve l'id du poste cet utilisateur là
                 })
-                  .then(() => {
+                  .then((destroyed) => {
+                    for (const comments of commentFind) {
+                      console.log("CommentI :", comments)
+                      const fileName = comments.imageUrl.split("/images/")[1];
+                      console.log("fileName :", fileName)
+                      fs.unlink(`images/${(fileName)}`, () => {
+                        console.log("bonjour 4")
+                        if (!destroyed) {
+                          throw error;
+                        } else {
+                          // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                          console.log('File deleted!');
+                        }
+                      })
+                    }
+
                     return res
                       .status(200)
                       .json({ message: "Publication supprimée" });
@@ -226,7 +243,11 @@ exports.deletePost = (req, res) => {
                 .json({ message: "Vous ne pouvez pas effacer ce post !" });
             }
           });
+        }).catch((error) => {
+          console.error(error.message)
+          return res.status(404).json({ error: "Les commentaires sont vide" })
         })
+      })
         .catch((error) => {
           console.error(error.message);
           res.status(404).json({ message: "La publication n'existe pas!" });
