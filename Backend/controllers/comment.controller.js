@@ -57,28 +57,6 @@ exports.getAllComments = (req, res) => {
     });
 };
 
-// exports.getOneComment = (req, res) => {
-//   //Je ne comprend pas
-//   const userId = req.params.userId;
-//   Comment.findOne({
-//     where: {
-//       userId: userId,
-//     },
-//     include: {
-//       model: User,
-//       required: true,
-//     },
-//     order: [["id", "DESC"]],
-//   })
-//     .then((comment) => {
-//       return res.status(200).json({ comment });
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//       return res.status(404).json({ error });
-//     });
-// };
-
 // exports.getAllMyComment = (req, res) => {
 //   const userId = req.params.userId;
 //   Comment.findAll({

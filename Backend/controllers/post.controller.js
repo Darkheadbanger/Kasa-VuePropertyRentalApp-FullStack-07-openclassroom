@@ -36,7 +36,7 @@ exports.createPost = (req, res, next) => {
       return res.status(500).json({ error });
     });
 };
-//exports.createLikeDislike = (req, res, next) => {};
+//exports.createLikeDislike = (req, res, next) => {}
 
 exports.getAllPost = (req, res, next) => {
   //On trouve tous les posts, ensuite on montre tous les posts qu'on trouve
@@ -69,29 +69,6 @@ exports.getAllPost = (req, res, next) => {
     });
 };
 
-// exports.getOnePost = (req, res, next) => {
-//   const userId = req.params.userId;
-//   Post.findOne({
-//     // On cherche un post
-//     where: {
-//       //id: userId, // On compare
-//       userId: userId,
-//     },
-//     include: {
-//       model: User,
-//       //as: User,
-//     },
-//     order: [["id", "DESC"]], //Pour dire les derniers ID reçu
-//   })
-//     .then((user) => {
-//       return res.status(200).json({ user });
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//       return res.status(404).json({ error });
-//     });
-// };
-
 // exports.getMyAllPost = (req, res, next) => {
 //   // Je ne sais pas encore
 //   const userId = req.params.userId;
@@ -115,16 +92,15 @@ exports.getAllPost = (req, res, next) => {
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
   const userId = req.params.userId; //l'id de user
+  const postContent = req.body.postContent
   const postObject = req.file
     ? {
       // Si la personne rajoute un nouvel image
-      //...json.parse(req.body.post),
       postContent: req.body.postContent,
       imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
         }`,
     }
-    : { postContent: req.body.postContent }; // Si non, on ne modifie que le postContent
-  // console.log("Bonjour", userId);
+    : { postContent }; // Si non, on ne modifie que le postContent
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
     where: { id: userId },
@@ -135,11 +111,9 @@ exports.updatePost = (req, res, next) => {
           id: postId,
         },
       }).then((postFind) => {
-        console.log("ici :", postFind);
         const fileName = postFind.imageUrl.split("/images/")[1];
         fs.unlink(`images/${fileName}`, () => {
-          console.log("Hey :", postFind.userId);
-          if (user && (user.isAdmin == true || user.id == postFind.userId)) {
+          if (user && (user.isAdmin || user.id == postFind.userId)) {
             if (postFind) {
               Post.update(postObject, {
                 where: { id: postId },
@@ -147,13 +121,13 @@ exports.updatePost = (req, res, next) => {
                 .then((updated) => {
                   if (updated) {
                     return res.status(200).json({ message: "Post modifiée" });
-                  }else{
-                    return res.status(403).json({ error: "La modification de la post échouée !"})
+                  } else {
+                    return res.status(403).json({ error: "La modification de la post échouée !" })
                   }
                 })
                 .catch((error) => {
                   console.error(error.message);
-                  return res.status(500).json({ error });
+                  return res.status(500).json({ error: "Impossible a mettre a jour, internal error" });
                 });
             } else {
               res.status(404).json({ message: "Le post introuvable !" });
@@ -172,8 +146,8 @@ exports.updatePost = (req, res, next) => {
     })
     .catch((error) => {
       console.error(error.message);
-      return res.status(403).json({
-        message: "Vous n'avez pas d'autorisation pour modifier ce post !",
+      return res.status(401).json({
+        error: "Utilisateur introuvable",
       });
     });
 };
