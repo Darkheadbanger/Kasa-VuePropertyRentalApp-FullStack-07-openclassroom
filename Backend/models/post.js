@@ -1,5 +1,4 @@
 "user strict";
-//const { post } = require("../app");
 module.exports = (sequelize, Sequelize) => {
   
   const Post = sequelize.define(

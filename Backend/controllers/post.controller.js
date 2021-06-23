@@ -1,6 +1,7 @@
 //const fse = require("fs-extra");
 const db = require("../models");
 const fs = require("fs");
+const { exception } = require("console");
 // const modelPost = require("../models/post.model");
 
 const Post = db.post; // post depuis model Post
@@ -36,10 +37,12 @@ exports.createPost = (req, res, next) => {
       return res.status(500).json({ error });
     });
 };
-//exports.createLikeDislike = (req, res, next) => {}
+
+// exports.likeDislike = (req, res, next) => {
+
+// }
 
 exports.getAllPost = (req, res, next) => {
-  //On trouve tous les posts, ensuite on montre tous les posts qu'on trouve
   Post.findAll({
     include: [
       {
@@ -48,19 +51,15 @@ exports.getAllPost = (req, res, next) => {
       }, {
         model: Comment,
         attributes: ["comment", "imageUrl", "createdAt"]
-      },
-      {
-        model: Comment,
-        attributes: ["comment", "imageUrl"],
-      },
+      }
     ],
     order: ["createdAt"], //DESC ou non ?
   })
     .then((post) => {
-      if (post <= null) {
-        return res.status(404).json({ message: "Pas de publication!" });
-      } else {
+      if (post) {
         return res.status(200).json({ post });
+      } else {
+        return res.status(404).json({ message: "Pas de publication!" });
       }
     })
     .catch((error) => {
@@ -69,26 +68,35 @@ exports.getAllPost = (req, res, next) => {
     });
 };
 
-// exports.getMyAllPost = (req, res, next) => {
-//   // Je ne sais pas encore
-//   const userId = req.params.userId;
+exports.getAllMyPost = (req, res,) => {
+  const postId = req.params.id
 
-//   Post.findAll({
-//     where: { id: userId },
-//     include: {
-//       model: User,
-//     },
-//     order: [["id", "DESC"]],
-//   })
-//     .then((post) => {
-//       res.status(200).json({ post });
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//       return res.status(400).json({ error });
-//     });
-// };
-///Multer fonctionne mais change pas d'image car on ne peut pas créer l'image et le sauvegarde dans le server
+  Post.findAll({
+    where: { userId: postId },
+    include: [
+      {
+        model: User,
+        attributes: ["userName"],
+      }, {
+        model: Comment,
+        attributes: ["comment", "imageUrl", "createdAt"]
+      }
+    ],
+    order: [["id", "DESC"]],
+  })
+    .then((myPost) => {
+      if (myPost) {
+        return res.status(200).json({ myPost });
+      } else {
+        return res.status(404).json({ message: "Pas de publication!" });
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      return res.status(400).json({ error });
+    });
+};
+
 exports.updatePost = (req, res, next) => {
   const postId = req.params.id; // l'id du post
   const userId = req.params.userId; //l'id de user
@@ -165,7 +173,7 @@ exports.deletePost = (req, res) => {
       Post.findOne({
         where: {
           id: postId,
-        }, //Ajouter, demander au prof
+        },
         include: [
           {
             model: Comment,
@@ -205,7 +213,6 @@ exports.deletePost = (req, res) => {
                         }
                       })
                     }
-
                     return res
                       .status(200)
                       .json({ message: "Publication supprimée" });

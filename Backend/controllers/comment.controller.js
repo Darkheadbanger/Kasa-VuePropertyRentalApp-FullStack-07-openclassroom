@@ -57,24 +57,6 @@ exports.getAllComments = (req, res) => {
     });
 };
 
-// exports.getAllMyComment = (req, res) => {
-//   const userId = req.params.userId;
-//   Comment.findAll({
-//     where: { /*id: userId*/ userId: userId },
-//     include: {
-//       model: User,
-//     },
-//     order: [["id", "DESC"]],
-//   })
-//     .then((post) => {
-//       res.status(200).json({ post });
-//     })
-//     .catch((error) => {
-//       console.error(error.message);
-//       return res.status(400).json({ error });
-//     });
-// };
-
 exports.updateComments = (req, res) => {
   const userId = req.params.userId;
   const commentPost = req.body.comment;

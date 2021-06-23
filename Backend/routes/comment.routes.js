@@ -8,8 +8,6 @@ const router = express.Router();
 router.post("/", auth, multer, commentCtrl.createComment);
 // Trouver toutes les commentaires et les lires (en tant qu'admin ou d'autres users)
 router.get("/", auth, commentCtrl.getAllComments);
-// //recuperer tous les comments 
-// router.get("/all/:id", commentCtrl.getAllMyComment);
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
 router.put("/:id", auth, multer, commentCtrl.updateComments);
 //Supprimer une publication avec l'id
