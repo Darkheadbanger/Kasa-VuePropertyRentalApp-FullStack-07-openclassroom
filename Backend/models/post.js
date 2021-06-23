@@ -13,18 +13,18 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      likes: {
-        type: Sequelize.MEDIUMINT,
-      },
-      dislikes: {
-        type: Sequelize.MEDIUMINT,
-      },
-      userLikes: {
-        type: Sequelize.STRING,
-      },
-      usersDislikes: {
-        type: Sequelize.STRING,
-      },
+      // likes: {
+      //   type: Sequelize.MEDIUMINT,
+      // },
+      // dislikes: {
+      //   type: Sequelize.MEDIUMINT,
+      // },
+      // userLikes: {
+      //   type: Sequelize.STRING,
+      // },
+      // usersDislikes: {
+      //   type: Sequelize.STRING,
+      // },
       createdAt: {
         type: "TIMESTAMP",
         defaultValue: Sequelize.NOW,

@@ -8,18 +8,19 @@ const comment = require("../models/comment");
 const Comment = db.comment; //Comment le nom du modele sequelize Comment
 const User = db.user;
 const Post = db.post;
-
+//bonjour hey ici
 exports.createComment = (req, res) => {
   //Declarations des varibales pour récuperer les données du modèles
-  const userId = req.params.userId; //userId original
+  const userId = req.params.userId; //userId du user
+  const postId = req.params.postId;// postId de la post
   const commentPost = req.body.comment
   const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
     }`;
-
   const comment = new Comment({
     comment: commentPost,
     imageUrl: imageUrl,
-    userId: userId,//original userId
+    userId: userId,//original userId,
+    postId
   });
   comment
     .save()
@@ -110,7 +111,7 @@ exports.updateComments = (req, res) => {
       return res.status(403).json({ message: "Vous n'avez pas d'autorisation!" });
     });
 };
-exports.deleteComments = (req, res) => {
+exports.deleteComment = (req, res) => {
   const commentId = req.params.id; // l'id du post
   const userId = req.params.userId; //l'id de user
   User.findOne({
@@ -119,7 +120,7 @@ exports.deleteComments = (req, res) => {
     where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
-      console.log("Bonjour hey ici c'est", user)
+      // console.log("Bonjour hey ici c'est", user)
       //après avoir trouvé l'id de user
       console.log("aca", user.isAdmin);
       console.log("ici c'est", userId);
@@ -128,19 +129,19 @@ exports.deleteComments = (req, res) => {
           id: commentId,
         },
       })
-        .then((commentId) => {
-          console.log('Bonjour', commentId)
+        .then((comment) => {
+          console.log('Bonjour', comment)
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-          const fileName = commentId.imageUrl.split("/images/")[1];
+          const fileName = comment.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", commentId.userId);
-            if (user && (user.isAdmin || user.id == commentId.userId)) {
+            console.log("Hey :", comment.userId);
+            if (user && (user.isAdmin || user.id == comment.userId)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               //Si l'id de post a été envoyé dans la requête
               //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
               Comment.destroy({
                 // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
-                where: { id: commentId }, // Alors, on trouve l'id du poste cet utilisateur là
+                where: { id: comment.id }, // Alors, on trouve l'id du poste cet utilisateur là
               })
                 .then(() => {
                   return res
