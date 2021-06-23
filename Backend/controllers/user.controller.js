@@ -135,15 +135,14 @@ exports.updateUser = (req, res) => {
         error: "Veuillez vous connectez pour modifier ce compte",
       });
     });
+  } else {
+    return res.status(401).json({ message: "Email, mot de passe ou le nom n'est pas bon" });
   }
-
-
 };
 
 exports.deleteMyAccount = (req, res) => {
   const deletedUser = req.params.id
   const loggedUser = req.params.userId; //l'id de user
-  console.log("deletedUser :", deletedUser, "loggedUser :", loggedUser)
 
   if (loggedUser != null) {
     User.findOne({
