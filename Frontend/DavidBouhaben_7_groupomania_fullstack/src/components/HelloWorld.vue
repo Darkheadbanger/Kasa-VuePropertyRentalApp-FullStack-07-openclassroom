@@ -14,23 +14,24 @@
       count is: {{ state.count }}
     </button>
     <p>
-      Edit <code>components/HelloWorld.vue</code> to test hot module
-      replacement.
+      Edit
+      <code>components/HelloWorld.vue</code> to test hot module replacement.
     </p>
   </div>
 </template>
 
 <script setup>
 import { defineProps, reactive } from "vue";
+import 'es6-promise/auto'
 
 defineProps({
-  msg: String,
+  msg: String, 
 });
 
 const state = reactive({ count: 0 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 a {
   color: #42b983;
 }
