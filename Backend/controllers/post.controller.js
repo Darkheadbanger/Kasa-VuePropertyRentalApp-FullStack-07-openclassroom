@@ -38,10 +38,6 @@ exports.createPost = (req, res, next) => {
     });
 };
 
-// exports.likeDislike = (req, res, next) => {
-
-// }
-
 exports.getAllPost = (req, res, next) => {
   Post.findAll({
     include: [

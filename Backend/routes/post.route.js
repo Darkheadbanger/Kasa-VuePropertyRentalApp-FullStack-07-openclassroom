@@ -14,8 +14,6 @@ router.get("/:id", auth, postCtrl.getAllMyPost);
 router.post("/", auth, multer, postCtrl.createPost); 
 //Mise à jour d'une publication avec l'id (un utilisateuir ne peut pas mettre a jour d'une autre utilisateur)
 router.put("/:id", auth, multer, postCtrl.updatePost);
-// Like dislike
-// router.put("/:id", auth, postCtrl.likeDislike)
 //Supprimer une publication avec l'id
 router.delete("/:id", auth, postCtrl.deletePost);
 
