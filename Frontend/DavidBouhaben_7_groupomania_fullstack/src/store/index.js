@@ -1,7 +1,7 @@
-import { Vuex } from "vuex";
+import { createStore  } from "vuex";
 import { auth } from "./auth.module";
 
-const store = Vuex({
+const store = createStore({
   modules: {
     auth,
   },
