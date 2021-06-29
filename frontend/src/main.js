@@ -2,9 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from 'axios'
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from './plugins/font-awesome'
 
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:4200/api/'
-
-createApp(App).use(router).use(store).use(router).mount('#app')
+createApp(App).use(router).use(store).use(router).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
