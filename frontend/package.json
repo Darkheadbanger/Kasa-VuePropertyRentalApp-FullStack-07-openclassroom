@@ -3,34 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vite preview",
-    "build": "vite build",
-    "lint": "vue-cli-service lint",
-    "dev": "vite"
+    "serve": "vue-cli-service serve --port 3000",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@braid/vue-formulate": "^2.5.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/vue-fontawesome": "^3.0.0-4",
     "@popperjs/core": "^2.9.2",
+    "@vuelidate/core": "^2.0.0-alpha.19",
+    "@vuelidate/validators": "^2.0.0-alpha.17",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
-    "sass": "^1.35.1",
     "vee-validate": "^4.4.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.2",
-    "vuex-persistedstate": "^4.0.0-beta.3",
+    "vuex": "^4.0.0-0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.2.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
@@ -38,7 +37,6 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
     "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.2",
-    "vite": "^2.3.8"
+    "sass-loader": "^8.0.2"
   }
 }
