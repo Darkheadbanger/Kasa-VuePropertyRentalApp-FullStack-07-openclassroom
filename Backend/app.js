@@ -18,10 +18,6 @@ require("dotenv").config();
 // Met le view engine dans le ejs
 app.set("view engine", "ejs");
 
-const corsOption = {
-  origin: process.env.FRONTEND_ORIGIN,
-};
-
 app.use((req, res, next) => {
   //CORS (cross origine ressources sharing) pour éviter l'attaque cross-site request forgery (CSRF) et pour respecter la sécurité OWASP
   //système de sécurité par défault pour bloqué les appelles HTTP de deux servers differents, mais on le désactive car on a 2 servers differents qui doivent pouvoir se communiquer
@@ -39,7 +35,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors(corsOption));
 //Pour lire le format application/JSON
 app.use(bodyParser.json());
 //Pour lire le format application/x-www-form-urlencoded
@@ -48,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
 //app.use()
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
