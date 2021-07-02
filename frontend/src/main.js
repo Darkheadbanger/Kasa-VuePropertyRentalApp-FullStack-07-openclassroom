@@ -5,6 +5,7 @@ import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "./plugins/font-aweosme";
+import "./services/axios";
 
 createApp(App)
   .use(store)

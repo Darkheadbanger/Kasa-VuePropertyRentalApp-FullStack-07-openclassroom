@@ -127,7 +127,7 @@ exports.login = async (req, res) => {
         });
     })
     .catch((error) => {
-      console.error(error.message, "aca");
-      return res.status(500).json({ error: true });
+      console.error(error.message, "Utilisateur non trouvé");
+      return res.status(401).json({ error: "Utilisateur non trouvé" });
     });
 };

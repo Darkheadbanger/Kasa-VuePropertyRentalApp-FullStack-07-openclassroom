@@ -16,6 +16,7 @@
                     v-model="firstName"
                     name="firstName"
                     type="text"
+                    checked="true"
                     placeholder="Votre prénom"
                   />
                 </div>
@@ -25,6 +26,7 @@
                     v-model="lastName"
                     name="lastName"
                     type="text"
+                    checked="true"
                     placeholder="Votre nom"
                   />
                 </div>
@@ -34,6 +36,7 @@
                     v-model="userName"
                     name="userName"
                     type="text"
+                    checked="true"
                     placeholder="Votre pseudeo"
                   />
                 </div>
@@ -43,6 +46,7 @@
                     v-model="email"
                     name="email"
                     type="email"
+                    checked="true"
                     placeholder="Votre email"
                   />
                 </div>
@@ -52,12 +56,16 @@
                     v-model="password"
                     name="password"
                     type="password"
+                    checked="true"
                     placeholder="Votre mot de passe"
                   />
                 </div>
-                <button type="submit"><span>S'inscrire</span></button>
-                <p v-if="showError" class="error">
-                  Mot de passe ou mot de passe est incorrect!
+                <button type="submit" @click="submitClick">
+                  <span>S'inscrire</span>
+                </button>
+                <p v-if="showError" class="click">
+                  Vous avez oublié le nom, le prenom, le pseudeo, le mail ou le
+                  mot de passe
                 </p>
                 <div id="nav">
                   <router-link to="/login">Se connecter</router-link>
@@ -92,26 +100,24 @@ export default {
 
   methods: {
     submit() {
-      // const User = new FormData();
-      console.log("ici", this.email, this.password);
-      const myAPI = "http://localhost:3000/api/auth/";
+      const signUpAPI = "api/auth/signup";
       axios
-        .post(myAPI + "login", {
-          email: this.email,
-          password: this.password,
+        .post(signUpAPI, {
           firstName: this.firstName,
           lastName: this.lastName,
           userName: this.userName,
+          email: this.email,
+          password: this.password,
         })
         .then((response) => {
           response.data.accessToken;
           console.log("response", response);
+          this.$router.push('/login')
         })
         .catch((error) => {
           console.log(error);
           this.showError = true;
         });
-
       //Je regle error pour que si il u a une erreur au password et mail, il y a le message erreur qui sort
       //Si non, c'est ok
       // La then réponse, on recupère le backend pour ensuite l'utiliser

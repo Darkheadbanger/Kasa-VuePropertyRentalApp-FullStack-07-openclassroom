@@ -12,11 +12,23 @@
               <form @submit.prevent="submit">
                 <div class="formAuth">
                   <label for="email">Email</label>
-                  <input v-model="email" name="email" type="email" placeholder="Votre email" />
+                  <input
+                    v-model="email"
+                    name="email"
+                    type="email"
+                    checked="true"
+                    placeholder="Votre email"
+                  />
                 </div>
                 <div class="formAuth">
                   <label for="password">Mot de passe</label>
-                  <input v-model="password" name="password" type="password" placeholder="Votre mot de passe" />
+                  <input
+                    v-model="password"
+                    name="password"
+                    type="password"
+                    checked="true"
+                    placeholder="Votre mot de passe"
+                  />
                 </div>
                 <button type="submit"><span>Se connecter</span></button>
                 <p v-if="showError" class="error">
@@ -47,23 +59,20 @@ export default {
         email: "",
         password: "",
       },
-      showError: false
+      showError: false,
     };
   },
 
   methods: {
     submit() {
-      // const User = new FormData();
-      console.log("ici", this.email, this.password);
-      const myAPI = "http://localhost:3000/api/auth/";
+      const loginAPI = "api/auth/login";
       axios
-        .post(myAPI + "login", {
+        .post(loginAPI, {
           email: this.email,
           password: this.password,
         })
         .then((response) => {
-          response.data.accessToken;
-          console.log("response", response);
+          localStorage.setItem("userToken", response.data.token);
         })
         .catch((error) => {
           console.log(error);
