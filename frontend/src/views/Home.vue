@@ -10,8 +10,8 @@ import axios from "axios";
 export default {
   name: "Home",
   created() {
-    // const userAPI = `api/account/me/user`;
-    const userAPI = 'api/account/me/31';
+    let routeid = this.$route.params.user;
+    const userAPI = `api/account/me/${routeid}`; //:id ? => il faut faire get id dynamiquement
     axios
       .get(userAPI)
       .then((response) => {

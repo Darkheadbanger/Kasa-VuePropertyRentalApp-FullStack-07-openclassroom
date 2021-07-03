@@ -95,7 +95,7 @@ exports.login = async (req, res) => {
     .then((user) => {
       if (!user) {
         return res
-          .status(500)
+          .status(403)
           .json({ error: "Email incorrect ! " });
       }
       bcryptjs

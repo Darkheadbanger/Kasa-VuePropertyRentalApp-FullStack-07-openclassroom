@@ -34,7 +34,9 @@
                     />
                   </div>
                 </div>
-                <button type="submit"><span>Se connecter</span></button>
+                <button type="submit">
+                  <span>Se connecter</span>
+                </button>
                 <p v-if="showError" class="error">
                   <span class="error--modifier">
                     {{ error.error
@@ -48,8 +50,13 @@
                   </span>
                 </p>
                 <div id="nav">
-                  <router-link to="/">Mot de passe oublié ?</router-link> |
-                  <router-link to="/signup">S'inscrire</router-link>
+                  <router-link class="link" to="/"
+                    >Mot de passe oublié ?</router-link
+                  >
+                  |
+                  <router-link class="link" to="/signup"
+                    >S'inscrire</router-link
+                  >
                 </div>
               </form>
             </div>
@@ -62,6 +69,7 @@
 
 <script>
 import axios from "axios";
+import "../loginSignup.scss";
 
 export default {
   name: "Login",
@@ -91,7 +99,9 @@ export default {
           localStorage.setItem("userToken", response.data.token);
           this.showError = false;
           this.succes = response.data;
-          this.$router.push("/");
+          if (response) {
+            this.$router.push("/");
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -107,64 +117,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-$colorNotClicked: #2c3e50;
-$colorClicked: #42b983;
-$spacer: 0.3rem;
-$danger: red;
-$succes: green;
-#body {
-  background: url("../assets/groupomania.png") no-repeat center center fixed;
-  background-size: auto 100%;
-  height: 710px;
-  .container {
-    width: 30rem;
-    opacity: 0.8;
-    .card-body {
-      form {
-        .formAuth {
-          &__group {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            margin-bottom: $spacer;
-          }
-        }
-        .error {
-          margin-bottom: -1em;
-          margin-top: 0.2rem;
-          &--modifier {
-            color: $danger;
-          }
-        }
-        .succes {
-          margin-bottom: -1em;
-          margin-top: 0.2rem;
-          &--modifier {
-            color: $succes;
-          }
-        }
-      }
-    }
-    button {
-      width: 26.5rem;
-      margin-top: $spacer;
-      background-color: rgb(52, 58, 65);
-      color: white;
-    }
-  }
-}
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: $colorNotClicked;
-
-    &.router-link-exact-active {
-      color: $colorClicked;
-    }
-  }
-}
+<style lang="scss" scoped>
+@import "../scss/loginSignup.scss";
 </style>

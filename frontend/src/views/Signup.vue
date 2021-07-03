@@ -86,7 +86,9 @@
                   </span>
                 </p>
                 <div id="nav">
-                  <router-link to="/login">Se connecter</router-link>
+                  <router-link class="link" to="/login"
+                    >Se connecter</router-link
+                  >
                 </div>
               </form>
             </div>
@@ -133,7 +135,9 @@ export default {
           response.data.accessToken;
           console.log("response", response);
           (this.showError = false), (this.succes = response.data);
-          this.$router.push("/login");
+          if (response) {
+            this.$router.push("/login");
+          }
         })
         .catch((error) => {
           console.log(error);
