@@ -10,4 +10,4 @@ router.put('/me/:id', auth, multer, authCtrl.updateUser)
 //Un user peut effacer son compte, un admin peut effacer son compte et les comptes des autres
 router.delete('/me/:id', auth, authCtrl.deleteMyAccount);
 
-module.exports = router
+module.exports = router 

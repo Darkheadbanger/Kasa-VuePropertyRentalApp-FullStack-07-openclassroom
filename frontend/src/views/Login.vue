@@ -31,8 +31,10 @@
                   />
                 </div>
                 <button type="submit"><span>Se connecter</span></button>
-                <p v-if="showError" class="error">
-                  Mot de passe ou mot de passe est incorrect!
+                <p v-if="showError.error" class="error">
+                  <span class="error--modifier">
+                    {showError}
+                  </span>
                 </p>
                 <div id="nav">
                   <router-link to="/">Mot de passe oublié ?</router-link> |
@@ -59,7 +61,8 @@ export default {
         email: "",
         password: "",
       },
-      showError: false,
+      // showError: false,
+      showError: "",
     };
   },
 
@@ -72,11 +75,19 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          localStorage.setItem("userToken", response.data.token);
+          if (response) {
+            localStorage.setItem("userToken", response.data.token);
+          }else{
+            return response.json().then((body) => {
+              throw new Error(body.error)
+            })
+          }
+        }).catch((user) => {
+          console.log(user)
         })
         .catch((error) => {
           console.log(error);
-          this.showError = true;
+          this.showError = error.message;
         });
 
       //Je regle error pour que si il u a une erreur au password et mail, il y a le message erreur qui sort
@@ -92,6 +103,7 @@ export default {
 $colorNotClicked: #2c3e50;
 $colorClicked: #42b983;
 $spacer: 0.5rem;
+$danger: red;
 #body {
   background: url("../assets/groupomania.png") no-repeat center center fixed;
   background-size: auto 100%;
@@ -100,12 +112,21 @@ $spacer: 0.5rem;
     width: 30rem;
     opacity: 0.8;
     .card-body {
-      .formAuth {
-        display: flex;
-        flex-direction: column;
-        label {
-          text-align: left;
-          margin-bottom: $spacer;
+      form {
+        .formAuth {
+          display: flex;
+          flex-direction: column;
+          label {
+            text-align: left;
+            margin-bottom: $spacer;
+          }
+        }
+        .error {
+          margin-bottom: -1em;
+          margin-top: 0.2rem;
+          &--modifier {
+            color: $danger;
+          }
         }
       }
     }
