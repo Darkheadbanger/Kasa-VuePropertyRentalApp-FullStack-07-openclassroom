@@ -47,7 +47,6 @@
                     }}<!--utilisateur non trouvé-->
                   </span>
                 </p>
-
                 <div id="nav">
                   <router-link to="/">Mot de passe oublié ?</router-link> |
                   <router-link to="/signup">S'inscrire</router-link>
@@ -91,7 +90,8 @@ export default {
         .then((response) => {
           localStorage.setItem("userToken", response.data.token);
           this.showError = false;
-          this.succes = response.data
+          this.succes = response.data;
+          this.$router.push("/");
         })
         .catch((error) => {
           console.log(error);

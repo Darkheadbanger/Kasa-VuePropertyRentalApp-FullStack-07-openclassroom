@@ -13,16 +13,16 @@ exports.signup = async (req, res) => {
   const password = req.body.password;
  
   if (!firstName || !lastName) {
-    return res.status(400).json({ message: "Le prénom ou le nom est vide !" });
+    return res.status(400).json({ error: "Le prénom et le nom est vide !" });
   } else {
     if (!userName) {
-      return res.status(401).json({ message: "Le pseudeo est vide" });
+      return res.status(401).json({ error: "Le pseudeo est vide" });
     }
     if (!email) {
-      return res.status(401).json({ message: "L'émail est vide !" });
+      return res.status(401).json({ error: "L'émail est vide !" });
     }
     if (!password) {
-      return res.status(401).json({ message: "Le mot de passe est vide" });
+      return res.status(401).json({ error: "Le mot de passe est vide" });
     }
   }
 
@@ -59,15 +59,15 @@ exports.signup = async (req, res) => {
             console.error('test', error.message);
             return res
               .status(401)
-              .json({ message: " L'utilisateur a déjà été crée !" });
+              .json({ error: " L'utilisateur a déjà été crée !" });
           });
       })
       .catch((error) => {
-        return res.status(500).json({ error }); 
+        return res.status(500).json({ error: "Internal error" }); 
       });
     }
     else {
-      return res.status(401).json({ message: "Email, mot de passe ou le nom n'est pas bon" });
+      return res.status(401).json({ error: "Email, mot de passe ou le nom n'est pas bon" });
     }
 };
 
