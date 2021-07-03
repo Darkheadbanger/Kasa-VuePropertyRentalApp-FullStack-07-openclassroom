@@ -95,8 +95,8 @@ exports.login = async (req, res) => {
     .then((user) => {
       if (!user) {
         return res
-          .status(404)
-          .json({ message: "Utilisateur non trouvé !" + error });
+          .status(500)
+          .json({ error: "Email incorrect ! " });
       }
       bcryptjs
         .compare(password, user.password)

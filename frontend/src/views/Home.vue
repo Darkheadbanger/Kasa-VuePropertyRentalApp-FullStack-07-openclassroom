@@ -11,9 +11,9 @@ export default {
   name: "Home",
   created() {
     // const userAPI = `api/account/me/user`;
-    const userAPI = 'api/account/me/';
+    const userAPI = 'api/account/me/31';
     axios
-      .get(userAPI + 'user')
+      .get(userAPI)
       .then((response) => {
         console.log(response);
       })
