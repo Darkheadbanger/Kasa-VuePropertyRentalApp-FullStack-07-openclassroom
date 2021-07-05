@@ -10,14 +10,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+//  getting the current user via the state by mapGetters
 export default {
   name: "Home",
-  props: ["user"],
   methods: {
     logOutClick() {
       localStorage.removeItem("userToken");
+      //  we need to dispatch this user to null
+      this.$store.dispatch("user", null);
       this.$router.push("/login");
     },
-  }, 
+  },
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user"]),
+  },
 };
 </script>

@@ -2,7 +2,7 @@ const bcryptjs = require("bcryptjs"); // On déclare l'encryption bcryptJs, pour
 const jwt = require("jsonwebtoken"); // On déckare le jsonwebtoken pour pouvoir utiliser le token
 const db = require("../models");
 //idUser
-const User = db.user; 
+const User = db.user;
 //const CryptoJS = require("crypto-js/sha256")
 require("dotenv").config(); //process
 exports.signup = async (req, res) => {
@@ -11,7 +11,7 @@ exports.signup = async (req, res) => {
   const userName = req.body.userName;
   const email = req.body.email;
   const password = req.body.password;
- 
+
   if (!firstName || !lastName) {
     return res.status(400).json({ error: "Le prénom et le nom est vide !" });
   } else {
@@ -31,9 +31,13 @@ exports.signup = async (req, res) => {
     /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
   const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
   const regexName = /(.*[a-z]){3,30}/;
-  if (regexMail.test(email) && regexPassword.test(password) && regexName.test(firstName) 
-    && regexName.test(lastName) && regexName.test(userName))
-  {
+  if (
+    regexMail.test(email) &&
+    regexPassword.test(password) &&
+    regexName.test(firstName) &&
+    regexName.test(lastName) &&
+    regexName.test(userName)
+  ) {
     bcryptjs
       .hash(password, 10) //On hash et on salt 10 fois
       .then((hash) => {
@@ -47,28 +51,30 @@ exports.signup = async (req, res) => {
           password: hash,
           //email: CryptoJS.SHA256(req.body.email, process.env.EMAIL).toString()//ici je veux crypter
         });
-        console.log("user")
-        user.save() // On Sauvegarde tous cela dans la base de doneés
+        console.log("user");
+        user
+          .save() // On Sauvegarde tous cela dans la base de doneés
           .then(() => {
-            console.log('then')
+            console.log("then");
             return res.status(201).json({
               message: "Félicitation, utilisateur crée !",
             });
-          }) 
+          })
           .catch((error) => {
-            console.error('test', error.message);
+            console.error("test", error.message);
             return res
               .status(401)
               .json({ error: " L'utilisateur a déjà été crée !" });
           });
       })
       .catch((error) => {
-        return res.status(500).json({ error: "Internal error" }); 
+        return res.status(500).json({ error: "Internal error" });
       });
-    }
-    else {
-      return res.status(401).json({ error: "Email, mot de passe ou le nom n'est pas bon" });
-    }
+  } else {
+    return res
+      .status(401)
+      .json({ error: "Email, mot de passe ou le nom n'est pas bon" });
+  }
 };
 
 exports.login = async (req, res) => {
@@ -94,9 +100,7 @@ exports.login = async (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res
-          .status(403)
-          .json({ error: "Email incorrect ! " });
+        return res.status(403).json({ error: "Email incorrect ! " });
       }
       bcryptjs
         .compare(password, user.password)
@@ -110,14 +114,19 @@ exports.login = async (req, res) => {
             //Ici pour roles après
             res.status(200).json({
               message: "vous avez reussi a se connecter !",
-              userId: user.id,//originel userId
-              role: user.isAdmin,
-              userName: user.userName,
               token: jwt.sign(
-                { userId: user.id },// original userId
+                { userId: user.id }, // original userId
                 process.env.ACCES_TOKEN_SECRET,
                 { expiresIn: "24h" }
               ),
+              user: {
+                id: user.id,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                userName: user.userName,
+                email: user.email,
+                isAdmin: user.isAdmin,
+              }, //the same as user: user, to retrieve the table and it's content
             });
           }
         })

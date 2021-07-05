@@ -1,5 +1,5 @@
 <template>
-  <div><router-view :user="user" /><!--custom directives to home--></div>
+  <div><router-view /><!--custom directives to home--></div>
 </template>
 
 <script lang="ts">
@@ -9,18 +9,15 @@ import axios from "axios";
 export default {
   name: "App",
   components: {},
-  data() {
-    return {
-      user: "",
-    };
-  },
   created() {
     // let routeid = this.$route.params.user;
-    const userAPI = `api/account/me/`; //:id ? => il faut faire get id dynamiquement
+    const userAPI = `user`; //:id ? => il faut faire get id dynamiquement
     axios
       .get(userAPI)
       .then((response) => {
-        this.user = response.data;
+        // this.user = response.data;
+        // dispatch against user
+        this.$store.dispatch("user", response.data);
         console.log(response);
       })
       .catch((error) => {

@@ -50,8 +50,8 @@
                   </span>
                 </p>
                 <div id="nav">
-                  <router-link class="link" to="/forgot"
-                    >Mot de passe oublié ?</router-link
+                  <router-link class="link" to="/login"
+                    >Se connecter ?</router-link
                   >
                   |
                   <router-link class="link" to="/signup"
