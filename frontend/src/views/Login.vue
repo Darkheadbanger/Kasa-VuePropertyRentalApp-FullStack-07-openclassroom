@@ -75,7 +75,7 @@ export default {
   components: {},
   data() {
     return {
-      form: {
+      formValues: {
         email: "",
         password: "",
       },
@@ -140,7 +140,7 @@ $shake-intensity: 1%;
 
 #body {
   @include imageBg;
-  background-size: auto 100%;
+  background-size: cover;
   height: 710px;
   .container {
     width: 30rem;

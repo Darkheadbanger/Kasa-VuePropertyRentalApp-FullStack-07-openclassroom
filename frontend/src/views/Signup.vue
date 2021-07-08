@@ -108,7 +108,7 @@ export default {
   components: {},
   data() {
     return {
-      form: {
+      formValues: {
         firstName: "",
         lastName: "",
         userName: "",
@@ -169,13 +169,12 @@ $bg-btn--after: #343a41;
 $shake-intensity: 1%;
 
 @mixin imageBg {
-  background: url("../assets/groupomania.png") no-repeat center center
-    fixed;
-};
+  background: url("../assets/groupomania.png") no-repeat center center fixed;
+}
 
 #body {
   @include imageBg;
-  background-size: auto 100%;
+  background-size: cover;
   height: 710px;
   .container {
     width: 30rem;

@@ -16,7 +16,7 @@ export default {
   name: "Home",
   methods: {
     logOutClick() {
-      localStorage.removeItem("userToken");
+      localStorage.clear("userToken");
       //  we need to dispatch this user to null
       this.$store.dispatch("user", null);
       this.$router.push("/login");
