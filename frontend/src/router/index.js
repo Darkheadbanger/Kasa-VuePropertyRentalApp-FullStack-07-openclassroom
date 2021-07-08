@@ -41,7 +41,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeResolve((to, from, next) => {
   // console.log(to, from, next)
   if (to.meta.guest) {
     next();
@@ -50,6 +50,21 @@ router.beforeEach((to, from, next) => {
     if (!getToken) {
       next({
         path: "/login",
+      });
+    } else {
+      next();
+    }
+  }
+});
+
+router.beforeResolve((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    next();
+  } else if (to.meta.guest) {
+    const getToken = localStorage.getItem("userToken");
+    if (getToken) {
+      next({
+        path: "/",
       });
     } else {
       next();
