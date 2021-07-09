@@ -1,5 +1,9 @@
 <template>
-  <div><router-view /><!--custom directives to home--></div>
+  <div>
+    <nav></nav>
+    <router-view />
+    <!--custom directives to home-->
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,7 +12,7 @@ import axios from "axios";
 
 export default {
   name: "App",
-  components: {},
+
   created() {
     // let routeid = this.$route.params.user;
     const userAPI = `user`; //:id ? => il faut faire get id dynamiquement

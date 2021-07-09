@@ -1,5 +1,8 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import SecureLS from "secure-ls";
+let ls = new SecureLS({ isCompression: false });
+
 export default createStore({
   state: {
     user: null, //!localStorage.getItem("userToken")
@@ -22,6 +25,7 @@ export default createStore({
     createPersistedState({
       key: "keyname",
       paths: window.localStorage,
+      expires: 7, // une semaine
     }),
   ],
   mutations: {
