@@ -23,8 +23,11 @@ export default createStore({
   },
   plugins: [
     createPersistedState({
-      key: "keyname",
-      paths: window.localStorage,
+      // key: "keyname",
+      // paths: window.localStorage,
+      getItem: (key) => ls.get(key),
+      setItem: (key, value) => ls.set(key, value),
+      removeItem: (key) => ls.removeAll(key),
       expires: 7, // une semaine
     }),
   ],
