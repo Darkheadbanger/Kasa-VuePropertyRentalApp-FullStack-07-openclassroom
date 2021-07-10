@@ -62,7 +62,10 @@
           >
             <font-awesome-icon :icon="['fas', 'arrow-down']" />
           </button>
-          <div class="collapse navbar-collapse ml-auto hidden-sm-up float-md-right" id="navbarSupportedContent">
+          <div
+            class="collapse navbar-collapse ml-auto hidden-sm-up float-md-right"
+            id="navbarSupportedContent"
+          >
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a
@@ -93,15 +96,15 @@
                     <!-- Il faut utiliser computed pour mettre le nom et prenom -->
                     <!-- <span>{{user.name}}</span> -->
                     <span class="d-flex align-items-center"
-                      >David Bouhaben</span
+                      >{{ user.firstName }} {{ user.lastName }}</span
                     >
                   </div>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mt-1">
                 <a class="nav-link text-white" href="#">Accueil</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mt-1">
                 <a
                   href="javascript:void(0)"
                   @click="logOutClick"
@@ -118,8 +121,23 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+//  getting the current user via the state by mapGetters
 export default {
   name: "Nav",
+
+  methods: {
+    logOutClick() {
+      localStorage.clear("userToken");
+      //  we need to dispatch this user to null
+      this.$store.dispatch("user", null);
+      this.$router.push("/login");
+    },
+  },
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user"]),
+  },
 };
 </script>
 

@@ -10,6 +10,7 @@ export default createStore({
   getters: {
     user: (state) => {
       // Get current value of the user, which in this case user is null
+      
       return state.user;
     },
   },
