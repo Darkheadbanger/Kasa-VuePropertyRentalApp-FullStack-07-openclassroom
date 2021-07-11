@@ -8,7 +8,10 @@
         justify-content-md-between
       "
     >
-      <a class="a_logo navbar-brand d-flex justify-content-start" href="#">
+      <router-link
+        :to="{ name: 'Home' }"
+        class="a_logo navbar-brand d-flex justify-content-start"
+      >
         <img
           class="img img-fluid d-inline align-left p-2"
           src="../assets/icon-above-font.png"
@@ -18,7 +21,7 @@
           <div class="align-items-start">Welcome to</div>
           <div>GroupomaniaNetwork</div>
         </span>
-      </a>
+      </router-link>
       <form class="d-flex">
         <div class="col-sm-6 col-md-12">
           <input
@@ -36,7 +39,7 @@
 
       <nav class="navbar navbar-expand-md">
         <div class="container-fluid">
-          <a class="a_profil navbar-brand" href="#">
+          <router-link :to="{ name: 'MyProfil' }" class="a_profil navbar-brand">
             <img
               class="
                 img_profil
@@ -50,7 +53,7 @@
               src="../assets/icon-above-font.png"
               alt="Groupomania logo"
             />
-          </a>
+          </router-link>
           <button
             class="navbar-toggler"
             type="button"
@@ -68,7 +71,8 @@
           >
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a
+                <router-link
+                  :to="{ name: 'MyProfil' }"
                   class="
                     a_profil
                     nav-link
@@ -76,7 +80,6 @@
                     d-flex
                     flex-column
                     justify-content-end
-                    
                   "
                   aria-current="page"
                   href="#"
@@ -100,17 +103,20 @@
                       >{{ user.firstName }} {{ user.lastName }}</span
                     ><br />
                   </div>
-                </a>
+                </router-link>
               </li>
               <li class="nav-item top">
-                <a class="nav-link text-white" href="#">Accueil</a>
+                <router-link :to="{ name: 'Home' }" class="nav-link text-white"
+                  >Accueil</router-link
+                >
               </li>
               <li class="nav-item">
-                <a
+                <router-link
+                  :to="{ name: 'Login' }"
                   href="javascript:void(0)"
                   @click="logOutClick"
                   class="nav-link link text-white"
-                  >Deconnexion</a
+                  >Deconnexion</router-link
                 >
               </li>
             </ul>
@@ -163,7 +169,7 @@ header {
         }
       }
     }
-    .top{
+    .top {
       margin-top: -20px;
     }
     .a_profil {

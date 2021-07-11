@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    
+  <div>
+    <!-- Pour login et signup -->
   </div>
 </template>
 
@@ -8,5 +8,5 @@
 export default {};
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 </style>

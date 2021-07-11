@@ -37,7 +37,6 @@ exports.userProfil = (req, res) => {
       "lastName",
       "userName",
       "email",
-      "password",
       "isAdmin",
     ],
   }) //A veifier

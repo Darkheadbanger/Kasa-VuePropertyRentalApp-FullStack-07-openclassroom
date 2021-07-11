@@ -94,7 +94,6 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          console.log(response);
           localStorage.setItem("userToken", response.data.token);
           this.showError = false;
           this.succes = response.data;

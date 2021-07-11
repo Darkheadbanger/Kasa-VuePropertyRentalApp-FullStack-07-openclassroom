@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
+import MyProfil from "../views/MyProfil.vue";
 // import Forgot from "../views/Forgot.vue";
 const routes = [
   {
@@ -29,6 +30,14 @@ const routes = [
       guest: true,
     },
   },
+  {
+    path: "/myProfil",
+    name: "MyProfil",
+    component: MyProfil,
+    meta: {
+      requiresAuth: true,
+    },
+  },
   // {
   //   path: "/forgot",
   //   name: "Forgot",
@@ -40,9 +49,8 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
+// If not connected back to login
 router.beforeResolve((to, from, next) => {
-  // console.log(to, from, next)
   if (to.meta.guest) {
     next();
   } else if (to.meta.requiresAuth) {
@@ -56,7 +64,7 @@ router.beforeResolve((to, from, next) => {
     }
   }
 });
-
+// If connected back to home
 router.beforeResolve((to, from, next) => {
   if (to.meta.requiresAuth) {
     next();

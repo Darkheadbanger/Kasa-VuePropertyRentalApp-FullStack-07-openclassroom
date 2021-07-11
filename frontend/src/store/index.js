@@ -10,13 +10,11 @@ export default createStore({
   getters: {
     user: (state) => {
       // Get current value of the user, which in this case user is null
-      
       return state.user;
     },
   },
   actions: {
     user({ commit }, user) {
-      // localStorage("userToken");
       // "user" method is a user from mutations, the variable is user
       // context.commit is for trigger the mutations
       commit("user", user);
@@ -29,7 +27,7 @@ export default createStore({
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),
       removeItem: (key) => ls.removeAll(key),
-      expires: 7, // une semaine
+      expires: 1, // 24 heures
     }),
   ],
   mutations: {
