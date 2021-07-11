@@ -76,6 +76,7 @@
                     d-flex
                     flex-column
                     justify-content-end
+                    
                   "
                   aria-current="page"
                   href="#"
@@ -97,14 +98,14 @@
                     <!-- <span>{{user.name}}</span> -->
                     <span class="d-flex align-items-center"
                       >{{ user.firstName }} {{ user.lastName }}</span
-                    >
+                    ><br />
                   </div>
                 </a>
               </li>
-              <li class="nav-item mt-1">
+              <li class="nav-item top">
                 <a class="nav-link text-white" href="#">Accueil</a>
               </li>
-              <li class="nav-item mt-1">
+              <li class="nav-item">
                 <a
                   href="javascript:void(0)"
                   @click="logOutClick"
@@ -161,6 +162,9 @@ header {
           // background: rgb(145, 169, 120);
         }
       }
+    }
+    .top{
+      margin-top: -20px;
     }
     .a_profil {
       .img_profil {
