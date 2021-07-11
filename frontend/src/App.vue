@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav></Nav>
+    <Home></Home>
     <router-view />
     <!--custom directives to home-->
   </div>
@@ -8,12 +8,12 @@
 
 <script lang="ts">
 import axios from "axios";
-import Nav from "./components/Nav.vue";
+import Home from "./views/Home.vue";
 
 export default {
   name: "App",
   component: {
-    Nav
+    Home,
   },
   created() {
     const userAPI = `user`; //:id ? => il faut faire get id dynamiquement
