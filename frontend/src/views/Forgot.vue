@@ -103,7 +103,7 @@ export default {
           // 'user' is a function, response.data.user is the value that we want
           this.$store.dispatch("user", response.data.user);
           if (response) {
-            this.$router.push("/");
+            this.$router.push({ name: "Home" });
           }
         })
         .catch((error) => {

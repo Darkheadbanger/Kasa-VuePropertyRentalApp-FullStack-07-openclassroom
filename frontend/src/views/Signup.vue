@@ -137,7 +137,7 @@ export default {
           console.log("response", response);
           (this.showError = false), (this.succes = response.data);
           if (response) {
-            this.$router.push("/login");
+            this.$router.push({ name: "Login" });
           }
         })
         .catch((error) => {
