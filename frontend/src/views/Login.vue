@@ -121,23 +121,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$colorNotClicked: #2c3e50;
-$colorClicked: #42b983;
-$spacer: 0.3rem;
-$danger: red;
-$succes: green;
-$cd-txt: rgb(24, 43, 73);
-$cd-txt--invalid: #fff;
-$cd-txt-btn--before: black;
-$cd-txt-btn--after: white;
-$bg-btn--before: white;
-$bg-btn--after: #343a41;
-$shake-intensity: 1%;
-
-@mixin imageBg {
-  background: url("../assets/groupomania.png") no-repeat center center fixed;
-}
-
 #body {
   @include imageBg;
   background-size: cover;

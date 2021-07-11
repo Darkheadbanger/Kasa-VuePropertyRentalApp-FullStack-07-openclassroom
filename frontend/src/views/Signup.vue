@@ -145,9 +145,6 @@ export default {
           this.showError = true;
           this.error = error.response.data;
         });
-      //Je regle error pour que si il u a une erreur au password et mail, il y a le message erreur qui sort
-      //Si non, c'est ok
-      // La then réponse, on recupère le backend pour ensuite l'utiliser
     },
   },
 };
@@ -155,22 +152,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$colorNotClicked: #2c3e50;
-$colorClicked: #42b983;
-$spacer: 0.3rem;
-$danger: red;
-$succes: green;
-$cd-txt: rgb(24, 43, 73);
-$cd-txt--invalid: #fff;
-$cd-txt-btn--before: black;
-$cd-txt-btn--after: white;
-$bg-btn--before: white;
-$bg-btn--after: #343a41;
-$shake-intensity: 1%;
-
-@mixin imageBg {
-  background: url("../assets/groupomania.png") no-repeat center center fixed;
-}
 
 #body {
   @include imageBg;
