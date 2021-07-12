@@ -100,7 +100,7 @@ exports.login = async (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(403).json({ error: "Email incorrect ! " });
+        return res.status(403).json({ error: "Email ou mot de passe incorrect ! " });
       }
       bcryptjs
         .compare(password, user.password)
@@ -108,12 +108,12 @@ exports.login = async (req, res) => {
           if (!valid) {
             return res.status(401).json({
               accessToken: null,
-              error: "Mot de passe incorrect !",
+              error: "Email ou mot de passe incorrect !",
             });
           } else {
             //Ici pour roles après
             res.status(200).json({
-              message: "vous avez reussi a se connecter !",
+              message: "vous avez reussi a vous connecter !",
               token: jwt.sign(
                 { userId: user.id }, // original userId
                 process.env.ACCES_TOKEN_SECRET,
