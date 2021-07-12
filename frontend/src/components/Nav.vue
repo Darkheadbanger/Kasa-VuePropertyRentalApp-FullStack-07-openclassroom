@@ -3,7 +3,7 @@
     <nav
       class="
         navbar navbar-dark
-        bg-success bg-gradient
+        bg-primary bg-gradient
         d-flex
         justify-content-md-between
       "

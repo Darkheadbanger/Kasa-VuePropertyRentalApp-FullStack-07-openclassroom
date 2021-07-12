@@ -9,7 +9,7 @@
               <font-awesome-icon icon="user" />
             </div>
             <div class="card-body">
-              <form @submit.prevent="submit">
+              <form @submit.prevent="loginDeLaVue">
                 <div class="formAuth">
                   <div class="formAuth__group">
                     <label for="email">Email</label>
@@ -68,8 +68,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Login",
 
@@ -86,26 +84,15 @@ export default {
   },
 
   methods: {
-    submit() {
-      const loginAPI = "api/auth/login";
-      axios
-        .post(loginAPI, {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          localStorage.setItem("userToken", response.data.token);
-          this.showError = false;
-          this.succes = response.data;
-          // Dispatch the event that the user is loggedin, from vuex ($store)
-          // 'user' is a function, response.data.user is the value that we want
-          this.$store.dispatch("user", response.data.user);
-          if (response) {
-            this.$router.push({ name: "Home" });
-          }
+    loginDeLaVue: function () {
+      const email = this.email;
+      const password = this.password;
+      this.$store
+        .dispatch("login", { email, password })
+        .then(() => {
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
-          console.log(error);
           this.showError = true;
           this.error = error.response.data;
         });

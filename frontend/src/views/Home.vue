@@ -24,13 +24,13 @@
                     align-items-center
                   "
                 >
-                  <div>
+                  <div class="d-flex align-items-center">
                     <img
                       class="profile-pic"
                       src="../assets/icon-above-font.png"
                       alt="profile"
                     />
-                    <span class="profile-name"
+                    <span class="profile-name mt-3"
                       >{{ user.firstName }} {{ user.lastName }}</span
                     >
                   </div>
@@ -90,6 +90,7 @@ body {
     img {
       border-radius: 0.25rem 0.25rem 0 0;
       width: 100%;
+      height: 32vw;
     }
     .gray-shade {
       position: absolute;
@@ -111,7 +112,8 @@ body {
 
       .profile-pic {
         border-radius: 50%;
-        width: 100px;
+        width: 6rem;
+        height: auto;
       }
 
       .profile-name {

@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
+import axios from "axios";
 let ls = new SecureLS({ isCompression: false });
 
 export default createStore({
@@ -14,10 +15,24 @@ export default createStore({
     },
   },
   actions: {
-    user({ commit }, user) {
-      // "user" method is a user from mutations, the variable is user
-      // context.commit is for trigger the mutations
-      commit("user", user);
+    login({ commit }, user) {
+      const loginAPI = "api/auth/login";
+      return new Promise((resolve, reject) => {
+        axios
+          .post(loginAPI, {
+            email: user.email,
+            password: user.password,
+          })
+          .then((response) => {
+            localStorage.setItem("userToken", response.data.token);
+            commit("user", response.data.user);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
     },
   },
   plugins: [

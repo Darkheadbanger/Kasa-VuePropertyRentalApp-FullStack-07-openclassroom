@@ -7,7 +7,7 @@ module.exports = {
           `
           @import "@/scss/_variables.scss";
           @import "@/scss/_mixins.scss";
-
+          @import "@/scss/main.scss";
         `,
       },
     },
