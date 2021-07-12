@@ -8,6 +8,7 @@ import {
   faSignOutAlt,
   faSearch,
   faArrowDown,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -17,7 +18,8 @@ library.add(
   faSignInAlt,
   faSignOutAlt,
   faSearch,
-  faArrowDown
+  faArrowDown,
+  faEdit
 );
 
 export { FontAwesomeIcon };

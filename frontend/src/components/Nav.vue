@@ -105,8 +105,10 @@
                   </div>
                 </router-link>
               </li>
-              <li class="nav-item top">
-                <router-link :to="{ name: 'Home' }" class="nav-link text-white"
+              <li class="nav-item">
+                <router-link
+                  :to="{ name: 'Home' }"
+                  class="nav-link link text-white"
                   >Accueil</router-link
                 >
               </li>

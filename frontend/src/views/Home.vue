@@ -5,15 +5,15 @@
     <div class="container">
       <div class="profile-page tx-13">
         <div class="row">
-          <div class="col-12 margin-bottom">
+          <div class="col-12 grid-margin">
             <div class="profile-header">
-              <div class="cover d-flex justify-content-between">
-                <div class="grey-shade"></div>
+              <div class="cover">
+                <div class="gray-shade"></div>
                 <figure>
                   <img
                     src="../assets/bg1.jpg"
-                    class="img-fluid img-bg"
-                    alt="background profil"
+                    class="img-fluid"
+                    alt="profile cover"
                   />
                 </figure>
                 <div
@@ -21,14 +21,14 @@
                     cover-body
                     d-flex
                     justify-content-between
-                    align-items-end
+                    align-items-center
                   "
                 >
                   <div>
                     <img
+                      class="profile-pic"
                       src="../assets/icon-above-font.png"
-                      alt="profile picture"
-                      class="img-fluid img rounded-circle"
+                      alt="profile"
                     />
                     <span class="profile-name"
                       >{{ user.firstName }} {{ user.lastName }}</span
@@ -38,6 +38,7 @@
                     <button
                       class="btn btn-primary btn-icon-text btn-edit-profile"
                     >
+                      <font-awesome-icon :icon="['fas', 'edit']" />
                       Edit profile
                     </button>
                   </div>
@@ -75,46 +76,84 @@ export default {
 
 <style lang="scss" scoped>
 body {
-  .margin-bottom {
-    margin-bottom: 2rem;
-  }
-  .profile-page {
-    margin-top: 20px;
-    .img {
-      width: 5rem;
-      height: auto;
+  background-color: #f9fafb;
+  margin-top: 40px;
+}
+
+.profile-page .profile-header {
+  box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+  border: 1px solid #f2f4f9;
+
+  .cover {
+    position: relative;
+    border-radius: 0.25rem 0.25rem 0 0;
+    img {
+      border-radius: 0.25rem 0.25rem 0 0;
+      width: 100%;
     }
-    .cover {
-      .cover-body {
-        position: absolute;
-        bottom: -22px;
-        left: 0;
-        z-index: 2;
-        widows: 100%;
-        padding: 0 120px;
-        .btn-edit-profile {
-          margin: 0 70rem;
-        }
+    .gray-shade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
+    }
+
+    .cover-body {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      padding: 0 20px;
+
+      .profile-pic {
+        border-radius: 50%;
+        width: 100px;
       }
-      .grey-shade {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
-        .img-bg {
-          width: 0%;
-        }
-      }
+
       .profile-name {
-        font-family: "Times New Roman", Times, serif;
         font-size: 20px;
-        font-weight: bold;
+        font-weight: 600;
         margin-left: 17px;
       }
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-page .profile-header .cover figure {
+    height: 110px;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 2400px) {
+  .profile-page .profile-header .cover figure {
+    height: 280px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-page .profile-header .cover figure img {
+    // -webkit-transform: scale(2);
+    transform: scale(2);
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 2400px) {
+  .profile-page .profile-header .cover figure img {
+    margin-top: -55px;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-page .profile-header .cover .cover-body .profile-pic {
+    width: 70px;
   }
 }
 </style>
