@@ -34,6 +34,31 @@ export default createStore({
           });
       });
     },
+
+    signup({ commit }, user) {
+      const signUpAPI = "api/auth/signup";
+      return new Promise((resolve, reject) => {
+        axios
+          .post(signUpAPI, {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userName: user.userName,
+            email: user.email,
+            password: user.password,
+          })
+          .then((response) => {
+            commit("user", response.data.accessToken);
+            // commit ('user', response.data.user)
+            console.log("response", response);
+
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
   },
   plugins: [
     createPersistedState({

@@ -9,7 +9,7 @@
               <font-awesome-icon icon="user" />
             </div>
             <div class="card-body">
-              <form @submit.prevent="loginDeLaVue">
+              <form @submit.prevent="_loginForm">
                 <div class="formAuth">
                   <div class="formAuth__group">
                     <label for="email">Email</label>
@@ -84,19 +84,24 @@ export default {
   },
 
   methods: {
-    //login
-    loginDeLaVue: function () {
-      const email = this.email;
-      const password = this.password;
+    _loginForm: function() {
+      const email=this.email;
+      const password=this.password;
       this.$store
         .dispatch("login", { email, password })
         .then(() => {
           this.$router.push({ name: "Home" });
         })
         .catch((error) => {
-          this.showError = true;
-          this.error = error.response.data;
+          this.showError=true;
+          this.error=error.response.data;
         });
+    },
+    get loginForm() {
+      return this._loginForm;
+    },
+    set loginForm(value) {
+      this._loginForm=value;
     },
   },
 };

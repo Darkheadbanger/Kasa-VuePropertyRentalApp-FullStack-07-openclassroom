@@ -19,7 +19,7 @@ library.add(
   faSignOutAlt,
   faSearch,
   faArrowDown,
-  faEdit
+  faEdit,
 );
 
 export { FontAwesomeIcon };

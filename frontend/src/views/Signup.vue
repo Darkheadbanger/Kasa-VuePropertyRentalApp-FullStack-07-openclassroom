@@ -10,7 +10,7 @@
               <font-awesome-icon icon="user" />
             </div>
             <div class="card-body">
-              <form @submit.prevent="submit">
+              <form @submit.prevent="_signupForm">
                 <div class="formAuth">
                   <div class="formAuth__group">
                     <label for="firstName">Prénom</label>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "Signup",
@@ -122,20 +122,23 @@ export default {
   },
 
   methods: {
-    submit() {
-      const signUpAPI = "api/auth/signup";
-      axios
-        .post(signUpAPI, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          userName: this.userName,
-          email: this.email,
-          password: this.password,
+    _signupForm: function () {
+      const firstName = this.firstName;
+      const lastName = this.lastName;
+      const userName = this.userName;
+      const email = this.email;
+      const password = this.password;
+
+      this.$store
+        .dispatch("signup", {
+          firstName,
+          lastName,
+          userName,
+          email,
+          password,
         })
         .then((response) => {
-          response.data.accessToken;
-          console.log("response", response);
-          (this.showError = false), (this.succes = response.data);
+          console.log(response);
           if (response) {
             this.$router.push({ name: "Login" });
           }
@@ -152,7 +155,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
 #body {
   @include imageBg;
   background-size: cover;

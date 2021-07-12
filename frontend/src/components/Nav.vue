@@ -33,7 +33,7 @@
           />
         </div>
         <button type="button" class="btn btn-secondary">
-          <font-awesome-icon icon="search" />
+          <font-awesome-icon :icon="['fas', 'search']" />
         </button>
       </form>
 

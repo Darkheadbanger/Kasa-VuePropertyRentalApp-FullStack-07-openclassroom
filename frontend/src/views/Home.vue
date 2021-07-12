@@ -1,7 +1,7 @@
 <template>
   <div>
     <Nav></Nav>
-    <!-- <Home></Home> -->
+    <!-- <Home></Home> bg -->
     <div class="container">
       <div class="profile-page tx-13">
         <div class="row">
@@ -30,9 +30,19 @@
                       src="../assets/icon-above-font.png"
                       alt="profile"
                     />
-                    <span class="profile-name mt-3"
-                      >{{ user.firstName }} {{ user.lastName }}</span
-                    >
+                    <div class="d-flex flex-column">
+                      <span
+                        class="
+                          profile-name profile-name__modificator
+                          profile-spacing
+                        "
+                      >
+                        {{ user.firstName }} {{ user.lastName }}
+                      </span>
+                      <span class="profile-name d-flex justify-content-start"
+                        >({{ user.userName }})</span
+                      >
+                    </div>
                   </div>
                   <div class="d-none d-md-block">
                     <button
@@ -44,6 +54,16 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="d-flex justify-content-center">
+              <ul class="links d-flex align-items-center mt-md-0 mt-3">
+                <li class="header-link-item d-flex align-item-center active">
+                  <font-awesome-icon :icon="['fas', 'home']" />
+                  <router-link :to="{ name: 'Home' }" class="text-dark text-decoration-none"
+                    >Home</router-link
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -117,9 +137,13 @@ body {
       }
 
       .profile-name {
-        font-size: 20px;
-        font-weight: 600;
         margin-left: 17px;
+        &__modificator {
+          font-weight: 600;
+        }
+      }
+      .profile-spacing {
+        margin-top: 10px;
       }
     }
   }
