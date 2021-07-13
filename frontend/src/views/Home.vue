@@ -21,6 +21,8 @@
                     cover-body
                     d-flex
                     justify-content-between
+                    flex-md-row
+                    flex-column
                     align-items-center
                   "
                 >
@@ -43,7 +45,7 @@
                       >
                     </div>
                   </div>
-                  <div class="d-none d-md-block">
+                  <div>
                     <button
                       class="btn btn-primary btn-icon-text btn-edit-profile"
                       @click="toUpdate"
@@ -55,9 +57,20 @@
               </div>
               <div class="header-links">
                 <ul class="links d-flex align-items-center mt-3 mt-md-0">
-                  <li class="header-link-item d-flex align-items-center active">
-                    <a class="pt-1px d-none d-md-block" href="#">Timeline</a>
+                  <li
+                    class="
+                      header-link-item
+                      d-flex
+                      align-items-center
+                      active
+                      me-3
+                    "
+                  >
+                    <font-awesome-icon :icon="['fas', 'home']" />
+
+                    <a class="pt-1px d-none d-md-block" href="#">Home</a>
                   </li>
+                  <span class="me-3">|</span>
                   <li
                     class="
                       header-link-item
@@ -67,14 +80,17 @@
                       d-flex
                       align-items-center
                     "
+                    v-if="user.admin=1"
                   >
-                    <a class="pt-1px d-none d-md-block" href="#">Videos</a>
+                    <font-awesome-icon :icon="['fas', 'users']" />
+                    <a class="pt-1px d-none d-md-block" href="#">Users list</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
     <h3 v-if="user">Token</h3>
