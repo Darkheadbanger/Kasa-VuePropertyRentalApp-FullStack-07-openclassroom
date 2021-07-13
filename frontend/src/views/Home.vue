@@ -24,46 +24,54 @@
                     align-items-center
                   "
                 >
-                  <div class="d-flex align-items-center">
-                    <img
-                      class="profile-pic"
-                      src="../assets/icon-above-font.png"
-                      alt="profile"
-                    />
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <router-link :to="{ name: 'MyProfil' }">
+                        <img
+                          class="profile-pic"
+                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                          alt="profile"
+                        />
+                      </router-link>
+                    </div>
                     <div class="d-flex flex-column">
-                      <span
-                        class="
-                          profile-name profile-name__modificator
-                          profile-spacing
-                        "
+                      <span class="profile-name"
+                        >{{ user.firstName }} {{ user.lastName }}</span
                       >
-                        {{ user.firstName }} {{ user.lastName }}
-                      </span>
-                      <span class="profile-name d-flex justify-content-start"
-                        >({{ user.userName }})</span
+                      <span class="profile-name d-flex justify-content-start">
+                        ({{ user.userName }})</span
                       >
                     </div>
                   </div>
                   <div class="d-none d-md-block">
                     <button
                       class="btn btn-primary btn-icon-text btn-edit-profile"
+                      @click="toUpdate"
                     >
-                      <font-awesome-icon :icon="['fas', 'edit']" />
                       Edit profile
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="d-flex justify-content-center">
-              <ul class="links d-flex align-items-center mt-md-0 mt-3">
-                <li class="header-link-item d-flex align-item-center active">
-                  <font-awesome-icon :icon="['fas', 'home']" />
-                  <router-link :to="{ name: 'Home' }" class="text-dark text-decoration-none"
-                    >Home</router-link
+              <div class="header-links">
+                <ul class="links d-flex align-items-center mt-3 mt-md-0">
+                  <li class="header-link-item d-flex align-items-center active">
+                    <a class="pt-1px d-none d-md-block" href="#">Timeline</a>
+                  </li>
+                  <li
+                    class="
+                      header-link-item
+                      ml-3
+                      pl-3
+                      border-left
+                      d-flex
+                      align-items-center
+                    "
                   >
-                </li>
-              </ul>
+                    <a class="pt-1px d-none d-md-block" href="#">Videos</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -87,6 +95,11 @@ export default {
     Nav,
     // Home,
   },
+  methods: {
+    toUpdate() {
+      this.$router.push({ name: "Update" });
+    },
+  },
   computed: {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["user"]),
@@ -97,7 +110,7 @@ export default {
 <style lang="scss" scoped>
 body {
   background-color: #f9fafb;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .profile-page .profile-header {
@@ -107,11 +120,13 @@ body {
   .cover {
     position: relative;
     border-radius: 0.25rem 0.25rem 0 0;
+
     img {
       border-radius: 0.25rem 0.25rem 0 0;
       width: 100%;
-      height: 32vw;
+      height: 20vw;
     }
+
     .gray-shade {
       position: absolute;
       top: 0;
@@ -132,18 +147,45 @@ body {
 
       .profile-pic {
         border-radius: 50%;
-        width: 6rem;
+        width: 4rem;
         height: auto;
       }
 
       .profile-name {
+        font-size: 20px;
+        font-weight: 600;
         margin-left: 17px;
-        &__modificator {
-          font-weight: 600;
-        }
       }
-      .profile-spacing {
-        margin-top: 10px;
+    }
+  }
+
+  .header-links {
+    padding: 15px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 0 0.25rem 0.25rem;
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        a {
+          color: #000;
+          -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+        }
+
+        &:hover,
+        &.active,
+        &:hover a,
+        &.active a {
+          color: #727cf5;
+        }
       }
     }
   }
@@ -165,7 +207,7 @@ body {
 
 @media (max-width: 767px) {
   .profile-page .profile-header .cover figure img {
-    // -webkit-transform: scale(2);
+    -webkit-transform: scale(2);
     transform: scale(2);
     margin-top: 15px;
   }

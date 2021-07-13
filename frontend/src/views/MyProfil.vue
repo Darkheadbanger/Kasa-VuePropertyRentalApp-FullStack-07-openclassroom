@@ -1,7 +1,6 @@
 <template>
   <div class="myProfil">
     <Nav></Nav>
-    <MyProfil></MyProfil>
   </div>
 </template>
 

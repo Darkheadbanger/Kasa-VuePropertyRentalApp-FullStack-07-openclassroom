@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import MyProfil from "../views/MyProfil.vue";
+import Update from "../views/Update.vue";
 // import Forgot from "../views/Forgot.vue";
 const routes = [
   {
@@ -34,6 +35,14 @@ const routes = [
     path: "/myProfil",
     name: "MyProfil",
     component: MyProfil,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/update",
+    name: "Update",
+    component: Update,
     meta: {
       requiresAuth: true,
     },
