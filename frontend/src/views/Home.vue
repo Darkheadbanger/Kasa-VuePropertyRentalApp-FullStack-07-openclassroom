@@ -21,8 +21,7 @@
                     cover-body
                     d-flex
                     justify-content-between
-                    flex-md-row
-                    flex-column
+                    flex-md-row flex-column
                     align-items-center
                   "
                 >
@@ -30,9 +29,9 @@
                     <div>
                       <router-link :to="{ name: 'MyProfil' }">
                         <img
-                          class="profile-pic"
-                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                          alt="profile"
+                          class="img-xs rounded-circle profile-pic"
+                          src="../assets/icon-above-font.png"
+                          alt=""
                         />
                       </router-link>
                     </div>
@@ -80,7 +79,7 @@
                       d-flex
                       align-items-center
                     "
-                    v-if="user.admin=1"
+                    v-if="(user.admin = 1)"
                   >
                     <font-awesome-icon :icon="['fas', 'users']" />
                     <a class="pt-1px d-none d-md-block" href="#">Users list</a>
@@ -90,12 +89,171 @@
             </div>
           </div>
         </div>
-        
+        <div class="row profile-body d-flex flex-row justify-content-center">
+          <!-- left wrapper start -->
+          <div class="d-none d-md-block col-md-4 col-xl-3 me-5">
+            <div class="card rounded">
+              <div
+                class="
+                  card-body
+                  d-flex
+                  align-items-start
+                  justify-content-start
+                  flex-column
+                  me-3
+                  ms-3
+                "
+              >
+                <div
+                  class="d-flex align-items-start justify-content-start mb-2"
+                >
+                  <h6 class="card-title mb-0">About</h6>
+                  <!-- <div class="dropdown"> -->
+                  <!-- <button
+                      class="btn p-0"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    ></button> -->
+                  <!-- <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <span class="">Edit</span></a
+                      >
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <span class="">Update</span></a
+                      >
+                      <a
+                        class="dropdown-item d-flex align-items-center"
+                        href="#"
+                      >
+                        <span class="">View all</span></a
+                      >
+                    </div> -->
+                  <!-- </div> -->
+                </div>
+                <p>
+                  Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you
+                  enjoy the design and quality of Social.
+                </p>
+                <div class="mt-3">
+                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+                    >Joined:</label
+                  >
+                  <p class="text-muted">November 15, 2015</p>
+                </div>
+                <div class="mt-3">
+                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+                    >Nom:</label
+                  >
+                  <p class="text-muted">New York, USA</p>
+                </div>
+                <div class="mt-3">
+                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+                    >Prénom:</label
+                  >
+                  <p class="text-muted">me@nobleui.com</p>
+                </div>
+                <div class="mt-3">
+                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+                    >Pseudep:</label
+                  >
+                  <p class="text-muted">www.nobleui.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- left wrapper end -->
+          <!-- middle wrapper start -->
+          <div class="col-md-8 col-xl-6 middle-wrapper">
+            <div class="row">
+              <div class="col-md-12 grid-margin">
+                <div class="card rounded">
+                  <div class="card-header">
+                    <div
+                      class="d-flex align-items-center justify-content-between"
+                    >
+                      <div
+                        class="
+                          d-flex
+                          align-items-center
+                          justify-content-between
+                        "
+                      >
+                        <img
+                          class="rounded-circle profile-pic"
+                          src="../assets/icon-above-font.png"
+                          alt=""
+                        />
+                        <div class="ml-2 d-flex flex-column me-3">
+                          <span class="mt-5">Mike Popescu</span>
+                          <span
+                            class="
+                              tx-11
+                              text-muted
+                              mb-5
+                              d-flex
+                              justify-content-start
+                            "
+                            >1 min ago</span
+                          >
+                        </div>
+                      </div>
+                      <div class="dropdown"></div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <p class="mb-3 tx-14">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Accusamus minima delectus nemo unde quae recusandae
+                      assumenda.
+                    </p>
+                    <img
+                      class="img-fluid"
+                      src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="card-footer">
+                    <div class="d-flex post-actions">
+                      <a
+                        href="javascript:;"
+                        class="d-flex align-items-center text-muted mr-4"
+                      >
+                        <p class="d-none d-md-block ml-2">Like</p>
+                      </a>
+                      <a
+                        href="javascript:;"
+                        class="d-flex align-items-center text-muted mr-4"
+                      >
+                        <p class="d-none d-md-block ml-2">Comment</p>
+                      </a>
+                      <a
+                        href="javascript:;"
+                        class="d-flex align-items-center text-muted"
+                      >
+                        <p class="d-none d-md-block ml-2">Share</p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- middle wrapper end -->
+        </div>
       </div>
     </div>
-    <h3 v-if="user">Token</h3>
-    <h3 v-else>Logout</h3>
-    <h4 v-if="user">Hi,; {{ user.fistName }} {{ user.lastName }}</h4>
   </div>
 </template>
 
@@ -239,5 +397,142 @@ body {
   .profile-page .profile-header .cover .cover-body .profile-pic {
     width: 70px;
   }
+}
+
+.profile-page {
+  .profile-header {
+    .cover .cover-body .profile-name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-left: 17px;
+    }
+
+    .header-links {
+      padding: 15px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 0 0 0.25rem 0.25rem;
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          a {
+            color: #000;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+          }
+
+          &:hover,
+          &.active,
+          &:hover a,
+          &.active a {
+            color: #727cf5;
+          }
+        }
+      }
+    }
+  }
+
+  .profile-body {
+    div {
+      padding-left: 3px;
+      padding-right: 3px;
+
+      figure {
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        margin-bottom: 6px;
+
+        &:hover {
+          -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+        }
+
+        img {
+          border-radius: 0.25rem;
+        }
+      }
+    }
+    .profile-pic {
+      width: 6rem;
+      height: auto;
+    }
+    p {
+      text-align: left;
+    }
+  }
+}
+
+.rtl .profile-page .profile-header .cover .cover-body .profile-name {
+  margin-left: 0;
+  margin-right: 17px;
+}
+
+.img-xs {
+  width: 37px;
+  height: 37px;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.card-header {
+  &:first-child {
+    border-radius: 0 0 0 0;
+  }
+
+  padding: 0.875rem 1.5rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #f2f4f9;
+}
+
+.card-footer {
+  &:last-child {
+    border-radius: 0 0 0 0;
+  }
+
+  padding: 0.875rem 1.5rem;
+  background-color: rgba(0, 0, 0, 0);
+  border-top: 1px solid #f2f4f9;
+}
+
+.grid-margin {
+  margin-bottom: 1rem;
+}
+
+.card {
+  box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+  -webkit-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+  -moz-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+  -ms-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+}
+
+.rounded {
+  border-radius: 0.25rem !important;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #f2f4f9;
+  border-radius: 0.25rem;
 }
 </style>
