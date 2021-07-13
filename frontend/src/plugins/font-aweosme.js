@@ -9,6 +9,7 @@ import {
   faSearch,
   faArrowDown,
   faEdit,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,6 +21,7 @@ library.add(
   faSearch,
   faArrowDown,
   faEdit,
+  faUsers
 );
 
 export { FontAwesomeIcon };
