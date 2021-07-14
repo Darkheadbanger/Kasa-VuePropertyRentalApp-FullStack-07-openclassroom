@@ -10,6 +10,9 @@ import {
   faArrowDown,
   faEdit,
   faUsers,
+  faShare,
+  faComment,
+  faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -21,7 +24,10 @@ library.add(
   faSearch,
   faArrowDown,
   faEdit,
-  faUsers
+  faUsers,
+  faShare,
+  faComment,
+  faThumbsUp
 );
 
 export { FontAwesomeIcon };

@@ -5,7 +5,7 @@
     <div class="container">
       <div class="profile-page tx-13">
         <div class="row">
-          <div class="col-12 grid-margin">
+          <div class="col-12 mb-4">
             <div class="profile-header">
               <div class="cover">
                 <div class="gray-shade"></div>
@@ -67,7 +67,7 @@
                   >
                     <font-awesome-icon :icon="['fas', 'home']" />
 
-                    <a class="pt-1px d-none d-md-block" href="#">Home</a>
+                    <a class="pt-1px text-decoration-none" href="#">Home</a>
                   </li>
                   <span class="me-3">|</span>
                   <li
@@ -82,7 +82,7 @@
                     v-if="(user.admin = 1)"
                   >
                     <font-awesome-icon :icon="['fas', 'users']" />
-                    <a class="pt-1px d-none d-md-block" href="#">Users list</a>
+                    <a class="pt-1px text-decoration-none" href="#">Users list</a>
                   </li>
                 </ul>
               </div>
@@ -107,7 +107,7 @@
                 <div
                   class="d-flex align-items-start justify-content-start mb-2"
                 >
-                  <h6 class="card-title mb-0">About</h6>
+                  <h6 class="card-title mb-3">About</h6>
                   <!-- <div class="dropdown"> -->
                   <!-- <button
                       class="btn p-0"
@@ -176,8 +176,8 @@
           <!-- left wrapper end -->
           <!-- middle wrapper start -->
           <div class="col-md-8 col-xl-6 middle-wrapper">
-            <div class="row">
-              <div class="col-md-12 grid-margin">
+            <div class="row mt-4 mt-md-4 mt-lg-0">
+              <div class="col-md-12">
                 <div class="card rounded">
                   <div class="card-header">
                     <div
@@ -213,13 +213,13 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <p class="mb-3 tx-14">
+                    <p class="mb-3 tx-14 ms-3">
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Accusamus minima delectus nemo unde quae recusandae
                       assumenda.
                     </p>
                     <img
-                      class="img-fluid"
+                      class="img-fluid d-flex"
                       src="https://bootdey.com/img/Content/avatar/avatar6.png"
                       alt=""
                     />
@@ -228,20 +228,23 @@
                     <div class="d-flex post-actions">
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted mr-4"
+                        class="d-flex align-items-center text-muted me-4 ms-4 text-decoration-none"
                       >
+                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'thumbs-up']" />
                         <p class="d-none d-md-block ml-2">Like</p>
                       </a>
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted mr-4"
+                        class="d-flex align-items-center text-muted me-4 text-decoration-none"
                       >
+                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'comment']" />
                         <p class="d-none d-md-block ml-2">Comment</p>
                       </a>
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted"
+                        class="d-flex align-items-center text-muted text-decoration-none"
                       >
+                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'share']" />
                         <p class="d-none d-md-block ml-2">Share</p>
                       </a>
                     </div>
@@ -326,9 +329,7 @@ body {
       }
 
       .profile-name {
-        font-size: 20px;
         font-weight: 600;
-        margin-left: 17px;
       }
     }
   }
@@ -359,6 +360,7 @@ body {
         &:hover a,
         &.active a {
           color: #727cf5;
+          text-decoration: underline;
         }
       }
     }
@@ -402,8 +404,6 @@ body {
 .profile-page {
   .profile-header {
     .cover .cover-body .profile-name {
-      font-size: 20px;
-      font-weight: 600;
       margin-left: 17px;
     }
 
@@ -424,7 +424,6 @@ body {
         li {
           a {
             color: #000;
-            -webkit-transition: all 0.2s ease;
             transition: all 0.2s ease;
           }
 
@@ -433,6 +432,7 @@ body {
           &:hover a,
           &.active a {
             color: #727cf5;
+            text-decoration: underline;
           }
         }
       }
@@ -443,21 +443,6 @@ body {
     div {
       padding-left: 3px;
       padding-right: 3px;
-
-      figure {
-        -webkit-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-        margin-bottom: 6px;
-
-        &:hover {
-          -webkit-transform: scale(1.06);
-          transform: scale(1.06);
-        }
-
-        img {
-          border-radius: 0.25rem;
-        }
-      }
     }
     .profile-pic {
       width: 6rem;
@@ -465,63 +450,26 @@ body {
     }
     p {
       text-align: left;
+      padding: 0 0 0 0;
     }
   }
 }
-
-.rtl .profile-page .profile-header .cover .cover-body .profile-name {
-  margin-left: 0;
-  margin-right: 17px;
-}
-
-.img-xs {
-  width: 37px;
-  height: 37px;
-}
-
-.rounded-circle {
-  border-radius: 50% !important;
-}
-
-img {
-  vertical-align: middle;
-  border-style: none;
-}
+// card footer
 
 .card-header {
-  &:first-child {
-    border-radius: 0 0 0 0;
-  }
-
-  padding: 0.875rem 1.5rem;
+  padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
-  border-bottom: 1px solid #f2f4f9;
+  border-bottom: 1px solid #878787;
 }
 
 .card-footer {
-  &:last-child {
-    border-radius: 0 0 0 0;
-  }
-
-  padding: 0.875rem 1.5rem;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: white;
   border-top: 1px solid #f2f4f9;
-}
-
-.grid-margin {
-  margin-bottom: 1rem;
 }
 
 .card {
   box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-  -webkit-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-  -moz-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-  -ms-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-}
-
-.rounded {
-  border-radius: 0.25rem !important;
 }
 
 .card {
@@ -531,7 +479,6 @@ img {
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
-  background-clip: border-box;
   border: 1px solid #f2f4f9;
   border-radius: 0.25rem;
 }
