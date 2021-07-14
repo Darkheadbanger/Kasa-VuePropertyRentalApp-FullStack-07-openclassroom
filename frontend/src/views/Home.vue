@@ -93,7 +93,7 @@
         </div>
         <div class="row profile-body d-flex flex-row justify-content-center">
           <!-- left wrapper start -->
-          <div class="d-none d-md-block col-md-4 col-xl-3 me-5">
+          <div class="d-none d-md-block col-md-4 me-5">
             <div class="card rounded">
               <div
                 class="
@@ -170,7 +170,41 @@
           <!-- left wrapper end -->
           <!-- Pour mettre de publication -->
           <!-- middle wrapper start -->
-          <div class="col-md-8 col-xl-6 middle-wrapper">
+          <div class="col-xl-6 middle-wrapper">
+            <div class="card rounded mb-5">
+              <div class="card-header">
+                <div class="d-flex">
+                  <div
+                    class="
+                      input-group input-group-sm
+                      mb-3
+                      mt-3
+                      d-flex
+                      flex-row
+                      justify-content-start
+                    "
+                  >
+                    <img
+                      class="rounded-circle img-xs"
+                      src="../assets/icon-above-font.png"
+                      alt=""
+                    />
+
+                    <div class="col-sm-6 col-md-9">
+                      <input
+                        class="form-control mr-sm-2 bg-light"
+                        type="text"
+                        placeholder="Search..."
+                        aria-label="Search"
+                        id="searchText"
+                      />
+                    </div>
+                    <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
                 <div class="card rounded">
@@ -484,6 +518,10 @@ body {
     }
     label {
       margin-right: 5rem;
+    }
+    .img-xs {
+      width: 3rem;
+      height: auto;
     }
   }
 }
