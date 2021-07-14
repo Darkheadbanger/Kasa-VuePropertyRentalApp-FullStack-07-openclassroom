@@ -49,6 +49,7 @@
                       class="btn btn-primary btn-icon-text btn-edit-profile"
                       @click="toUpdate"
                     >
+                      <font-awesome-icon :icon="['fas', 'edit']" />
                       Edit profile
                     </button>
                   </div>
@@ -66,7 +67,6 @@
                     "
                   >
                     <font-awesome-icon :icon="['fas', 'home']" />
-
                     <a class="pt-1px text-decoration-none" href="#">Home</a>
                   </li>
                   <span class="me-3">|</span>
@@ -106,44 +106,36 @@
                   ms-3
                 "
               >
-                <div
-                  class="d-flex align-items-start justify-content-start mb-2"
-                >
-                  <h6 class="card-title mb-3">About</h6>
-                  <!-- <div class="dropdown"> -->
-                  <!-- <button
-                      class="btn p-0"
+                <div class="d-flex mb-2">
+                  <div class="mr-auto p-2">
+                    <h6 class="card-title mb-3">About</h6>
+                  </div>
+                  <div class="btn-group ml-auto p-2 ms-5 button-right">
+                    <button
+                      class="btn btn-light dropdown-toggle me-5"
                       type="button"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
+                      id="defaultDropdown"
+                      data-bs-toggle="dropdown"
+                      data-bs-auto-close="true"
                       aria-expanded="false"
-                    ></button> -->
-                  <!-- <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <span class="">Edit</span></a
-                      >
-                      <a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <span class="">Update</span></a
-                      >
-                      <a
-                        class="dropdown-item d-flex align-items-center"
-                        href="#"
-                      >
-                        <span class="">View all</span></a
-                      >
-                    </div> -->
-                  <!-- </div> -->
+                    ></button>
+                    <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <font-awesome-icon :icon="['fas', 'edit']" /> Edit
+                          post</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                          Edit Supprimer post</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
                 </div>
+
                 <p>
                   Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you
                   enjoy the design and quality of Social.
@@ -176,6 +168,7 @@
             </div>
           </div>
           <!-- left wrapper end -->
+          <!-- Pour mettre de publication -->
           <!-- middle wrapper start -->
           <div class="col-md-8 col-xl-6 middle-wrapper">
             <div class="row mt-4 mt-md-4 mt-lg-0">
@@ -211,7 +204,33 @@
                           >
                         </div>
                       </div>
-                      <div class="dropdown"></div>
+                      <div class="btn-group">
+                        <button
+                          class="btn btn-light dropdown-toggle me-5"
+                          type="button"
+                          id="defaultDropdown"
+                          data-bs-toggle="dropdown"
+                          data-bs-auto-close="true"
+                          aria-expanded="false"
+                        ></button>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="defaultDropdown"
+                        >
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <font-awesome-icon :icon="['fas', 'edit']" /> Edit
+                              post</a
+                            >
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                              Edit Supprimer post</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <div class="card-body">
@@ -240,10 +259,10 @@
                         "
                       >
                         <font-awesome-icon
-                          class="mb-3 me-2"
+                          class="mb-1 me-2"
                           :icon="['fas', 'thumbs-up']"
                         />
-                        <p class="d-none d-md-block ml-2">Like</p>
+                        Like
                       </a>
                       <a
                         href="javascript:;"
@@ -256,10 +275,10 @@
                         "
                       >
                         <font-awesome-icon
-                          class="mb-3 me-2"
+                          class="mb-1 me-2"
                           :icon="['fas', 'comment']"
                         />
-                        <p class="d-none d-md-block ml-2">Comment</p>
+                        Comment
                       </a>
                       <a
                         href="javascript:;"
@@ -270,13 +289,15 @@
                         "
                       >
                         <font-awesome-icon
-                          class="mb-3 me-2"
+                          class="mb-1 me-2"
                           :icon="['fas', 'share']"
                         />
-                        <p class="d-none d-md-block ml-2">Share</p>
+                        Share
                       </a>
                     </div>
                   </div>
+                  <!-- Pour commanteur -->
+                  <div>Sataaaaaan</div>
                 </div>
               </div>
             </div>
@@ -379,7 +400,6 @@ body {
       li {
         a {
           color: #000;
-          -webkit-transition: all 0.2s ease;
           transition: all 0.2s ease;
         }
 
@@ -479,6 +499,19 @@ body {
 .card-footer {
   background-color: white;
   border-top: 1px solid #f2f4f9;
+  li {
+    a {
+      color: #000;
+      transition: all 0.2s ease;
+    }
+
+    &:hover,
+    &.active,
+    &:hover a,
+    &.active a {
+      text-decoration: underline;
+    }
+  }
 }
 
 .card {

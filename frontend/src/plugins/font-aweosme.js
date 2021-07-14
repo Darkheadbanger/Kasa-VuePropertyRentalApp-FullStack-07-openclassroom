@@ -13,6 +13,7 @@ import {
   faShare,
   faComment,
   faThumbsUp,
+  faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -27,7 +28,8 @@ library.add(
   faUsers,
   faShare,
   faComment,
-  faThumbsUp
+  faThumbsUp,
+  faTrashAlt
 );
 
 export { FontAwesomeIcon };
