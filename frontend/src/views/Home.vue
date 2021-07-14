@@ -82,7 +82,9 @@
                     v-if="(user.admin = 1)"
                   >
                     <font-awesome-icon :icon="['fas', 'users']" />
-                    <a class="pt-1px text-decoration-none" href="#">Users list</a>
+                    <a class="pt-1px text-decoration-none" href="#"
+                      >Users list</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -228,23 +230,49 @@
                     <div class="d-flex post-actions">
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted me-4 ms-4 text-decoration-none"
+                        class="
+                          d-flex
+                          align-items-center
+                          text-muted
+                          me-4
+                          ms-4
+                          text-decoration-none
+                        "
                       >
-                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'thumbs-up']" />
+                        <font-awesome-icon
+                          class="mb-3 me-2"
+                          :icon="['fas', 'thumbs-up']"
+                        />
                         <p class="d-none d-md-block ml-2">Like</p>
                       </a>
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted me-4 text-decoration-none"
+                        class="
+                          d-flex
+                          align-items-center
+                          text-muted
+                          me-4
+                          text-decoration-none
+                        "
                       >
-                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'comment']" />
+                        <font-awesome-icon
+                          class="mb-3 me-2"
+                          :icon="['fas', 'comment']"
+                        />
                         <p class="d-none d-md-block ml-2">Comment</p>
                       </a>
                       <a
                         href="javascript:;"
-                        class="d-flex align-items-center text-muted text-decoration-none"
+                        class="
+                          d-flex
+                          align-items-center
+                          text-muted text-decoration-none
+                        "
                       >
-                        <font-awesome-icon class="mb-3 me-2" :icon="['fas', 'share']" />
+                        <font-awesome-icon
+                          class="mb-3 me-2"
+                          :icon="['fas', 'share']"
+                        />
                         <p class="d-none d-md-block ml-2">Share</p>
                       </a>
                     </div>
@@ -383,7 +411,6 @@ body {
 
 @media (max-width: 767px) {
   .profile-page .profile-header .cover figure img {
-    -webkit-transform: scale(2);
     transform: scale(2);
     margin-top: 15px;
   }
@@ -409,9 +436,7 @@ body {
 
     .header-links {
       padding: 15px;
-      display: -webkit-flex;
       display: flex;
-      -webkit-justify-content: center;
       justify-content: center;
       background: #fff;
       border-radius: 0 0 0.25rem 0.25rem;
@@ -420,21 +445,6 @@ body {
         list-style-type: none;
         margin: 0;
         padding: 0;
-
-        li {
-          a {
-            color: #000;
-            transition: all 0.2s ease;
-          }
-
-          &:hover,
-          &.active,
-          &:hover a,
-          &.active a {
-            color: #727cf5;
-            text-decoration: underline;
-          }
-        }
       }
     }
   }
@@ -451,6 +461,9 @@ body {
     p {
       text-align: left;
       padding: 0 0 0 0;
+    }
+    label {
+      margin-right: 5rem;
     }
   }
 }
@@ -470,16 +483,5 @@ body {
 
 .card {
   box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
-}
-
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  border: 1px solid #f2f4f9;
-  border-radius: 0.25rem;
 }
 </style>
