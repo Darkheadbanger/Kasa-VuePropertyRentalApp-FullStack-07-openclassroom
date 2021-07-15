@@ -199,7 +199,11 @@
                         id="searchText"
                       />
                     </div>
-                    <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
+                    <font-awesome-icon
+                      class="ms-1"
+                      :icon="['fas', 'image']"
+                      size="2x"
+                    />
                   </div>
                 </div>
               </div>
@@ -275,7 +279,7 @@
                     </p>
                     <img
                       class="img-fluid d-flex"
-                      src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                      src="../assets/groupomania.png"
                       alt=""
                     />
                   </div>
@@ -307,6 +311,7 @@
                           me-4
                           text-decoration-none
                         "
+                        for="commentText"
                       >
                         <font-awesome-icon
                           class="mb-1 me-2"
@@ -331,7 +336,40 @@
                     </div>
                   </div>
                   <!-- Pour commanteur -->
-                  <div>Sataaaaaan</div>
+
+                  <div class="d-flex">
+                    <div
+                      class="
+                        input-group input-group-sm
+                        mb-3
+                        mt-3
+                        d-flex
+                        flex-row
+                        justify-content-start
+                      "
+                    >
+                      <img
+                        class="rounded-circle img-xs"
+                        src="../assets/icon-above-font.png"
+                        alt=""
+                      />
+
+                      <div class="col-sm-6 col-md-9">
+                        <input
+                          class="form-control mr-sm-2 bg-light"
+                          type="text"
+                          placeholder="Commenter..."
+                          aria-label="Commenter"
+                          id="commentText"
+                        />
+                      </div>
+                      <font-awesome-icon
+                        class="ms-1"
+                        :icon="['fas', 'image']"
+                        size="2x"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
