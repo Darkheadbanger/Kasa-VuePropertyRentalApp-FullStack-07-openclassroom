@@ -285,8 +285,7 @@
                   </div>
                   <div class="card-footer">
                     <div class="d-flex post-actions">
-                      <a
-                        href="javascript:;"
+                      <label
                         class="
                           d-flex
                           align-items-center
@@ -301,9 +300,8 @@
                           :icon="['fas', 'thumbs-up']"
                         />
                         Like
-                      </a>
-                      <a
-                        href="javascript:;"
+                      </label>
+                      <label
                         class="
                           d-flex
                           align-items-center
@@ -318,58 +316,43 @@
                           :icon="['fas', 'comment']"
                         />
                         Comment
-                      </a>
-                      <a
-                        href="javascript:;"
+                      </label>
+                    </div>
+                    <div class="d-flex">
+                      <div
                         class="
+                          input-group input-group-sm
+                          mb-3
+                          mt-3
                           d-flex
-                          align-items-center
-                          text-muted text-decoration-none
+                          flex-row
+                          justify-content-start
                         "
                       >
-                        <font-awesome-icon
-                          class="mb-1 me-2"
-                          :icon="['fas', 'share']"
+                        <img
+                          class="rounded-circle img-xs"
+                          src="../assets/icon-above-font.png"
+                          alt=""
                         />
-                        Share
-                      </a>
+
+                        <div class="col-sm-6 col-md-9">
+                          <input
+                            class="form-control mr-sm-2 bg-light"
+                            type="text"
+                            placeholder="Commenter..."
+                            aria-label="Commenter"
+                            id="commentText"
+                          />
+                        </div>
+                        <font-awesome-icon
+                          class="ms-1"
+                          :icon="['fas', 'image']"
+                          size="2x"
+                        />
+                      </div>
                     </div>
                   </div>
                   <!-- Pour commanteur -->
-
-                  <div class="d-flex">
-                    <div
-                      class="
-                        input-group input-group-sm
-                        mb-3
-                        mt-3
-                        d-flex
-                        flex-row
-                        justify-content-start
-                      "
-                    >
-                      <img
-                        class="rounded-circle img-xs"
-                        src="../assets/icon-above-font.png"
-                        alt=""
-                      />
-
-                      <div class="col-sm-6 col-md-9">
-                        <input
-                          class="form-control mr-sm-2 bg-light"
-                          type="text"
-                          placeholder="Commenter..."
-                          aria-label="Commenter"
-                          id="commentText"
-                        />
-                      </div>
-                      <font-awesome-icon
-                        class="ms-1"
-                        :icon="['fas', 'image']"
-                        size="2x"
-                      />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
