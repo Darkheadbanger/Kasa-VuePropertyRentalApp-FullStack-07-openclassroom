@@ -318,41 +318,73 @@
                         Comment
                       </label>
                     </div>
-                    <div class="d-flex">
-                      <div
-                        class="
-                          input-group input-group-sm
-                          mb-3
-                          mt-3
-                          d-flex
-                          flex-row
-                          justify-content-start
-                        "
-                      >
-                        <img
-                          class="rounded-circle img-xs"
-                          src="../assets/icon-above-font.png"
-                          alt=""
-                        />
+                    <div
+                      class="
+                        input-group input-group-sm
+                        mb-3
+                        mt-3
+                        d-flex
+                        flex-row
+                        justify-content-start
+                      "
+                    >
+                      <img
+                        class="rounded-circle img-xs"
+                        src="../assets/icon-above-font.png"
+                        alt=""
+                      />
 
-                        <div class="col-sm-6 col-md-9">
-                          <input
-                            class="form-control mr-sm-2 bg-light"
-                            type="text"
-                            placeholder="Commenter..."
-                            aria-label="Commenter"
-                            id="commentText"
-                          />
-                        </div>
-                        <font-awesome-icon
-                          class="ms-1"
-                          :icon="['fas', 'image']"
-                          size="2x"
+                      <div class="col-sm-6 col-md-9">
+                        <input
+                          class="form-control mr-sm-2 bg-light"
+                          type="text"
+                          placeholder="Commenter..."
+                          aria-label="Commenter"
+                          id="commentText"
                         />
+                      </div>
+                      <font-awesome-icon
+                        class="ms-1"
+                        :icon="['fas', 'image']"
+                        size="2x"
+                      />
+                    </div>
+                    <!-- Comment  -->
+                    <div
+                      class="
+                        input-group input-group-sm
+                        mb-3
+                        mt-3
+                        d-inline-flex
+                        flex-row
+                        justify-content-start
+                      "
+                    >
+                      <img
+                        class="rounded-circle img-fluid s-image"
+                        src="../assets/icon-above-font.png"
+                        alt=""
+                      />
+                      <div class="ms-2 mt-2 rounded bg-light rounded-3">
+                        <div class="d-flex flex-column">
+                          <div class="me-2 ms-2 mt-2">
+                            <a href="#" class="text-decoration-none me-1 text-dark float-start">
+                              <span class="fw-bold">
+                                {{ user.firstName }} {{ user.lastName }}
+                              </span>
+                            </a>
+                          </div>
+                          <div>
+                            <span>
+                              <div class="me-perso float-start">
+                                dwssssssssdddddddddddddddddddddddddddd
+                              </div>
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- Pour commanteur -->
                 </div>
               </div>
             </div>
@@ -376,11 +408,13 @@ export default {
     Nav,
     // Home,
   },
+  // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
     toUpdate() {
       this.$router.push({ name: "Update" });
     },
   },
+  // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["user"]),
@@ -544,6 +578,10 @@ body {
       width: 3rem;
       height: auto;
     }
+    .s-image {
+      width: 3rem;
+      height: 3rem;
+    }
   }
 }
 // card footer
@@ -570,6 +608,9 @@ body {
     &.active a {
       text-decoration: underline;
     }
+  }
+  .me-perso {
+    margin-right: 4rem !important;
   }
 }
 
