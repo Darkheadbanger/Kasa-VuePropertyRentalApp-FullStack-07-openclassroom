@@ -245,11 +245,12 @@
                     <div
                       class="
                         input-group input-group-sm
-                        mb-3
+                        mb-1
                         mt-3
                         d-flex
                         flex-row
                         justify-content-start
+                        border-bottom border-light border-2
                       "
                     >
                       <img
@@ -322,7 +323,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="btn-group ml-auto p-2 button-right">
                         <button
                           class="btn dropdown-toggle me-5"
@@ -350,7 +350,6 @@
                           </li>
                         </ul>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -558,7 +557,6 @@ body {
   padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
-  border-bottom: 1px solid #878787;
 }
 
 .card-footer {
