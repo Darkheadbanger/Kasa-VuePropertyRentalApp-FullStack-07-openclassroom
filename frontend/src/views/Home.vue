@@ -264,7 +264,7 @@
                           <li>
                             <a class="dropdown-item" href="#">
                               <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                              Edit Supprimer post</a
+                              Supprimer post</a
                             >
                           </li>
                         </ul>
@@ -390,7 +390,7 @@
                               <div class="w-50 float-start">
                                 <img
                                   class="img-fluid d-flex w-50"
-                                  src="../assets/groupomania.png"
+                                  src=""
                                   alt=""
                                 />
                               </div>
@@ -398,6 +398,35 @@
                           </div>
                         </div>
                       </div>
+
+                      <div class="btn-group ml-auto p-2 button-right">
+                        <button
+                          class="btn dropdown-toggle me-5"
+                          type="button"
+                          id="defaultDropdown"
+                          data-bs-toggle="dropdown"
+                          data-bs-auto-close="true"
+                          aria-expanded="false"
+                        ></button>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="defaultDropdown"
+                        >
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <font-awesome-icon :icon="['fas', 'edit']" />
+                              Edit commentaire</a
+                            >
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="#">
+                              <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                              Supprimer commentaire</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+
                     </div>
                   </div>
                 </div>
