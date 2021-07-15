@@ -367,8 +367,16 @@
                       />
                       <div class="ms-2 mt-2 rounded bg-light rounded-3">
                         <div class="d-flex flex-column">
-                          <div class="me-2 ms-2 mt-2">
-                            <a href="#" class="text-decoration-none me-1 text-dark float-start">
+                          <div class="ms-perso-2 ms-2 mt-2">
+                            <a
+                              href="#"
+                              class="
+                                text-decoration-none
+                                me-1
+                                text-dark
+                                float-start
+                              "
+                            >
                               <span class="fw-bold">
                                 {{ user.firstName }} {{ user.lastName }}
                               </span>
@@ -378,6 +386,13 @@
                             <span>
                               <div class="me-perso float-start">
                                 dwssssssssdddddddddddddddddddddddddddd
+                              </div>
+                              <div class="w-50 float-start">
+                                <img
+                                  class="img-fluid d-flex w-50"
+                                  src="../assets/groupomania.png"
+                                  alt=""
+                                />
                               </div>
                             </span>
                           </div>
@@ -611,6 +626,9 @@ body {
   }
   .me-perso {
     margin-right: 4rem !important;
+  }
+  .ms-perso-2 {
+    margin-left: 0.15rem !important;
   }
 }
 
