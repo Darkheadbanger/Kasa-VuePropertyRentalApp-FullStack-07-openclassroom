@@ -54,7 +54,11 @@
           <ul class="links d-flex align-items-center mt-3 mt-md-0">
             <li class="header-link-item d-flex align-items-center active me-3">
               <font-awesome-icon :icon="['fas', 'home']" />
-              <a class="pt-1px text-decoration-none" href="#">Home</a>
+              <router-link
+                class="pt-1px text-decoration-none"
+                :to="{ name: 'Home' }"
+                >Home</router-link
+              >
             </li>
             <span class="me-3">|</span>
             <li
@@ -69,7 +73,12 @@
               v-if="(user.admin = 1)"
             >
               <font-awesome-icon :icon="['fas', 'users']" />
-              <a class="pt-1px text-decoration-none" href="#">Users list</a>
+              <!-- <a class="pt-1px text-decoration-none" href="#">Users list</a> -->
+              <router-link
+                class="pt-1px text-decoration-none"
+                :to="{ name: 'UserList' }"
+                >Users list</router-link
+              >
             </li>
           </ul>
         </div>
