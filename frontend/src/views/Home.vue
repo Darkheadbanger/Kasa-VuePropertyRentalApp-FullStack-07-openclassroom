@@ -103,15 +103,21 @@
                           aria-labelledby="defaultDropdown"
                         >
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link
+                              class="dropdown-item"
+                              :to="{ name: 'EditPost' }"
+                            >
                               <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                              post</a
+                              post</router-link
                             >
                           </li>
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link
+                              class="dropdown-item"
+                              :to="{ name: 'deletePost' }"
+                            >
                               <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                              Supprimer post</a
+                              Supprimer post</router-link
                             >
                           </li>
                         </ul>
@@ -216,8 +222,8 @@
                       <div class="ms-2 mt-2 rounded bg-light rounded-3">
                         <div class="d-flex flex-column">
                           <div class="ms-perso-2 ms-2 mt-2">
-                            <a
-                              href="#"
+                            <router-link
+                              :to="{ name: 'Home' }"
                               class="
                                 text-decoration-none
                                 me-1
@@ -228,7 +234,7 @@
                               <span class="fw-bold">
                                 {{ user.firstName }} {{ user.lastName }}
                               </span>
-                            </a>
+                            </router-link>
                           </div>
                           <div>
                             <span>
@@ -260,15 +266,15 @@
                           aria-labelledby="defaultDropdown"
                         >
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link class="dropdown-item" :to="{name: 'EditPost'}">
                               <font-awesome-icon :icon="['fas', 'edit']" />
-                              Edit commentaire</a
+                              Edit commentaire</router-link
                             >
                           </li>
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link class="dropdown-item" :to="{name: 'deletePost'}">
                               <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                              Supprimer commentaire</a
+                              Supprimer commentaire</router-link
                             >
                           </li>
                         </ul>

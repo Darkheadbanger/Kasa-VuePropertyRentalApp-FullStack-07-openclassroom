@@ -35,15 +35,15 @@
                     ></button>
                     <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <router-link class="dropdown-item" :to="{name: 'EditPost'}">
                           <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                          post</a
+                          post</router-link
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <router-link class="dropdown-item" :to="{name: 'deletePost'}">
                           <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                          Edit Supprimer post</a
+                          Edit Supprimer post</router-link
                         >
                       </li>
                     </ul>

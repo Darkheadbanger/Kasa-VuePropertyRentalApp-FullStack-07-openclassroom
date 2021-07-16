@@ -6,6 +6,7 @@ import MyProfil from "../views/MyProfil.vue";
 import Update from "../views/Update.vue";
 import userList from "../views/userList.vue";
 import EditPost from "../views/editPost.vue";
+import deletePost from "../views/deletePost.vue"
 // import EditComment from "../views/EditComment.vue";
 
 // import Forgot from "../views/Forgot.vue";
@@ -64,6 +65,14 @@ const routes = [
     path: "/editPost",
     name: "EditPost",
     component: EditPost,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/deletePost",
+    name: "deletePost",
+    component: deletePost,
     meta: {
       requiresAuth: true,
     },
