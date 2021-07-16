@@ -5,6 +5,9 @@ import Signup from "../views/Signup.vue";
 import MyProfil from "../views/MyProfil.vue";
 import Update from "../views/Update.vue";
 import userList from "../views/userList.vue";
+import EditPost from "../views/editPost.vue";
+// import EditComment from "../views/EditComment.vue";
+
 // import Forgot from "../views/Forgot.vue";
 const routes = [
   {
@@ -52,6 +55,15 @@ const routes = [
     path: "/userList",
     name: "UserList",
     component: userList,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  // A voir les deux updates en bas
+  {
+    path: "/editPost",
+    name: "EditPost",
+    component: EditPost,
     meta: {
       requiresAuth: true,
     },

@@ -6,82 +6,6 @@
       <div class="profile-page tx-13">
         <Header></Header>
         <div class="row profile-body d-flex flex-row justify-content-center">
-          <!-- left wrapper start -->
-          <div class="d-none d-md-block col-md-4 me-5">
-            <div class="card rounded">
-              <div
-                class="
-                  card-body
-                  d-flex
-                  align-items-start
-                  justify-content-start
-                  flex-column
-                  me-3
-                  ms-3
-                "
-              >
-                <div class="d-flex mb-2">
-                  <div class="mr-auto p-2">
-                    <h6 class="card-title mb-3">About</h6>
-                  </div>
-                  <div class="btn-group ml-auto p-2 ms-5 button-right">
-                    <button
-                      class="btn btn-light dropdown-toggle me-5"
-                      type="button"
-                      id="defaultDropdown"
-                      data-bs-toggle="dropdown"
-                      data-bs-auto-close="true"
-                      aria-expanded="false"
-                    ></button>
-                    <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                          post</a
-                        >
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                          Edit Supprimer post</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <p>
-                  Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you
-                  enjoy the design and quality of Social.
-                </p>
-                <div class="mt-3">
-                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
-                    >Joined:</label
-                  >
-                  <p class="text-muted">November 15, 2015</p>
-                </div>
-                <div class="mt-3">
-                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
-                    >Nom:</label
-                  >
-                  <p class="text-muted">New York, USA</p>
-                </div>
-                <div class="mt-3">
-                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
-                    >Prénom:</label
-                  >
-                  <p class="text-muted">me@nobleui.com</p>
-                </div>
-                <div class="mt-3">
-                  <label class="tx-11 font-weight-bold mb-0 text-uppercase"
-                    >Pseudep:</label
-                  >
-                  <p class="text-muted">www.nobleui.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- left wrapper end -->
           <!-- Pour mettre de publication -->
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
@@ -104,28 +28,22 @@
                       alt=""
                     />
 
-                    <div class="col-sm-5 col-md-8">
+                    <div class="col-sm-6 col-md-9">
                       <input
                         class="form-control mr-sm-2 bg-light"
                         type="text"
-                        placeholder="Publier ici..."
-                        aria-label="publication"
-                        id="publication"
+                        placeholder="Search..."
+                        aria-label="Search"
+                        id="searchText"
                       />
                     </div>
                     <font-awesome-icon
                       class="ms-1"
                       :icon="['fas', 'image']"
                       size="2x"
+                      for="imageFile"
                     />
-                    <div>
-                      <button
-                        class="btn btn-primary btn-icon-text btn-edit-profile"
-                        @click="toUpdate"
-                      >
-                        Publier
-                      </button>
-                    </div>
+                    <input type="file" class="d-none" id="imageFile" />
                   </div>
                 </div>
               </div>
@@ -243,11 +161,12 @@
                     <div
                       class="
                         input-group input-group-sm
-                        mb-3
+                        mb-1
                         mt-3
                         d-flex
                         flex-row
                         justify-content-start
+                        border-bottom border-light border-2
                       "
                     >
                       <img
@@ -320,7 +239,6 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="btn-group ml-auto p-2 button-right">
                         <button
                           class="btn dropdown-toggle me-5"
@@ -368,7 +286,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 
 export default {
-  name: "MyProfil",
+  name: "Home",
   components: {
     Nav,
     Header,
@@ -425,7 +343,6 @@ body {
   padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
-  border-bottom: 1px solid #878787;
 }
 
 .card-footer {
