@@ -96,15 +96,18 @@
                           aria-labelledby="defaultDropdown"
                         >
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link
+                              class="dropdown-item"
+                              :to="{ name: 'EditPost' }"
+                            >
                               <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                              post</a
+                              post</router-link
                             >
                           </li>
                           <li>
-                            <a class="dropdown-item" href="#">
+                            <router-link class="dropdown-item" href="#">
                               <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                              Supprimer post</a
+                              Supprimer post</router-link
                             >
                           </li>
                         </ul>
