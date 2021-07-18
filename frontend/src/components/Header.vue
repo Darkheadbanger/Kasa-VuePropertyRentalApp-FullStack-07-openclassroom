@@ -92,7 +92,7 @@ import { mapGetters } from "vuex";
 //  getting the current user via the state by mapGetters
 
 export default {
-  name: "MyProfil",
+  name: "Header",
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
     toUpdate() {
