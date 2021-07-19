@@ -10,7 +10,9 @@
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
             <PostWrite></PostWrite>
-            <Post></Post>
+            <div v-for="post in posts" :key="post.id">
+              <Post :post="post"></Post>
+            </div>
           </div>
           <!-- middle wrapper end -->
         </div>
@@ -22,6 +24,7 @@
 <script>
 import { mapGetters } from "vuex";
 //  getting the current user via the state by mapGetters
+import axios from "axios";
 import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
@@ -37,11 +40,26 @@ export default {
   },
   data() {
     return {
-      post: [],
+      posts: [],
     };
   },
-  created() {},
+  methods: {},
 
+  created() {
+    const getAllPost = "api/post";
+    axios
+      .get(getAllPost)
+      .then((response) => {
+        console.log(response);
+        this.posts = response.data.post;
+        console.log(this.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
+  mounted() {},
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters

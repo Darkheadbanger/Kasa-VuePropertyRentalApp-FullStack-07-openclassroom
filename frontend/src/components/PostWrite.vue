@@ -21,12 +21,19 @@
           <div class="col-sm-5 col-md-8">
             <input
               class="form-control mr-sm-2 bg-light"
+              v-model="postContent"
               type="text"
               placeholder="Publier ici..."
               aria-label="publication"
               id="publication"
             />
           </div>
+          <input
+            type="file"
+            id="file"
+            ref="file"
+            v-on:change="handleFileUpload()"
+          />
           <font-awesome-icon
             class="ms-1"
             :icon="['fas', 'image']"
@@ -36,7 +43,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click="toUpdate"
+              @click="submitFile"
             >
               Publier
             </button>
@@ -52,6 +59,22 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "PostWrite",
+  data() {
+    return {
+      postContent: "",
+      file: "",
+    };
+  },
+  methods: {
+    handleFileUpload() {
+      this.image = this.$refs.file.files[0];
+    },
+  },
+  submitFile() {
+    let FormData = new FormData();
+    FormData.append("file", this.file);
+    axios.post('/')
+  },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters

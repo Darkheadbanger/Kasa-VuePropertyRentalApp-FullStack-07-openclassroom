@@ -4,7 +4,5 @@ axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.withCredentials = true;
 const token = localStorage.getItem("userToken");
 if (token) {
-  axios.defaults.headers.common["Authorization"] = {
-    "x-access-token": token,
-  };
+  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 }

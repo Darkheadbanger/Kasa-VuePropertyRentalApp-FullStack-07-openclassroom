@@ -11,9 +11,14 @@
                 alt=""
               />
               <div class="ml-2 d-flex flex-column me-3">
-                <span class="mt-5">Mike Popescu</span>
-                <span class="tx-11 text-muted mb-5 d-flex justify-content-start"
-                  >1 min ago</span
+                <span class="mt-5"
+                  >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
+                    post.user.userName
+                  }})</span
+                >
+                <span
+                  class="tx-11 text-muted mb-5 d-flex justify-content-start"
+                  >{{ post.createdAt }}</span
                 >
               </div>
             </div>
@@ -48,12 +53,11 @@
         </div>
         <div class="card-body">
           <p class="mb-3 tx-14 ms-3">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-            minima delectus nemo unde quae recusandae assumenda.
+            {{ post.postContent }}
           </p>
           <img
             class="img-fluid d-flex"
-            src="../assets/groupomania.png"
+            :src="post.imageUrl"
             alt=""
           />
         </div>
@@ -200,7 +204,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Post",
-
+  props: ["post"],
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
