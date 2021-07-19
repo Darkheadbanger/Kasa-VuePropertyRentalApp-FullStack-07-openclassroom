@@ -31,7 +31,7 @@
           <input
             type="file"
             id="file"
-            ref="file"
+            ref="image"
             v-on:change="handleFileUpload()"
           />
           <font-awesome-icon
@@ -56,24 +56,34 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import axios from "axios";
 export default {
   name: "PostWrite",
   data() {
     return {
       postContent: "",
-      file: "",
+      image: "",
     };
   },
   methods: {
     handleFileUpload() {
-      this.image = this.$refs.file.files[0];
+      this.image = this.$refs.image.files[0];
     },
-  },
-  submitFile() {
-    let FormData = new FormData();
-    FormData.append("file", this.file);
-    axios.post('/')
+    submitFile() {
+      console.log("submitFile");
+      let formData = new FormData();
+      formData.append("image", this.image);
+      formData.append("postContent", this.postContent);
+      console.log("formData", formData);
+      axios
+        .post("/api/post", formData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
