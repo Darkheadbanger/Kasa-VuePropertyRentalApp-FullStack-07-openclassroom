@@ -28,8 +28,9 @@ exports.signup = async (req, res) => {
 
   //ici declaration de regex
   const regexMail =
-    /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
-  const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
+    // /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
   const regexName = /(.*[a-z]){3,30}/;
   if (
     regexMail.test(email) &&
@@ -100,7 +101,9 @@ exports.login = async (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(403).json({ error: "Email ou mot de passe incorrect ! " });
+        return res
+          .status(403)
+          .json({ error: "Email ou mot de passe incorrect ! " });
       }
       bcryptjs
         .compare(password, user.password)

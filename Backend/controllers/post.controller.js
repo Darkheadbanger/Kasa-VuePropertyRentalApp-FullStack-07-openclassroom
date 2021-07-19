@@ -9,17 +9,17 @@ const User = db.user; // user depuis model User/Auth
 const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
-  //Declarations des varibales po ur récuperer les données du modèles
+  //Declarations des varibales pour récuperer les données du modèles
   const userId = req.params.userId;
   // const postObject = JSON.parse(req.body.post)
   const urlImage = `${req.protocol}://${req.get("host")}/images/${
     req.file.filename
   }`;
-  console.log("Ici c'est object :", urlImage);
   const post = new Post({
     // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
+
     userId: userId,
   });
   post
@@ -30,11 +30,9 @@ exports.createPost = (req, res, next) => {
           .status(200)
           .json({ message: "Objet enregistrée à la base de données" });
       } else {
-        return res
-          .status(403)
-          .json({
-            error: "L'enregistrement dans la base de données échouée !",
-          });
+        return res.status(403).json({
+          error: "L'enregistrement dans la base de données échouée !",
+        });
       }
     })
     .catch((error) => {
@@ -55,7 +53,11 @@ exports.getAllPost = (req, res, next) => {
         attributes: ["comment", "imageUrl", "createdAt"],
       },
     ],
-    order: ["createdAt"], //DESC ou non ?
+    order: [
+      ['createdAt', 'DESC']
+    ]
+    // order: [ "createdAt"], //DESC ou non ?
+    // ['title', 'DESC'],
   })
     .then((post) => {
       if (post) {
@@ -141,11 +143,9 @@ exports.updatePost = (req, res, next) => {
                 })
                 .catch((error) => {
                   console.error(error.message);
-                  return res
-                    .status(500)
-                    .json({
-                      error: "Impossible a mettre a jour, internal error",
-                    });
+                  return res.status(500).json({
+                    error: "Impossible a mettre a jour, internal error",
+                  });
                 });
             } else {
               res.status(404).json({ message: "Le post introuvable !" });
