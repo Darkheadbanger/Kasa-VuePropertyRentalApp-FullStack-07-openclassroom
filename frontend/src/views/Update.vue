@@ -32,7 +32,7 @@
                         "
                       >
                         <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">Prénom :</span>
+                          <span class="mt-3 mb-3">Prénom:</span>
                         </div>
                         <div class="ml-2 d-flex">
                           <span class="mt-3 mb-3">{{ user.firstName }}</span>
@@ -62,7 +62,7 @@
                       </div>
                       <div class="d-flex justify-content-between border-bottom">
                         <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">Nom :</span>
+                          <span class="mt-3 mb-3">Nom:</span>
                         </div>
                         <div class="ml-2 d-flex">
                           <span class="mt-3 mb-3">{{ user.lastName }}</span>
@@ -94,7 +94,7 @@
                       </div>
                       <div class="d-flex justify-content-between border-bottom">
                         <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">Pseudeo :</span>
+                          <span class="mt-3 mb-3">Pseudeo:</span>
                         </div>
                         <div class="ml-2 d-flex">
                           <span class="mt-3 mb-3">{{ user.userName }}</span>
@@ -126,7 +126,7 @@
                       </div>
                       <div class="d-flex justify-content-between border-bottom">
                         <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">Email :</span>
+                          <span class="mt-3 mb-3">Email:</span>
                         </div>
                         <div class="ml-2 d-flex">
                           <span class="mt-3 mb-3">{{ user.email }}</span>
@@ -156,6 +156,19 @@
                           </button>
                         </div>
                       </div>
+                      <div class="mt-2 mb-2">
+                        <button
+                          class="
+                            btn btn-danger btn-icon-text btn-edit-profile
+                            d-flex
+                            justify-content-center
+                          "
+                          @click="delteUser"
+                        >
+                          Supprimer compte
+                        </button>
+                      </div>
+
                       <!-- <div class="d-flex justify-content-between border-bottom">
                         <div class="ml-2 d-flex">
                           <span class="mt-3 mb-3">Admin :</span>
