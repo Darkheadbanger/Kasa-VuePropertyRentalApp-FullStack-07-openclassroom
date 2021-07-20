@@ -127,14 +127,15 @@ export default {
     };
   },
   created() {
-    const userIdDynamic = this.$route.params.id;
-    const getAllMyPost = `api/post/${userIdDynamic}`;
+    // const userIdDynamic = this.$user.params.userId;
+    // const getAllMyPost = `api/post/${userIdDynamic}`;
+    const getAllMyPost = `api/post/`;
     axios
       .get(getAllMyPost)
       .then((response) => {
         console.log(response);
-        this.myPosts = response.data.myPost;
-        console.log(this.posts);
+        this.myPosts = response.data.post;
+        console.log(this.myPosts);
       })
       .catch((error) => {
         console.log(error);
@@ -146,6 +147,7 @@ export default {
       this.$router.push({ name: "Update" });
     },
   },
+
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters

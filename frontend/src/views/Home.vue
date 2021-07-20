@@ -60,7 +60,7 @@ export default {
       });
   },
 
-  mounted() {},
+
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
