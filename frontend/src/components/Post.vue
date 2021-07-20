@@ -55,11 +55,7 @@
           <p class="mb-3 tx-14 ms-3">
             {{ post.postContent }}
           </p>
-          <img
-            class="img-fluid d-flex"
-            :src="post.imageUrl"
-            alt=""
-          />
+          <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
         </div>
         <div class="card-footer">
           <div class="d-flex post-actions">
@@ -205,6 +201,16 @@ import { mapGetters } from "vuex";
 export default {
   name: "Post",
   props: ["post"],
+  data: {
+    timesstamp: "",
+  },
+
+  methods: {
+    getTime: (date) => {
+      const today = new Date(date)
+      
+    }
+  },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
