@@ -10,11 +10,24 @@
                 src="../assets/icon-above-font.png"
                 alt=""
               />
-              <div class="ml-2 d-flex flex-column me-3">
+              <div v-if="post" class="ml-2 d-flex flex-column me-3">
                 <span class="mt-5"
                   >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
                     post.user.userName
                   }})</span
+                >
+                <span
+                  class="tx-11 text-muted mb-5 d-flex justify-content-start"
+                >
+                  <!-- {{ post.createdAt }} -->
+                  {{ formattedTime }}
+                </span>
+              </div>
+
+              <div v-else class="ml-2 d-flex flex-column me-3">
+                <span class="mt-5"
+                  >{{ myPost.user.firstName }} {{ myPost.user.lastName }}
+                  <br />({{ myPost.user.userName }})</span
                 >
                 <span
                   class="tx-11 text-muted mb-5 d-flex justify-content-start"
@@ -53,12 +66,24 @@
             </div>
           </div>
         </div>
-        <div class="card-body">
+        <div v-if="post" class="card-body">
           <p class="mb-3 tx-14 ms-3">
             {{ post.postContent }}
           </p>
           <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
         </div>
+
+        <div v-else class="card-body">
+          <p class="mb-3 tx-14 ms-3">
+            {{ myPost.postContent }}
+          </p>
+          <img
+            class="img-fluid d-flex"
+            :src="myPost.imageUrl"
+            alt="image post"
+          />
+        </div>
+
         <div class="card-footer">
           <div class="d-flex post-actions">
             <label
@@ -200,15 +225,17 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+// import data from "../views/Home.vue"
+// import axios from "axios";
 
 export default {
   name: "Post",
-  props: ["post"],
+  props: ["post", "myPost"],
 
   data() {
     return {
       formattedTime: "",
-      now: "",
+      now: 0,
       created_At: moment(),
     };
   },
@@ -247,9 +274,24 @@ export default {
   },
 
   created() {
-
+    // const getAllPost = "api/post";
+    // axios
+    //   .get(getAllPost)
+    //   .then(() => {
+    //     // const createdAt = response.data.post
+    //     this.formattedTime = moment();
+    //     const created_At_Origine = this.created_At
+    //     this.formattedTime = this.getFormattedTime(created_At_Origine);
+    //     setInterval(() => {
+    //       this.now = moment();
+    //     }, 3000);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
     this.formattedTime = moment();
-    this.formattedTime = this.getFormattedTime(this.created_At);
+    const created_At_Origine = this.created_At;
+    this.formattedTime = this.getFormattedTime(created_At_Origine);
     setInterval(() => {
       this.now = moment();
     }, 3000);

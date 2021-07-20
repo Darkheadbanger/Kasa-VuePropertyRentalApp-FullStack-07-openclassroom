@@ -92,7 +92,9 @@
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
             <PostWrite></PostWrite>
-            <Post></Post>
+            <div v-for="myPost in myPosts" :key="myPost.id">
+              <Post :post="myPost"></Post>
+            </div>
           </div>
           <!-- middle wrapper end -->
         </div>
@@ -108,6 +110,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
+import axios from "axios";
 
 export default {
   name: "MyProfil",
@@ -116,6 +119,25 @@ export default {
     Header,
     Post,
     PostWrite,
+  },
+
+  data() {
+    return {
+      myPosts: [],
+    };
+  },
+  created() {
+    const getAllMyPost = "api/post/:id";
+    axios
+      .get(getAllMyPost)
+      .then((response) => {
+        console.log(response);
+        this.posts = response.data.post;
+        console.log(this.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
