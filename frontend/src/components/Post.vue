@@ -18,8 +18,10 @@
                 >
                 <span
                   class="tx-11 text-muted mb-5 d-flex justify-content-start"
-                  >{{ post.createdAt }}</span
                 >
+                  <!-- {{ post.createdAt }} -->
+                  {{ formattedTime }}
+                </span>
               </div>
             </div>
             <div class="btn-group">
@@ -197,20 +199,61 @@
 
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment";
 
 export default {
   name: "Post",
   props: ["post"],
-  data: {
-    timesstamp: "",
+
+  data() {
+    return {
+      formattedTime: "",
+      now: "",
+      created_At: moment(),
+    };
+  },
+  methods: {
+    getFormattedTime(date) {
+      let now = moment(); //todays date
+      let end = moment(date); // another date
+      let duration = moment.duration(now.diff(end));
+      let days = duration.asDays();
+      let hours = duration.asHours();
+      let minutes = duration.asMinutes();
+      let seconds = duration.asSeconds();
+
+      if (seconds > 0 && seconds < 60) {
+        return Math.round(seconds) + "s";
+      }
+
+      if (minutes > 0 && minutes < 60) {
+        return Math.round(minutes) + "m";
+      }
+
+      if (hours > 0 && hours < 24) {
+        return Math.round(hours) + "h";
+      }
+
+      if (days > 0) {
+        return end.format("MMM D");
+      }
+    },
   },
 
-  methods: {
-    getTime: (date) => {
-      const today = new Date(date)
-      
-    }
+  watch: {
+    now() {
+      this.formattedTime = this.getFormattedTime(this.created_At);
+    },
   },
+
+  created() {
+    this.formattedTime = moment();
+    this.formattedTime = this.getFormattedTime(this.created_At);
+    setInterval(() => {
+      this.now = moment();
+    }, 3000);
+  },
+
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters

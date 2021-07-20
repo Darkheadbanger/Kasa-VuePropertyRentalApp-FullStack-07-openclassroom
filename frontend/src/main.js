@@ -6,7 +6,6 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "./plugins/font-aweosme";
 import "./services/axios";
-import "vue3-timeago";
 
 createApp(App)
   .use(store)
