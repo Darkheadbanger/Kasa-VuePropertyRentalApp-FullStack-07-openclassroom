@@ -247,6 +247,7 @@ export default {
   },
 
   created() {
+
     this.formattedTime = moment();
     this.formattedTime = this.getFormattedTime(this.created_At);
     setInterval(() => {
