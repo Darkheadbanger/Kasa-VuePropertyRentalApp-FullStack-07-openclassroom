@@ -19,13 +19,12 @@ exports.createPost = (req, res, next) => {
     // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
-
     userId: userId,
   });
   post
     .save()
     .then((created) => {
-      if (created) {
+      if (created ) {
         res
           .status(200)
           .json({ message: "Objet enregistrée à la base de données" });

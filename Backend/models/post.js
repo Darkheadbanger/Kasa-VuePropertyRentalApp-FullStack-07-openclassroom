@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       imageUrl: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       // likes: {
       //   type: Sequelize.MEDIUMINT,

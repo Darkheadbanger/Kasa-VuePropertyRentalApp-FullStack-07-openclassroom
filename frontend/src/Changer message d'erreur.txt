@@ -1,5 +1,0 @@
-Changer message d'erreur
-Signup faire la meme que Login dans vuex
-essayer de se passer de persistedState
-
-Design first then logic
