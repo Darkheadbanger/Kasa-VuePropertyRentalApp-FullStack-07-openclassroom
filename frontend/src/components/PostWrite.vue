@@ -22,6 +22,7 @@
             <input
               class="form-control mr-sm-2 bg-light"
               v-model="postContent"
+              :maxlength="max"
               type="text"
               placeholder="Publier ici..."
               aria-label="publication"
@@ -63,6 +64,7 @@ export default {
     return {
       postContent: "",
       image: "",
+      max: 280,
     };
   },
   methods: {
