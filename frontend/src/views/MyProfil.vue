@@ -123,16 +123,17 @@ export default {
 
   data() {
     return {
-      myPosts: [],
+      myPosts: "",
     };
   },
   created() {
-    const getAllMyPost = "api/post/:id";
+    const userIdDynamic = this.$route.params.id;
+    const getAllMyPost = `api/post/${userIdDynamic}`;
     axios
       .get(getAllMyPost)
       .then((response) => {
         console.log(response);
-        this.posts = response.data.post;
+        this.myPosts = response.data.myPost;
         console.log(this.posts);
       })
       .catch((error) => {

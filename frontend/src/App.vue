@@ -20,8 +20,6 @@ export default {
     axios
       .get(userAPI)
       .then((response) => {
-        // this.user = response.data;
-        // dispatch against user
         this.$store.dispatch("user", response.data);
         console.log(response);
       })
