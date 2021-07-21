@@ -1,221 +1,137 @@
 <template>
-  <div class="row mt-4 mt-md-4 mt-lg-0">
-    <div class="col-md-12">
-      <div class="card rounded">
-        <div class="card-header">
-          <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex align-items-center justify-content-between">
-              <img
-                class="rounded-circle profile-pic"
-                src="../assets/icon-above-font.png"
-                alt=""
-              />
-              <div v-if="post" class="ml-2 d-flex flex-column me-3">
-                <span class="mt-5"
-                  >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
-                    post.user.userName
-                  }})</span
-                >
-                <span
-                  class="tx-11 text-muted mb-5 d-flex justify-content-start"
-                >
-                  <!-- {{ post.createdAt }} -->
-                  {{ formattedTime }}
-                </span>
-              </div>
+  <div class="card-header">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between">
+        <img
+          class="rounded-circle profile-pic"
+          src="../assets/icon-above-font.png"
+          alt=""
+        />
+        <div class="ml-2 d-flex flex-column me-3">
+          <div v-if="post" class="ml-2 d-flex flex-column me-3">
+            <span class="mt-5"
+              >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
+                post.user.userName
+              }})</span
+            >
+            <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
+              <!-- {{ post.createdAt }} -->
+              {{ formattedTime }}
+            </span>
+          </div>
 
-              <div v-else class="ml-2 d-flex flex-column me-3">
-                <span class="mt-5"
-                  >{{ myPost.user.firstName }} {{ myPost.user.lastName }}
-                  <br />({{ myPost.user.userName }})</span
-                >
-                <span
-                  class="tx-11 text-muted mb-5 d-flex justify-content-start"
-                >
-                  <!-- {{ post.createdAt }} -->
-                  {{ formattedTime }}
-                </span>
-              </div>
-            </div>
-            <div class="btn-group">
-              <button
-                class="btn btn-light dropdown-toggle me-5"
-                type="button"
-                id="defaultDropdown"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="true"
-                aria-expanded="false"
-              ></button>
-              <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
-                <li>
-                  <router-link class="dropdown-item" :to="{ name: 'EditPost' }">
-                    <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                    post</router-link
-                  >
-                </li>
-                <li>
-                  <router-link
-                    class="dropdown-item"
-                    :to="{ name: 'deletePost' }"
-                  >
-                    <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                    Supprimer post</router-link
-                  >
-                </li>
-              </ul>
-            </div>
+          <div v-else class="ml-2 d-flex flex-column me-3">
+            <span class="mt-5"
+              >{{ myPost.user.firstName }} {{ myPost.user.lastName }} <br />({{
+                myPost.user.userName
+              }})</span
+            >
+            <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
+              <!-- {{ post.createdAt }} -->
+              {{ formattedTime }}
+            </span>
           </div>
         </div>
-        <div v-if="post" class="card-body">
-          <p class="mb-3 tx-14 ms-3">
-            {{ post.postContent }}
-          </p>
-          <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
+        <div class="btn-group">
+          <button
+            class="btn btn-light dropdown-toggle me-5"
+            type="button"
+            id="defaultDropdown"
+            data-bs-toggle="dropdown"
+            data-bs-auto-close="true"
+            aria-expanded="false"
+          ></button>
+          <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+            <li>
+              <router-link class="dropdown-item" :to="{ name: 'EditPost' }">
+                <font-awesome-icon :icon="['fas', 'edit']" /> Edit
+                post</router-link
+              >
+            </li>
+            <li>
+              <router-link class="dropdown-item" :to="{ name: 'deletePost' }">
+                <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                Supprimer post</router-link
+              >
+            </li>
+          </ul>
         </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div v-if="post" class="card-body">
+        <p class="mb-3 tx-14 ms-3">
+          {{ post.postContent }}
+        </p>
+        <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
+      </div>
 
-        <div v-else class="card-body">
-          <p class="mb-3 tx-14 ms-3">
-            {{ myPost.postContent }}
-          </p>
-          <img
-            class="img-fluid d-flex"
-            :src="myPost.imageUrl"
-            alt="image post"
-          />
-        </div>
+      <div v-else class="card-body">
+        <p class="mb-3 tx-14 ms-3">
+          {{ myPost.postContent }}
+        </p>
+        <img class="img-fluid d-flex" :src="myPost.imageUrl" alt="image post" />
+      </div>
 
-        <div class="card-footer">
-          <div class="d-flex post-actions">
-            <label
-              class="
-                d-flex
-                align-items-center
-                text-muted
-                me-4
-                ms-4
-                text-decoration-none
-              "
-            >
-              <font-awesome-icon
-                class="mb-1 me-2"
-                :icon="['fas', 'thumbs-up']"
-              />
-              Like
-            </label>
-            <label
-              class="
-                d-flex
-                align-items-center
-                text-muted
-                me-4
-                text-decoration-none
-              "
-              for="commentText"
-            >
-              <font-awesome-icon class="mb-1 me-2" :icon="['fas', 'comment']" />
-              Comment
-            </label>
-          </div>
-          <div
+      <div class="card-footer">
+        <div class="d-flex post-actions">
+          <label
             class="
-              input-group input-group-sm
-              mb-1
-              mt-3
               d-flex
-              flex-row
-              justify-content-start
-              border-bottom border-light border-2
+              align-items-center
+              text-muted
+              me-4
+              ms-4
+              text-decoration-none
             "
           >
-            <img
-              class="rounded-circle img-xs"
-              src="../assets/icon-above-font.png"
-              alt=""
-            />
-
-            <div class="col-sm-6 col-md-9">
-              <input
-                class="form-control mr-sm-2 bg-light"
-                type="text"
-                placeholder="Commenter..."
-                aria-label="Commenter"
-                id="commentText"
-              />
-            </div>
-            <font-awesome-icon
-              class="ms-1"
-              :icon="['fas', 'image']"
-              size="2x"
-            />
-          </div>
-          <!-- Comment  -->
-          <div
+            <font-awesome-icon class="mb-1 me-2" :icon="['fas', 'thumbs-up']" />
+            Like
+          </label>
+          <label
             class="
-              input-group input-group-sm
-              mb-3
-              mt-3
-              d-inline-flex
-              flex-row
-              justify-content-start
+              d-flex
+              align-items-center
+              text-muted
+              me-4
+              text-decoration-none
             "
+            for="commentText"
           >
-            <img
-              class="rounded-circle img-fluid s-image"
-              src="../assets/icon-above-font.png"
-              alt=""
+            <font-awesome-icon class="mb-1 me-2" :icon="['fas', 'comment']" />
+            Comment
+          </label>
+        </div>
+        <div
+          class="
+            input-group input-group-sm
+            mb-1
+            mt-3
+            d-flex
+            flex-row
+            justify-content-start
+            border-bottom border-light border-2
+          "
+        >
+          <img
+            class="rounded-circle img-xs"
+            src="../assets/icon-above-font.png"
+            alt=""
+          />
+          <div class="col-sm-6 col-md-9">
+            <input
+              class="form-control mr-sm-2 bg-light"
+              type="text"
+              placeholder="Commenter..."
+              aria-label="Commenter"
+              id="commentText"
             />
-            <div class="ms-2 mt-2 rounded bg-light rounded-3">
-              <div class="d-flex flex-column">
-                <div class="ms-perso-2 ms-2 mt-2">
-                  <router-link
-                    :to="{ name: 'Home' }"
-                    class="text-decoration-none me-1 text-dark float-start"
-                  >
-                    <span class="fw-bold">
-                      {{ user.firstName }} {{ user.lastName }}
-                    </span>
-                  </router-link>
-                </div>
-                <div>
-                  <span>
-                    <div class="me-perso float-start">
-                      dwssssssssdddddddddddddddddddddddddddd
-                    </div>
-                    <div class="w-50 float-start">
-                      <img class="img-fluid d-flex w-50" src="" alt="" />
-                    </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="btn-group ml-auto p-2 button-right">
-              <button
-                class="btn dropdown-toggle me-5"
-                type="button"
-                id="defaultDropdown"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="true"
-                aria-expanded="false"
-              ></button>
-              <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
-                <li>
-                  <router-link class="dropdown-item" :to="{ name: 'EditPost' }">
-                    <font-awesome-icon :icon="['fas', 'edit']" />
-                    Edit commentaire</router-link
-                  >
-                </li>
-                <li>
-                  <router-link
-                    class="dropdown-item"
-                    :to="{ name: 'deletePost' }"
-                  >
-                    <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                    Supprimer commentaire</router-link
-                  >
-                </li>
-              </ul>
-            </div>
           </div>
+          <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
+        </div>
+        <!-- Comment  -->
+        <div v-for="comment in comments" :key="comment.id">
+          <Comment :comment="comment"></Comment>
         </div>
       </div>
     </div>
@@ -226,17 +142,21 @@
 import { mapGetters } from "vuex";
 import moment from "moment";
 // import data from "../views/Home.vue"
-// import axios from "axios";
+import Comment from "./Comment.vue";
+import axios from "axios";
 
 export default {
   name: "Post",
   props: ["post", "myPost"],
-
+  components: {
+    Comment,
+  },
   data() {
     return {
       formattedTime: "",
       now: 0,
       created_At: moment(),
+      comments: [],
     };
   },
   methods: {
@@ -274,27 +194,24 @@ export default {
   },
 
   created() {
-    // const getAllPost = "api/post";
-    // axios
-    //   .get(getAllPost)
-    //   .then(() => {
-    //     // const createdAt = response.data.post
-    //     this.formattedTime = moment();
-    //     const created_At_Origine = this.created_At
-    //     this.formattedTime = this.getFormattedTime(created_At_Origine);
-    //     setInterval(() => {
-    //       this.now = moment();
-    //     }, 3000);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
     this.formattedTime = moment();
     const created_At_Origine = this.created_At;
     this.formattedTime = this.getFormattedTime(created_At_Origine);
     setInterval(() => {
       this.now = moment();
     }, 3000);
+
+    const getAllComments = "api/comment";
+    axios
+      .get(getAllComments)
+      .then((response) => {
+        console.log(response);
+        this.comments = response.data.comments;
+        console.log(this.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   // Logique pour récuperer les datas depuis la base de données MySQL
