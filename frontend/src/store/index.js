@@ -7,11 +7,16 @@ let ls = new SecureLS({ isCompression: false });
 export default createStore({
   state: {
     user: null, //!localStorage.getItem("userToken")
+    post: null,
   },
   getters: {
     user: (state) => {
       // Get current value of the user, which in this case user is null
       return state.user;
+    },
+    post: (state) => {
+      //  get current value of the post
+      return state.post;
     },
   },
   actions: {
@@ -59,6 +64,44 @@ export default createStore({
           });
       });
     },
+
+    // createPost({ commit }, post){
+    //   console.log("submitFile");
+    //   let formData = new FormData();
+    //   formData.append("image", this.image);
+    //   formData.append("postContent", this.postContent);
+    //   console.log("formData", formData);
+    //   return new Promise((resolve, reject) => {
+    //     axios
+    //       .post("/api/post", formData)
+    //       .then((response) => {
+    //         console.log(response);
+    //         resolve(response);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         reject(error);
+    //       });
+    //   });
+    // },
+
+    // created() {
+    //   const getAllPost = "api/post";
+    //   return new Promise((resolve, reject) => {
+    //     axios
+    //       .get(getAllPost)
+    //       .then((response) => {
+    //         console.log(response);
+    //         this.posts = response.data.post;
+    //         console.log(this.posts);
+    //         resolve(response);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         reject(error);
+    //       });
+    //   });
+    // },
   },
   plugins: [
     createPersistedState({
@@ -74,6 +117,9 @@ export default createStore({
     // This is state.user is equal to actions,
     user(state, user) {
       state.user = user; //foncitonne
+    },
+    post(state, post) {
+      state.post = post;
     },
   },
 });

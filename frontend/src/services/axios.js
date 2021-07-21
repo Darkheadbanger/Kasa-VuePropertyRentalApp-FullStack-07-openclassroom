@@ -7,10 +7,3 @@ const token = localStorage.getItem("userToken");
 if (token) {
   axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 }
-// const userLS = localStorage.getItem("user");
-// if (userLS != undefined) {
-//   const app = Vue.createApp({});
-//   app.config.globalProperties.$user = () => {
-//     JSON.parse(userLS);
-//   };
-// }

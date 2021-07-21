@@ -30,12 +30,13 @@
 <script>
 import { mapGetters } from "vuex";
 //  getting the current user via the state by mapGetters
-import axios from "axios";
+// import axios from "axios";
 import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
 // import Comment from "../components/Comment.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -50,11 +51,9 @@ export default {
   data() {
     return {
       posts: [],
-      // comments: [],
+      comments: [],
     };
   },
-  // v-for="comment in commments"
-  // :key="comment.id"
 
   created() {
     const getAllPost = "api/post";

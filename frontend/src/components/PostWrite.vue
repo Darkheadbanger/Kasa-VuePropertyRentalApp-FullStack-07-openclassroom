@@ -44,7 +44,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click="submitFile"
+              @click.once="submitFile"
             >
               Publier
             </button>
@@ -86,6 +86,17 @@ export default {
           console.log(error);
         });
     },
+
+    // handleFileUpload() {
+    //   this.image = this.$refs.image.files[0];
+    // },
+    // submitFile() {
+    //   console.log("submitFile");
+    //   let formData = new FormData();
+    //   formData.append("image", this.image);
+    //   formData.append("postContent", this.postContent);
+    //   console.log("formData", formData);
+    // },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {

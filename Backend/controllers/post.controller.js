@@ -11,10 +11,16 @@ const Comment = db.comment;
 exports.createPost = (req, res, next) => {
   //Declarations des varibales pour récuperer les données du modèles
   const userId = req.params.userId;
-  // const postObject = JSON.parse(req.body.post)
-  const urlImage = `${req.protocol}://${req.get("host")}/images/${
-    req.file.filename
-  }`;
+  // if (req.file) {
+  //   const urlImage = `${req.protocol}://${req.get("host")}/images/${
+  //     req.file.filename
+  //   }`;
+  // } else {
+  //   const urlImage = null;
+  // }
+  const urlImage = req.file
+    ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+    : null;
   const post = new Post({
     // ...postObject,
     postContent: req.body.postContent,
@@ -24,7 +30,7 @@ exports.createPost = (req, res, next) => {
   post
     .save()
     .then((created) => {
-      if (created ) {
+      if (created) {
         res
           .status(200)
           .json({ message: "Objet enregistrée à la base de données" });
@@ -52,9 +58,7 @@ exports.getAllPost = (req, res, next) => {
         attributes: ["comment", "imageUrl", "createdAt"],
       },
     ],
-    order: [
-      ['createdAt', 'DESC']
-    ]
+    order: [["createdAt", "DESC"]],
     // order: [ "createdAt"], //DESC ou non ?
     // ['title', 'DESC'],
   })

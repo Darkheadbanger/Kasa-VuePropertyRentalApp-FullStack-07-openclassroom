@@ -19,18 +19,6 @@
               {{ formattedTime }}
             </span>
           </div>
-
-          <div v-else class="ml-2 d-flex flex-column me-3">
-            <span class="mt-5"
-              >{{ myPost.user.firstName }} {{ myPost.user.lastName }} <br />({{
-                myPost.user.userName
-              }})</span
-            >
-            <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
-              <!-- {{ post.createdAt }} -->
-              {{ formattedTime }}
-            </span>
-          </div>
         </div>
         <div class="btn-group">
           <button
@@ -155,14 +143,6 @@
         </p>
         <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
       </div>
-
-      <div v-else class="card-body">
-        <p class="mb-3 tx-14 ms-3">
-          {{ myPost.postContent }}
-        </p>
-        <img class="img-fluid d-flex" :src="myPost.imageUrl" alt="image post" />
-      </div>
-
       <div class="card-footer">
         <div class="d-flex post-actions">
           <label
@@ -237,7 +217,7 @@ import axios from "axios";
 
 export default {
   name: "Post",
-  props: ["post", "myPost"],
+  props: ["post"],
   components: {
     Comment,
   },
@@ -279,13 +259,14 @@ export default {
 
   watch: {
     now() {
-      this.formattedTime = this.getFormattedTime(this.created_At);
+      this.formattedTime = this.getFormattedTime(this.post.createdAt);
     },
   },
 
   created() {
+    console.log(this.post);
     this.formattedTime = moment();
-    const created_At_Origine = this.created_At;
+    const created_At_Origine = this.post.createdAt;
     this.formattedTime = this.getFormattedTime(created_At_Origine);
     setInterval(() => {
       this.now = moment();
