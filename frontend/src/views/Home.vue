@@ -45,7 +45,6 @@ export default {
     Post,
     PostWrite,
   },
-
   data() {
     return {
       posts: [],

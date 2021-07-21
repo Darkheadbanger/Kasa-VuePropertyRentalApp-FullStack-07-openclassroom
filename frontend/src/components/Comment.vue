@@ -29,12 +29,13 @@
         <div>
           <span>
             <div class="me-perso float-start">
-              {{ comment.comment }}
+              <!-- {{ comment.comment }} -->
+              Hello
             </div>
             <div class="w-50 float-start">
               <img
                 class="img-fluid d-flex w-50"
-                :src="comment.imageUrl"
+                src="../assets/icon-above-font.png"
                 alt=""
               />
             </div>
@@ -104,7 +105,7 @@
               >
                 <img
                   class="rounded-circle img-fluid s-image"
-                  src="../assets/icon-above-font.png"
+                  src=""
                   alt=""
                 />
                 <div class="ms-2 mt-2 rounded bg-light rounded-3">
@@ -122,12 +123,13 @@
                     <div>
                       <span>
                         <div class="me-perso float-start">
-                          {{ comment.comment }}
+                          <!-- {{ comment.comment }} -->
+                          Hello
                         </div>
                         <div class="w-50 float-start">
                           <img
                             class="img-fluid d-flex w-50"
-                            :src="comment.imageUrl"
+                            src=""
                             alt=""
                           />
                         </div>

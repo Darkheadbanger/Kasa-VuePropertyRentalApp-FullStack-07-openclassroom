@@ -86,18 +86,6 @@ export default {
           console.log(error);
         });
     },
-
-    created() {
-      const getAllComments = "api/comment";
-      axios
-        .get(getAllComments)
-        .then((response) => {
-          console.error(response);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
     // handleFileUpload() {
     //   this.image = this.$refs.image.files[0];
     // },

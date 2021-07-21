@@ -199,10 +199,11 @@
           </div>
           <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
         </div>
+        <Comment></Comment>
         <!-- Comment  -->
-        <div v-for="comment in comments" :key="comment.id">
-          <Comment :comment="comment"></Comment>
-        </div>
+        <!-- <div v-for="comment in comments" :key="comment.id">
+          <Comment></Comment>
+        </div> -->
       </div>
     </div>
   </div>
