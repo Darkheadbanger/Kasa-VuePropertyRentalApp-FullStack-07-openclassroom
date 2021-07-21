@@ -273,6 +273,7 @@ export default {
       this.now = moment();
     }, 3000);
 
+    // Il faut faire un boucle dans le Comment
     const getAllComments = "api/comment";
     axios
       .get(getAllComments)

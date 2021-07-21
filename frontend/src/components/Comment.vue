@@ -1,5 +1,5 @@
 <template>
-  <div
+    <div
     class="
       input-group input-group-sm
       mb-3
@@ -28,11 +28,11 @@
         </div>
         <div>
           <span>
-            <div class="me-perso float-start">
+            <div class="me-perso float-start mb-5">
               <!-- {{ comment.comment }} -->
-              Hello
+              Helo
             </div>
-            <div class="w-50 float-start">
+            <div class="w-50 mt-5 mb-3 me-5">
               <img
                 class="img-fluid d-flex w-50"
                 src="../assets/icon-above-font.png"
@@ -124,7 +124,7 @@
                       <span>
                         <div class="me-perso float-start">
                           <!-- {{ comment.comment }} -->
-                          Hello
+                          
                         </div>
                         <div class="w-50 float-start">
                           <img
