@@ -43,18 +43,108 @@
           ></button>
           <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
             <li>
-              <router-link class="dropdown-item" :to="{ name: 'EditPost' }">
-                <font-awesome-icon :icon="['fas', 'edit']" /> Edit
-                post</router-link
+              <button
+                class="dropdown-item"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@mdo"
               >
+                <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
+              </button>
             </li>
             <li>
-              <router-link class="dropdown-item" :to="{ name: 'deletePost' }">
+              <button class="dropdown-item">
                 <font-awesome-icon :icon="['fas', 'trash-alt']" />
-                Supprimer post</router-link
-              >
+                Supprimer post
+              </button>
             </li>
           </ul>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div>
+                  <label for="message-text" class="col-form-label"
+                    >Modifiez votre post ici :</label
+                  >
+                  <div class="d-flex">
+                    <div
+                      class="
+                        input-group input-group-sm
+                        mb-3
+                        mt-3
+                        d-flex
+                        flex-row
+                        justify-content-start
+                      "
+                    >
+                      <img
+                        class="rounded-circle img-xs"
+                        src="../assets/icon-above-font.png"
+                        alt=""
+                      />
+
+                      <div class="col-sm-5 col-md-8">
+                        <input
+                          class="form-control mr-sm-2 bg-light"
+                          v-model="postContent"
+                          :maxlength="max"
+                          type="text"
+                          placeholder="Publier ici..."
+                          aria-label="publication"
+                          id="publication"
+                        />
+                      </div>
+                      <input
+                        type="file"
+                        id="file"
+                        ref="image"
+                        v-on:change="handleFileUpload()"
+                      />
+                      <font-awesome-icon
+                        class="ms-1"
+                        :icon="['fas', 'image']"
+                        size="2x"
+                        for="imageFile"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <div>
+                    <button
+                      class="btn btn-primary btn-icon-text btn-edit-profile"
+                      @click="submitFile"
+                    >
+                      Republier
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- fin modal -->
         </div>
       </div>
     </div>

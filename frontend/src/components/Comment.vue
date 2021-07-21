@@ -29,10 +29,14 @@
         <div>
           <span>
             <div class="me-perso float-start">
-              dwssssssssdddddddddddddddddddddddddddd
+              {{ comment.comment }}
             </div>
             <div class="w-50 float-start">
-              <img class="img-fluid d-flex w-50" src="" alt="" />
+              <img
+                class="img-fluid d-flex w-50"
+                :src="comment.imageUrl"
+                alt=""
+              />
             </div>
           </span>
         </div>
@@ -49,18 +53,111 @@
       ></button>
       <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
         <li>
-          <router-link class="dropdown-item" :to="{ name: 'EditPost' }">
-            <font-awesome-icon :icon="['fas', 'edit']" />
-            Edit commentaire</router-link
+          <button
+            class="dropdown-item"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@mdo"
           >
+            <font-awesome-icon :icon="['fas', 'edit']" />
+            Edit commentaire
+          </button>
         </li>
         <li>
-          <router-link class="dropdown-item" :to="{ name: 'deletePost' }">
+          <button class="dropdown-item">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
-            Supprimer commentaire</router-link
-          >
+            Supprimer commentaire
+          </button>
         </li>
       </ul>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div>
+              <label for="message-text" class="col-form-label"
+                >Modifiez votre commentaire ici :</label
+              >
+              <div
+                class="
+                  input-group input-group-sm
+                  mb-3
+                  mt-3
+                  d-inline-flex
+                  flex-row
+                  justify-content-start
+                "
+              >
+                <img
+                  class="rounded-circle img-fluid s-image"
+                  src="../assets/icon-above-font.png"
+                  alt=""
+                />
+                <div class="ms-2 mt-2 rounded bg-light rounded-3">
+                  <div class="d-flex flex-column">
+                    <div class="ms-perso-2 ms-2 mt-2">
+                      <router-link
+                        :to="{ name: 'Home' }"
+                        class="text-decoration-none me-1 text-dark float-start"
+                      >
+                        <span class="fw-bold">
+                          {{ user.firstName }} {{ user.lastName }}
+                        </span>
+                      </router-link>
+                    </div>
+                    <div>
+                      <span>
+                        <div class="me-perso float-start">
+                          {{ comment.comment }}
+                        </div>
+                        <div class="w-50 float-start">
+                          <img
+                            class="img-fluid d-flex w-50"
+                            :src="comment.imageUrl"
+                            alt=""
+                          />
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <div>
+                <button
+                  class="btn btn-primary btn-icon-text btn-edit-profile"
+                  @click="submitFile"
+                >
+                  Republier
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fin modal -->
     </div>
   </div>
 </template>

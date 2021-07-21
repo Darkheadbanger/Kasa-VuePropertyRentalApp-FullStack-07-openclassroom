@@ -1,0 +1,127 @@
+<template>
+  <div class="d-none d-md-block col-md-4 me-5">
+    <div class="card rounded">
+      <div
+        class="
+          card-body
+          d-flex
+          align-items-start
+          justify-content-start
+          flex-column
+          me-3
+          ms-3
+        "
+      >
+        <div class="d-flex mb-2">
+          <div class="mr-auto p-2">
+            <h6 class="card-title mb-3">About</h6>
+          </div>
+          <div class="btn-group ml-auto p-2 ms-5 button-right">
+            <button
+              class="btn btn-light dropdown-toggle me-5"
+              type="button"
+              id="defaultDropdown"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="true"
+              aria-expanded="false"
+            ></button>
+            <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
+              <li>
+                <router-link class="dropdown-item" :to="{ name: 'Update' }">
+                  <font-awesome-icon :icon="['fas', 'edit']" /> Edit
+                  profile</router-link
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p>
+          Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you enjoy the
+          design and quality of Social.
+        </p>
+        <div class="mt-3">
+          <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+            >Joined:</label
+          >
+          <p class="text-muted">November 15, 2015</p>
+        </div>
+        <div class="mt-3">
+          <label class="tx-11 font-weight-bold mb-0 text-uppercase">Nom:</label>
+          <p class="text-muted">New York, USA</p>
+        </div>
+        <div class="mt-3">
+          <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+            >Prénom:</label
+          >
+          <p class="text-muted">me@nobleui.com</p>
+        </div>
+        <div class="mt-3">
+          <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+            >Pseudep:</label
+          >
+          <p class="text-muted">www.nobleui.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  name: "profileInformation",
+  // Logique pour récuperer les datas depuis la base de données MySQL
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user"]),
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+body {
+  background-color: #f9fafb;
+  margin-top: 20px;
+}
+
+.profile-body {
+  div {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .profile-pic {
+    width: 6rem;
+    height: auto;
+  }
+  p {
+    text-align: left;
+    padding: 0 0 0 0;
+  }
+  label {
+    margin-right: 5rem;
+  }
+  .img-xs {
+    width: 3rem;
+    height: auto;
+  }
+  .s-image {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+// card footer
+
+.card-header {
+  padding: 0 0 0 0;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 1px solid #878787;
+}
+
+.card {
+  box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+}
+</style>
