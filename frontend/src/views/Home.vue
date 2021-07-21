@@ -35,7 +35,6 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
-// import Comment from "../components/Comment.vue";
 import axios from "axios";
 
 export default {
@@ -45,7 +44,6 @@ export default {
     Header,
     Post,
     PostWrite,
-    // Comment,
   },
 
   data() {
