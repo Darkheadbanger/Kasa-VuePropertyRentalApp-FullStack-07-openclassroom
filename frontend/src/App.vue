@@ -23,8 +23,8 @@ export default {
         this.$store.dispatch("user", response.data);
         console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        // console.log(error);
       });
   },
 };

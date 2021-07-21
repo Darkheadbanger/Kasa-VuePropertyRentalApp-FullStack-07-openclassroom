@@ -10,8 +10,14 @@
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
             <PostWrite></PostWrite>
-            <div v-for="post in posts" :key="post.id">
-              <Post :post="post"></Post>
+            <div class="row mt-4 mt-md-4 mt-lg-0">
+              <div class="col-md-12">
+                <div class="card rounded">
+                  <div v-for="post in posts" :key="post.id">
+                    <Post :post="post"></Post>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- middle wrapper end -->
@@ -29,6 +35,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
+// import Comment from "../components/Comment.vue";
 
 export default {
   name: "Home",
@@ -37,14 +44,17 @@ export default {
     Header,
     Post,
     PostWrite,
+    // Comment,
   },
 
   data() {
     return {
       posts: [],
+      // comments: [],
     };
   },
-  methods: {},
+  // v-for="comment in commments"
+  // :key="comment.id"
 
   created() {
     const getAllPost = "api/post";
@@ -59,7 +69,6 @@ export default {
         console.log(error);
       });
   },
-
 
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {

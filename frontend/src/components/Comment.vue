@@ -1,0 +1,131 @@
+<template>
+
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import moment from "moment";
+// import data from "../views/Home.vue"
+// import axios from "axios";
+
+export default {
+  name: "Comment",
+  props: ["comment"],
+
+  data() {
+    return {
+      formattedTime: "",
+      now: 0,
+      created_At: moment(),
+      comments: [],
+    };
+  },
+  methods: {
+    getFormattedTime(date) {
+      let now = moment(); //todays date
+      let end = moment(date); // another date
+      let duration = moment.duration(now.diff(end));
+      let days = duration.asDays();
+      let hours = duration.asHours();
+      let minutes = duration.asMinutes();
+      let seconds = duration.asSeconds();
+
+      if (seconds > 0 && seconds < 60) {
+        return Math.round(seconds) + "s";
+      }
+
+      if (minutes > 0 && minutes < 60) {
+        return Math.round(minutes) + "m";
+      }
+
+      if (hours > 0 && hours < 24) {
+        return Math.round(hours) + "h";
+      }
+
+      if (days > 0) {
+        return end.format("MMM D");
+      }
+    },
+  },
+
+  watch: {
+    now() {
+      this.formattedTime = this.getFormattedTime(this.created_At);
+    },
+  },
+
+  created() {
+    this.formattedTime = moment();
+    const created_At_Origine = this.created_At;
+    this.formattedTime = this.getFormattedTime(created_At_Origine);
+    setInterval(() => {
+      this.now = moment();
+    }, 3000);
+  },
+
+  // Logique pour récuperer les datas depuis la base de données MySQL
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user"]),
+  },
+}; //  Pour le corps de la poste
+</script>
+
+<style lang="scss" scoped>
+// card footer
+.profile-body {
+  div {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .profile-pic {
+    width: 6rem;
+    height: auto;
+  }
+  p {
+    text-align: left;
+    padding: 0 0 0 0;
+  }
+  label {
+    margin-right: 5rem;
+  }
+  .img-xs {
+    width: 3rem;
+    height: auto;
+  }
+  .s-image {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.card-header {
+  padding: 0 0 0 0;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.card-footer {
+  background-color: white;
+  border-top: 1px solid #f2f4f9;
+  li {
+    a {
+      color: #000;
+      transition: all 0.2s ease;
+    }
+
+    &:hover,
+    &.active,
+    &:hover a,
+    &.active a {
+      text-decoration: underline;
+    }
+  }
+  .me-perso {
+    margin-right: 4rem !important;
+  }
+  .ms-perso-2 {
+    margin-left: 0.15rem !important;
+  }
+}
+</style>

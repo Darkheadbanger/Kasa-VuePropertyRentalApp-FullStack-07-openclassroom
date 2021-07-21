@@ -79,7 +79,7 @@ exports.getAllMyPost = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["userName"],
+        attributes: ["userName", "userId"],
       },
       {
         model: Comment,
