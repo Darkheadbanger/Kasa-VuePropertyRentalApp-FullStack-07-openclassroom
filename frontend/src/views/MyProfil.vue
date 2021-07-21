@@ -49,14 +49,13 @@ export default {
     };
   },
   created() {
-    // const userIdDynamic = this.$user.params.userId;
-    // const getAllMyPost = `api/post/${userIdDynamic}`;
-    const getAllMyPost = `api/post/`;
+    const userIdDynamic = this.user.id;
+    const getAllMyPost = `api/post/${userIdDynamic}`;
     axios
       .get(getAllMyPost)
       .then((response) => {
         console.log(response);
-        this.myPosts = response.data.post;
+        this.myPosts = response.data.myPost;
         console.log(this.myPosts);
       })
       .catch((error) => {
