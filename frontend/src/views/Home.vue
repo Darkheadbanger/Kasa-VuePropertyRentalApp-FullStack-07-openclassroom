@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       posts: [],
-      comments: [],
     };
   },
 
@@ -63,6 +62,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+        
       });
   },
 
