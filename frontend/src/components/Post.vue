@@ -172,9 +172,10 @@
             Comment
           </label>
         </div>
-        <CommentWrite></CommentWrite>
-        <div v-for="commentss in comment" :key="commentss.id">
-          <Comment :commentss="commentss"></Comment>
+        <CommentWrite :postId="post.id"></CommentWrite>
+        <!-- V-for le tableau que je parcours est a droite de int, le commentaire dans le tableau de commentaier -->
+        <div v-for="comment in post.comments" :key="comment.id">
+          <Comment :comment="comment"></Comment>
         </div>
       </div>
     </div>
@@ -187,7 +188,6 @@ import moment from "moment";
 // import data from "../views/Home.vue"
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-import axios from "axios";
 
 export default {
   name: "Post",
@@ -201,7 +201,6 @@ export default {
       formattedTime: "",
       now: 0,
       created_At: moment(),
-      comment: [],
     };
   },
   methods: {
@@ -239,26 +238,12 @@ export default {
   },
 
   created() {
-    console.log(this.post);
     this.formattedTime = moment();
     const created_At_Origine = this.post.createdAt;
     this.formattedTime = this.getFormattedTime(created_At_Origine);
     setInterval(() => {
       this.now = moment();
     }, 3000);
-
-    // Il faut faire un boucle dans le Comment
-    const getAllComments = "api/comment";
-    axios
-      .get(getAllComments)
-      .then((response) => {
-        console.log(response);
-        this.comment = response.data.comments;
-        console.log(this.comments);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   },
 
   // Logique pour récuperer les datas depuis la base de données MySQL

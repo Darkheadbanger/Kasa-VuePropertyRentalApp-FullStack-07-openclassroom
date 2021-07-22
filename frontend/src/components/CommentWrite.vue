@@ -18,6 +18,8 @@
     <div class="col-sm-6 col-md-9">
       <input
         class="form-control mr-sm-2 bg-light"
+        v-model="comment"
+        :maxlength="max"
         type="text"
         placeholder="Commenter..."
         aria-label="Commenter"
@@ -29,7 +31,7 @@
     <div>
       <button
         class="btn btn-primary btn-icon-text btn-edit-profile"
-        @click.once="submitComment"
+        @click="submitComment"
       >
         Publier
       </button>
@@ -39,9 +41,11 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CommentWrite",
+  props: ["postId"],
   data() {
     return {
       comment: "",
@@ -59,8 +63,7 @@ export default {
       formData.append("image", this.image);
       formData.append("comment", this.comment);
       console.log("formData", formData);
-      const userId = this.user.id;
-      const createComment = `api/comment/${userId}`;
+      const createComment = `api/comment/${this.postId}`;
       axios
         .post(createComment, formData)
         .then((response) => {
@@ -70,6 +73,11 @@ export default {
           console.log(error);
         });
     },
+  },
+  // Logique pour récuperer les datas depuis la base de données MySQL
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user"]),
   },
 };
 </script>

@@ -56,13 +56,13 @@ export default {
     axios
       .get(getAllPost)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.posts = response.data.post;
-        console.log(this.posts);
+        // console.log(this.posts);
       })
       .catch((error) => {
         console.log(error);
-        
+
       });
   },
 

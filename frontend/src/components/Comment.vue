@@ -29,12 +29,12 @@
         <div>
           <span>
             <div class="me-perso float-start mb-5">
-              {{ commentss.comment }}
+              {{ comment.comment }}
             </div>
             <div class="w-50 mt-5 mb-3 me-5">
               <img
                 class="img-fluid d-flex w-50"
-                :src="comments.imageUrl"
+                :src="comment.imageUrl"
                 alt=""
               />
             </div>
@@ -118,12 +118,12 @@
                     <div>
                       <span>
                         <div class="me-perso float-start">
-                          {{ commentss.comment }}
+                          {{ comment.comment }}
                         </div>
                         <div class="w-50 float-start">
                           <img
                             class="img-fluid d-flex w-50"
-                            :src="commentss.imageUrl"
+                            :src="comment.imageUrl"
                             alt=""
                           />
                         </div>
@@ -165,7 +165,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Comment",
-  props: ["commentss"],
+  props: ["comment"],
 
   data() {
     return {

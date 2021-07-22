@@ -44,7 +44,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click.once="submitPost"
+              @click="submitPost"
             >
               Publier
             </button>
