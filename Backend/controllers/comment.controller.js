@@ -12,15 +12,21 @@ const Post = db.post;
 exports.createComment = (req, res) => {
   //Declarations des varibales pour récuperer les données du modèles
   const userId = req.params.userId; //userId du user
-  const postId = req.params.postId;// postId de la post
-  const commentPost = req.body.comment
-  const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename
-    }`;
+  const postId = req.params.postId; // postId de la post
+  const commentPost = req.body.comment;
+  // if (req.file) {
+  //   const imageUrl = `${req.protocol}:${req.get("host")}/images/${req.file.filename}`;
+  // } else {
+  //   const imageUrl = null;
+  // }
+  const urlImage = req.file
+    ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+    : null;
   const comment = new Comment({
     comment: commentPost,
-    imageUrl: imageUrl,
-    userId: userId,//original userId,
-    postId
+    imageUrl: urlImage,
+    userId: userId, //original userId,
+    postId: postId,
   });
   comment
     .save()
@@ -36,14 +42,17 @@ exports.createComment = (req, res) => {
 };
 exports.getAllComments = (req, res) => {
   Comment.findAll({
-    include: [{
-      model: User,
-      attributes: ["userName"],
-    }, {
-      model: Post,
-      attributes: ["postContent", "imageUrl"]
-    }],
-    order: ["createdAt"]
+    include: [
+      {
+        model: User,
+        attributes: ["userName"],
+      },
+      {
+        model: Post,
+        attributes: ["postContent", "imageUrl"],
+      },
+    ],
+    order: ["createdAt"],
   })
     .then((comment) => {
       if (comment <= null) {
@@ -61,54 +70,65 @@ exports.getAllComments = (req, res) => {
 exports.updateComments = (req, res) => {
   const userId = req.params.userId;
   const commentPost = req.body.comment;
-  const commentId = req.params.id
-  const commentObject = req.file ? {
-    commentPost: commentPost,
-    imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename
-      }`
-  } : { commentPost: commentPost }
+  const commentId = req.params.id;
+  const commentObject = req.file
+    ? {
+        commentPost: commentPost,
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { commentPost: commentPost };
 
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
-    where: { id: userId }
+    where: { id: userId },
   })
     .then((user) => {
       Comment.findOne({
         where: {
-          id: commentId
-        }
+          id: commentId,
+        },
       })
         .then((commentFind) => {
-          console.log("Ici, c'est :", commentFind)
+          console.log("Ici, c'est :", commentFind);
           filename = commentFind.imageUrl.split("/images/")[1];
           fs.unlink(`images/${filename}`, () => {
-            console.log("Hey :", commentFind.userId)
-            if (user && (user.isAdmin == true || user.id == commentFind.userId)) {
-              Comment.update(
-                commentObject,
-                {
-                  where: { id: commentId }
-                }
-              )
+            console.log("Hey :", commentFind.userId);
+            if (
+              user &&
+              (user.isAdmin == true || user.id == commentFind.userId)
+            ) {
+              Comment.update(commentObject, {
+                where: { id: commentId },
+              })
                 .then(() => {
-                  return res.status(200).json({ message: "Commentaire modifié !" })
+                  return res
+                    .status(200)
+                    .json({ message: "Commentaire modifié !" });
                 })
                 .catch((error) => {
-                  console.error(error.message)
-                  return res.status(500).json({ error })
-                })
+                  console.error(error.message);
+                  return res.status(500).json({ error });
+                });
             } else {
-              res.status(403).json({ message: "Vous n'avez pas l'autorisation pour modifier ce commentaire!" })
+              res.status(403).json({
+                message:
+                  "Vous n'avez pas l'autorisation pour modifier ce commentaire!",
+              });
             }
-          })
-        }).catch((error) => {
-          console.error(error.message)
-          return res.status({ message: "Commentaire introuvable!" })
+          });
         })
+        .catch((error) => {
+          console.error(error.message);
+          return res.status({ message: "Commentaire introuvable!" });
+        });
     })
     .catch((error) => {
       console.log(error.message);
-      return res.status(403).json({ message: "Vous n'avez pas d'autorisation!" });
+      return res
+        .status(403)
+        .json({ message: "Vous n'avez pas d'autorisation!" });
     });
 };
 exports.deleteComment = (req, res) => {
@@ -130,7 +150,7 @@ exports.deleteComment = (req, res) => {
         },
       })
         .then((comment) => {
-          console.log('Bonjour', comment)
+          console.log("Bonjour", comment);
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = comment.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
@@ -154,15 +174,17 @@ exports.deleteComment = (req, res) => {
                 });
             } else {
               // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
-              return res
-                .status(403)
-                .json({ message: "Vous n'avez pas d'autorisation effacer ce post !" });
+              return res.status(403).json({
+                message: "Vous n'avez pas d'autorisation effacer ce post !",
+              });
             }
           });
         })
         .catch((error) => {
           console.error(error.message);
-          res.status(404).json({ message: "Aca, La publication n'existe pas!" });
+          res
+            .status(404)
+            .json({ message: "Aca, La publication n'existe pas!" });
         });
     })
     .catch((error) => {

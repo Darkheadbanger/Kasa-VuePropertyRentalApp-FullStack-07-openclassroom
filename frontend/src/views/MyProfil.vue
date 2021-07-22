@@ -31,6 +31,7 @@ import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
 import Profile from "../components/profileInformation.vue";
+
 import axios from "axios";
 
 export default {

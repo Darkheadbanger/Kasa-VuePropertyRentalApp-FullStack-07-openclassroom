@@ -172,40 +172,10 @@
             Comment
           </label>
         </div>
-        <div
-          class="
-            input-group input-group-sm
-            mb-1
-            mt-3
-            d-flex
-            flex-row
-            justify-content-start
-            border-bottom border-light border-2
-          "
-        >
-          <img
-            class="rounded-circle img-xs"
-            src="../assets/icon-above-font.png"
-            alt=""
-          />
-          <div class="col-sm-6 col-md-9">
-            <input
-              class="form-control mr-sm-2 bg-light"
-              type="text"
-              placeholder="Commenter..."
-              aria-label="Commenter"
-              id="commentText"
-            />
-          </div>
-          <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
-        </div>
+        <CommentWrite></CommentWrite>
         <div v-for="commentss in comment" :key="commentss.id">
           <Comment :commentss="commentss"></Comment>
         </div>
-        <!-- Comment  -->
-        <!-- <div v-for="comment in comments" :key="comment.id">
-          <Comment></Comment>
-        </div> -->
       </div>
     </div>
   </div>
@@ -216,6 +186,7 @@ import { mapGetters } from "vuex";
 import moment from "moment";
 // import data from "../views/Home.vue"
 import Comment from "./Comment.vue";
+import CommentWrite from "./CommentWrite.vue";
 import axios from "axios";
 
 export default {
@@ -223,6 +194,7 @@ export default {
   props: ["post"],
   components: {
     Comment,
+    CommentWrite,
   },
   data() {
     return {

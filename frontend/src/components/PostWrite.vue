@@ -44,7 +44,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click.once="submitFile"
+              @click.once="submitPost"
             >
               Publier
             </button>
@@ -71,14 +71,15 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    submitFile() {
-      console.log("submitFile");
+    submitPost() {
+      console.log("submitPost");
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
       console.log("formData", formData);
+      const createPost = "/api/post";
       axios
-        .post("/api/post", formData)
+        .post(createPost, formData)
         .then((response) => {
           console.log(response);
         })
