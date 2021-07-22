@@ -23,8 +23,10 @@ export default {
         this.$store.dispatch("user", response.data);
         console.log(response);
       })
-      .catch(() => {
-        // console.log(error);
+      .catch((error) => {
+        console.log(error);
+        //  Redirection when token lost dosen't work
+        // this.$router.go({ name: "Login" });
       });
   },
 };
