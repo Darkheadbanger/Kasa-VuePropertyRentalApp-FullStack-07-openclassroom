@@ -199,7 +199,9 @@
           </div>
           <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
         </div>
-        <Comment></Comment>
+        <div v-for="commentss in comment" :key="commentss.id">
+          <Comment :commentss="commentss"></Comment>
+        </div>
         <!-- Comment  -->
         <!-- <div v-for="comment in comments" :key="comment.id">
           <Comment></Comment>
@@ -227,7 +229,7 @@ export default {
       formattedTime: "",
       now: 0,
       created_At: moment(),
-      comments: [],
+      comment: [],
     };
   },
   methods: {
@@ -279,7 +281,7 @@ export default {
       .get(getAllComments)
       .then((response) => {
         console.log(response);
-        this.comments = response.data.comments;
+        this.comment = response.data.comments;
         console.log(this.comments);
       })
       .catch((error) => {

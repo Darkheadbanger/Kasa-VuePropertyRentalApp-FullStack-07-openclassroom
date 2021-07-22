@@ -1,5 +1,5 @@
 <template>
-    <div
+  <div
     class="
       input-group input-group-sm
       mb-3
@@ -29,13 +29,12 @@
         <div>
           <span>
             <div class="me-perso float-start mb-5">
-              <!-- {{ comment.comment }} -->
-              Helo
+              {{ commentss.comment }}
             </div>
             <div class="w-50 mt-5 mb-3 me-5">
               <img
                 class="img-fluid d-flex w-50"
-                src="../assets/icon-above-font.png"
+                :src="comments.imageUrl"
                 alt=""
               />
             </div>
@@ -103,11 +102,7 @@
                   justify-content-start
                 "
               >
-                <img
-                  class="rounded-circle img-fluid s-image"
-                  src=""
-                  alt=""
-                />
+                <img class="rounded-circle img-fluid s-image" src="" alt="" />
                 <div class="ms-2 mt-2 rounded bg-light rounded-3">
                   <div class="d-flex flex-column">
                     <div class="ms-perso-2 ms-2 mt-2">
@@ -123,13 +118,12 @@
                     <div>
                       <span>
                         <div class="me-perso float-start">
-                          <!-- {{ comment.comment }} -->
-                          
+                          {{ commentss.comment }}
                         </div>
                         <div class="w-50 float-start">
                           <img
                             class="img-fluid d-flex w-50"
-                            src=""
+                            :src="commentss.imageUrl"
                             alt=""
                           />
                         </div>
@@ -166,63 +160,19 @@
 
 <script>
 import { mapGetters } from "vuex";
-import moment from "moment";
 // import data from "../views/Home.vue"
 // import axios from "axios";
 
 export default {
   name: "Comment",
-  props: ["comment"],
+  props: ["commentss"],
 
   data() {
     return {
       formattedTime: "",
       now: 0,
-      created_At: moment(),
       comments: [],
     };
-  },
-  methods: {
-    getFormattedTime(date) {
-      let now = moment(); //todays date
-      let end = moment(date); // another date
-      let duration = moment.duration(now.diff(end));
-      let days = duration.asDays();
-      let hours = duration.asHours();
-      let minutes = duration.asMinutes();
-      let seconds = duration.asSeconds();
-
-      if (seconds > 0 && seconds < 60) {
-        return Math.round(seconds) + "s";
-      }
-
-      if (minutes > 0 && minutes < 60) {
-        return Math.round(minutes) + "m";
-      }
-
-      if (hours > 0 && hours < 24) {
-        return Math.round(hours) + "h";
-      }
-
-      if (days > 0) {
-        return end.format("MMM D");
-      }
-    },
-  },
-
-  watch: {
-    now() {
-      this.formattedTime = this.getFormattedTime(this.created_At);
-    },
-  },
-
-  created() {
-    this.formattedTime = moment();
-    const created_At_Origine = this.created_At;
-    this.formattedTime = this.getFormattedTime(created_At_Origine);
-    setInterval(() => {
-      this.now = moment();
-    }, 3000);
   },
 
   // Logique pour récuperer les datas depuis la base de données MySQL
