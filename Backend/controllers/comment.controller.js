@@ -148,9 +148,7 @@ exports.deleteComment = (req, res) => {
       })
         .then((comment) => {
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-          const fileName = comment
-            ? comment.imageUrl.split("/images/")[1]
-            : null;
+          const fileName = comment.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
             if (user && (user.isAdmin || user.id == comment.userId)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
@@ -179,7 +177,9 @@ exports.deleteComment = (req, res) => {
         })
         .catch((error) => {
           console.error(error.message);
-          res.status(404).json({ message: "Le commentaire n'existe pas!" });
+          res
+            .status(404)
+            .json({ message: "Le commentaire n'existe pas!" });
         });
     })
     .catch((error) => {

@@ -201,10 +201,8 @@ exports.deletePost = (req, res) => {
             .then((commentFind) => {
               console.log("postFind", postFind);
               //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-              // if (postFind.imageUrl != null) {
-              const fileName = postFind
-                ? postFind.imageUrl.split("/images/")[1]
-                : null;
+              
+              const fileName = postFind.imageUrl.split("/images/")[1];
               fs.unlink(`images/${fileName}`, () => {
                 console.log("Hey :", postFind.userId); //userId
                 if (user && (user.isAdmin || user.id == postFind.userId)) {
@@ -219,10 +217,11 @@ exports.deletePost = (req, res) => {
                     })
                       .then((destroyed) => {
                         for (const comments of commentFind) {
-                          const fileName = commentFind
-                            ? comments.imageUrl.split("/images/")[1]
-                            : null;
+                          const fileName =
+                            comments.imageUrl.split("/images/")[1];
+                          console.log("fileName :", fileName);
                           fs.unlink(`images/${fileName}`, () => {
+                            console.log("bonjour 4");
                             if (!destroyed) {
                               throw error;
                             } else {
@@ -245,12 +244,11 @@ exports.deletePost = (req, res) => {
                   }
                 } else {
                   // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
-                  return res.status(403).json({
-                    message: "Vous ne pouvez pas effacer ce post !",
-                  });
+                  return res
+                    .status(403)
+                    .json({ message: "Vous ne pouvez pas effacer ce post !" });
                 }
               });
-              // }
             })
             .catch((error) => {
               console.error(error.message);
