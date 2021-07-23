@@ -55,7 +55,7 @@ exports.getAllPost = (req, res, next) => {
       },
       {
         model: Comment,
-        attributes: ["comment", "imageUrl", "createdAt"],
+        attributes: ["id", "comment", "imageUrl", "createdAt"],
       },
     ],
     order: [["createdAt", "DESC"]],
@@ -201,12 +201,16 @@ exports.deletePost = (req, res) => {
             .then((commentFind) => {
               console.log("postFind", postFind);
               //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-              const fileName = postFind.imageUrl.split("/images/")[1];
+              // if (postFind.imageUrl != null) {
+              const fileName = postFind
+                ? postFind.imageUrl.split("/images/")[1]
+                : null;
               fs.unlink(`images/${fileName}`, () => {
                 console.log("Hey :", postFind.userId); //userId
                 if (user && (user.isAdmin || user.id == postFind.userId)) {
                   //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
-                  if (postFind) {
+                  if ((postFind && commentFind) || (postFind && !commentFind)) {
+                    // ajouter aujourd'hui
                     //Si l'id de post a été envoyé dans la requête
                     //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
                     Post.destroy({
@@ -215,12 +219,10 @@ exports.deletePost = (req, res) => {
                     })
                       .then((destroyed) => {
                         for (const comments of commentFind) {
-                          console.log("CommentI :", comments);
-                          const fileName =
-                            comments.imageUrl.split("/images/")[1];
-                          console.log("fileName :", fileName);
+                          const fileName = commentFind
+                            ? comments.imageUrl.split("/images/")[1]
+                            : null;
                           fs.unlink(`images/${fileName}`, () => {
-                            console.log("bonjour 4");
                             if (!destroyed) {
                               throw error;
                             } else {
@@ -243,17 +245,16 @@ exports.deletePost = (req, res) => {
                   }
                 } else {
                   // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
-                  return res
-                    .status(403)
-                    .json({ message: "Vous ne pouvez pas effacer ce post !" });
+                  return res.status(403).json({
+                    message: "Vous ne pouvez pas effacer ce post !",
+                  });
                 }
               });
+              // }
             })
             .catch((error) => {
               console.error(error.message);
-              return res
-                .status(404)
-                .json({ error: "Les commentaires sont vide" });
+              return res.status(404).json({ error: "Commentaire vide" });
             });
         })
         .catch((error) => {

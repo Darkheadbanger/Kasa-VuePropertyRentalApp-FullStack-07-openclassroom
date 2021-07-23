@@ -5,8 +5,7 @@ import Signup from "../views/Signup.vue";
 import MyProfil from "../views/MyProfil.vue";
 import Update from "../views/Update.vue";
 import userList from "../views/userList.vue";
-import EditPost from "../views/editPost.vue";
-import deletePost from "../views/deletePost.vue";
+// import store from "../store";
 // import EditComment from "../views/EditComment.vue";
 
 // import Forgot from "../views/Forgot.vue";
@@ -60,23 +59,6 @@ const routes = [
       requiresAuth: true,
     },
   },
-  // A voir les deux updates en bas
-  {
-    path: "/editPost",
-    name: "EditPost",
-    component: EditPost,
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
-    path: "/deletePost",
-    name: "deletePost",
-    component: deletePost,
-    meta: {
-      requiresAuth: true,
-    },
-  },
   // {
   //   path: "/forgot",
   //   name: "Forgot",
@@ -118,4 +100,21 @@ router.beforeResolve((to, from, next) => {
     }
   }
 });
+
+// router.beforeEnter((to, from, next) => {
+//   if (!store.state.accessToken || store.state.user) {
+//     return next({ name: "Login" });
+//   } else if (store.state.accessToken) {
+//     return store
+//       .dispatch("user")
+//       .then((response) => {
+//         console.logt(response);
+//         next();
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//         store.commit("accessToken", null);
+//       });
+//   }
+// });
 export default router;

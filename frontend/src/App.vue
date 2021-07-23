@@ -15,6 +15,7 @@ export default {
   component: {
     Home,
   },
+
   created() {
     const userAPI = `user`; //:id ? => il faut faire get id dynamiquement
     axios
@@ -26,7 +27,10 @@ export default {
       .catch((error) => {
         console.log(error);
         //  Redirection when token lost dosen't work
-        // this.$router.go({ name: "Login" });
+        // const token = localStorage.getItem("userToken");
+        // if (token) {
+        //   this.$store.push({ name: "Login" });
+        // }
       });
   },
 };

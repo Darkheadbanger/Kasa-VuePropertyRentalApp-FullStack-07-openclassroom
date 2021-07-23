@@ -222,11 +222,15 @@ export default {
     deleteUser() {
       const dynamicId = this.user.id;
       const deleteUser = `api/account/me/${dynamicId}`;
+      const clearToken = localStorage.clear("userToken");
 
       axios
         .delete(deleteUser)
         .then((response) => {
           console.log(response);
+          if (response && clearToken) {
+            this.$router.push({ name: "Login" });
+          }
         })
         .catch((error) => {
           console.log(error);

@@ -140,21 +140,16 @@ exports.deleteComment = (req, res) => {
     where: { id: userId }, //l'id de user est trouvé et compare avec l'id dans la base de données
   })
     .then((user) => {
-      // console.log("Bonjour hey ici c'est", user)
       //après avoir trouvé l'id de user
-      console.log("aca", user.isAdmin);
-      console.log("ici c'est", userId);
       Comment.findOne({
         where: {
           id: commentId,
         },
       })
         .then((comment) => {
-          console.log("Bonjour", comment);
           //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
           const fileName = comment.imageUrl.split("/images/")[1];
           fs.unlink(`images/${fileName}`, () => {
-            console.log("Hey :", comment.userId);
             if (user && (user.isAdmin || user.id == comment.userId)) {
               //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
               //Si l'id de post a été envoyé dans la requête
@@ -184,7 +179,7 @@ exports.deleteComment = (req, res) => {
           console.error(error.message);
           res
             .status(404)
-            .json({ message: "Aca, La publication n'existe pas!" });
+            .json({ message: "Le commentaire n'existe pas!" });
         });
     })
     .catch((error) => {

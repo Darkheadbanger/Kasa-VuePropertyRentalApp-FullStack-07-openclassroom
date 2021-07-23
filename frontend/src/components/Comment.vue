@@ -64,7 +64,7 @@
           </button>
         </li>
         <li>
-          <button class="dropdown-item">
+          <button class="dropdown-item" @click="deleteComment">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
             Supprimer commentaire
           </button>
@@ -111,7 +111,7 @@
                         class="text-decoration-none me-1 text-dark float-start"
                       >
                         <span class="fw-bold">
-                          {{ user.firstName }} {{ user.lastName }}
+                          <!-- {{ user.firstName }} {{ user.lastName }} -->
                         </span>
                       </router-link>
                     </div>
@@ -161,7 +161,7 @@
 <script>
 import { mapGetters } from "vuex";
 // import data from "../views/Home.vue"
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   name: "Comment",
@@ -174,7 +174,19 @@ export default {
       comments: [],
     };
   },
-
+  methods: {
+    deleteComment() {
+      const deleteComment = `api/comment/${this.comment.id}`;
+      axios
+        .delete(deleteComment)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(() => {
+          // console.log(error);
+        });
+    },
+  },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters

@@ -4,20 +4,21 @@ import SecureLS from "secure-ls";
 import axios from "axios";
 let ls = new SecureLS({ isCompression: false });
 
+
 export default createStore({
   state: {
     user: null, //!localStorage.getItem("userToken")
-    post: null,
+    // post: null,
   },
   getters: {
     user: (state) => {
       // Get current value of the user, which in this case user is null
       return state.user;
     },
-    post: (state) => {
-      //  get current value of the post
-      return state.post;
-    },
+    // post: (state) => {
+    //   //  get current value of the post
+    //   return state.post;
+    // },
   },
   actions: {
     login({ commit }, user) {
@@ -105,8 +106,8 @@ export default createStore({
   },
   plugins: [
     createPersistedState({
-      // key: "keyname",
-      // paths: window.localStorage,
+      key: "keyname",
+      paths: window.localStorage,
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),
       removeItem: (key) => ls.removeAll(key),
@@ -118,8 +119,8 @@ export default createStore({
     user(state, user) {
       state.user = user; //foncitonne
     },
-    post(state, post) {
-      state.post = post;
-    },
+    // post(state, post) {
+    //   state.post = post;
+    // },
   },
 });

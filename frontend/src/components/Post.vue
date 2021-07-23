@@ -41,7 +41,7 @@
               </button>
             </li>
             <li>
-              <button class="dropdown-item">
+              <button class="dropdown-item" @click="deletePost">
                 <font-awesome-icon :icon="['fas', 'trash-alt']" />
                 Supprimer post
               </button>
@@ -188,6 +188,7 @@ import moment from "moment";
 // import data from "../views/Home.vue"
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
+import axios from "axios";
 
 export default {
   name: "Post",
@@ -233,6 +234,20 @@ export default {
       if (month > 0 && month <= 12) {
         return end.format("D MMM YYY");
       }
+    },
+
+    deletePost() {
+      const dynamicPost = this.post.id;
+      const deletePost = `api/post/${dynamicPost}`;
+
+      axios
+        .delete(deletePost)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(() => {
+          // console.log(error);
+        });
     },
   },
 
