@@ -163,7 +163,7 @@
                             d-flex
                             justify-content-center
                           "
-                          @click="delteUser"
+                          @click="deleteUser"
                         >
                           Supprimer compte
                         </button>
@@ -200,6 +200,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 //  getting the current user via the state by mapGetters
 import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
@@ -210,10 +211,26 @@ export default {
     Nav,
     Header,
   },
+
+  created() {},
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
     toUpdate() {
       this.$router.push({ name: "Update" });
+    },
+
+    deleteUser() {
+      const dynamicId = this.user.id;
+      const deleteUser = `api/account/me/${dynamicId}`;
+
+      axios
+        .delete(deleteUser)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL

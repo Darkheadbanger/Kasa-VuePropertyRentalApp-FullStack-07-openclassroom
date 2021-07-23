@@ -232,7 +232,8 @@ exports.deleteMyAccount = (req, res) => {
                         .status(500)
                         .json({ error: "Ici, Internal error !" });
                     });
-                } else {
+                } 
+                else {
                   res
                     .status(403)
                     .json({ error: "Vous n'avez pas d'autorisation" });
