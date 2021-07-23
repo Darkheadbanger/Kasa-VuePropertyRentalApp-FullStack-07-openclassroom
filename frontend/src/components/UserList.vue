@@ -16,7 +16,7 @@
           {{ user.firstName }} {{ user.lastName }}
           <!-- Hello -->
         </h6>
-        <p class="text-muted text-center">| {{ user.createdAt }} | Hello</p>
+        <p class="text-muted text-center">| {{ formattedTime }} |</p>
         <hr />
         <p class="m-t-15 text-muted">
           (bio) Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -28,9 +28,41 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "UserList",
   props: ["user"],
+  data() {
+    return {
+      formattedTime: "",
+      now: 0,
+      created_At: moment(),
+    };
+  },
+  methods: {
+    getFormattedTime(date) {
+      let now = moment(); //todays date
+      let end = moment(date); // another date
+      let duration = moment.duration(now.diff(end));
+      let years = duration.asYears();
+
+      if (years > 0) {
+        return end.format("D-MMM-Y");
+      }
+    },
+  },
+
+  watch: {
+    now() {
+      this.formattedTime = this.getFormattedTime(this.user.createdAt);
+    },
+  },
+
+  created() {
+    this.formattedTime = moment();
+    this.formattedTime = this.getFormattedTime(this.user.createdAt);
+  },
 };
 </script>
 

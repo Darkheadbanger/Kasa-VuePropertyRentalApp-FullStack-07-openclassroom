@@ -208,6 +208,7 @@ export default {
       let now = moment(); //todays date
       let end = moment(date); // another date
       let duration = moment.duration(now.diff(end));
+      let month = duration.asMonths();
       let days = duration.asDays();
       let hours = duration.asHours();
       let minutes = duration.asMinutes();
@@ -226,7 +227,11 @@ export default {
       }
 
       if (days > 0) {
-        return end.format("MMM D");
+        return end.format("D MMM");
+      }
+
+      if (month > 0 && month <= 12) {
+        return end.format("D MMM YYY");
       }
     },
   },
@@ -239,8 +244,7 @@ export default {
 
   created() {
     this.formattedTime = moment();
-    const created_At_Origine = this.post.createdAt;
-    this.formattedTime = this.getFormattedTime(created_At_Origine);
+    this.formattedTime = this.getFormattedTime(this.post.createdAt);
     setInterval(() => {
       this.now = moment();
     }, 3000);
