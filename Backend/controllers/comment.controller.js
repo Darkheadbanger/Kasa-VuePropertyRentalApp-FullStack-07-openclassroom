@@ -147,21 +147,18 @@ exports.deleteComment = (req, res) => {
         },
       })
         .then((comment) => {
-          //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
-          const fileName = comment.imageUrl.split("/images/")[1];
-          fs.unlink(`images/${fileName}`, () => {
+          if (comment != null) {
             if (user && (user.isAdmin || user.id == comment.userId)) {
-              //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
-              //Si l'id de post a été envoyé dans la requête
-              //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
               Comment.destroy({
-                // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
-                where: { id: comment.id }, // Alors, on trouve l'id du poste cet utilisateur là
+                where: { id: comment.id }, // Alors, on trouve l'id du comment cet utilisateur là
               })
-                .then(() => {
-                  return res
-                    .status(200)
-                    .json({ message: "Publication supprimée" });
+                .then((destroyed) => {
+                  if (!destroyed) {
+                    throw error;
+                  } else {
+                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                    console.log("File deleted!");
+                  }
                 })
                 .catch(() => {
                   console.error(error.message);
@@ -173,13 +170,39 @@ exports.deleteComment = (req, res) => {
                 message: "Vous n'avez pas d'autorisation effacer ce post !",
               });
             }
-          });
+          } else {
+            //Une fois le post qui correspond a l'id de l'user trouvé, on extrait le nom du fichier (image) à supprimer et on supprimer avec fs.unlinnk, et une fois que la suppression du fichier est fait, on fait la suppreson de l'objet de la base de données
+            const fileName = comment.imageUrl.split("/images/")[1];
+            fs.unlink(`images/${fileName}`, () => {
+              if (user && (user.isAdmin || user.id == comment.userId)) {
+                //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
+                //Si l'id de post a été envoyé dans la requête
+                //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
+                Comment.destroy({
+                  // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
+                  where: { id: comment.id }, // Alors, on trouve l'id du poste cet utilisateur là
+                })
+                  .then(() => {
+                    return res
+                      .status(200)
+                      .json({ message: "Publication supprimée" });
+                  })
+                  .catch(() => {
+                    console.error(error.message);
+                    return res.status(500).json({ error });
+                  });
+              } else {
+                // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
+                return res.status(403).json({
+                  message: "Vous n'avez pas d'autorisation effacer ce post !",
+                });
+              }
+            });
+          }
         })
         .catch((error) => {
           console.error(error.message);
-          res
-            .status(404)
-            .json({ message: "Le commentaire n'existe pas!" });
+          res.status(404).json({ message: "Le commentaire n'existe pas!" });
         });
     })
     .catch((error) => {

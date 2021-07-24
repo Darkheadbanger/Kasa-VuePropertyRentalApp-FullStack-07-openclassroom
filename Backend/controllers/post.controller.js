@@ -255,14 +255,21 @@ exports.deletePost = (req, res) => {
                     Post.destroy({
                       // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
                       where: { id: postId }, // Alors, on trouve l'id du poste cet utilisateur là
-                    }).then((destroyed) => {
-                      if (!destroyed) {
-                        throw error;
-                      } else {
-                        // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                        console.log("File deleted!");
-                      }
-                    });
+                    })
+                      .then((destroyed) => {
+                        if (!destroyed) {
+                          throw error;
+                        } else {
+                          // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                          console.log("File deleted!");
+                        }
+                      })
+                      .catch((error) => {
+                        console.error(error.message);
+                        return res
+                          .status(500)
+                          .json({ error: "internal error" });
+                      });
                   }
                 }
               }
