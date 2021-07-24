@@ -185,12 +185,10 @@ exports.deleteMyAccount = (req, res) => {
           where: { userId: deletedUser },
         })
           .then((post) => {
-            console.log("bonjour post", post);
             Comment.findAll({
               where: { userId: deletedUser },
             })
               .then((comment) => {
-                console.log("bonjour comment", comment);
                 if (user && (user.isAdmin || deletedUser == loggedUser)) {
                   User.destroy({
                     where: {
@@ -200,7 +198,6 @@ exports.deleteMyAccount = (req, res) => {
                     .then((destroy) => {
                       for (const comments of comment) {
                         const fileName = comments.imageUrl.split("/images/")[1];
-                        console.log("fileName :", fileName);
                         fs.unlink(`images/${fileName}`, () => {
                           if (!destroy) {
                             throw error;
