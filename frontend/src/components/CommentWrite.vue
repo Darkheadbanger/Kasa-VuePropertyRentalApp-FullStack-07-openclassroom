@@ -24,7 +24,9 @@
         placeholder="Commenter..."
         aria-label="Commenter"
         id="commentText"
+        
       />
+      <!-- exampleModal -->
     </div>
     <input type="file" id="file" ref="image" v-on:change="handleFileUpload()" />
     <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
@@ -67,7 +69,7 @@ export default {
       axios
         .post(createComment, formData)
         .then((response) => {
-          console.log("Hello", response);
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
