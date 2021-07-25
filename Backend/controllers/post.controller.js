@@ -136,18 +136,18 @@ exports.updatePost = (req, res, next) => {
                 where: { id: postId },
               })
                 .then((updated) => {
-                  if (updated) {
-                    return res.status(200).json({ message: "Post modifiée" });
+                  if (!updated) {
+                    throw error;
                   } else {
-                    return res
-                      .status(403)
-                      .json({ error: "La modification de la post échouée !" });
+                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                    console.log("Modified!");
+                    return res.status(200).json({ message: "Post modifiée" });
                   }
                 })
                 .catch((error) => {
                   console.error(error.message);
                   return res.status(500).json({
-                    error: "Impossible a mettre a jour, internal error",
+                    error: "internal error",
                   });
                 });
             } else {

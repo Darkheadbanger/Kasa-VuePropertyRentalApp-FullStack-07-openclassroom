@@ -1,7 +1,7 @@
 <template>
   <!--loginSignup.scss-->
   <div id="body">
-    <h1>Welcome</h1>
+    <h1 class="text-white">Welcome</h1>
     <div class="container">
       <div class="row">
         <div class="col">

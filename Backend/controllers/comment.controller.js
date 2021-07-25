@@ -78,7 +78,7 @@ exports.updateComments = (req, res) => {
           req.file.filename
         }`,
       }
-    : { commentPost: commentPost };
+    : { commentPost /*: commentPost */ };
 
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
@@ -148,6 +148,7 @@ exports.deleteComment = (req, res) => {
       })
         .then((comment) => {
           if (comment != null) {
+            // Je ne comprend pas
             if (user && (user.isAdmin || user.id == comment.userId)) {
               Comment.destroy({
                 where: { id: comment.id }, // Alors, on trouve l'id du comment cet utilisateur là

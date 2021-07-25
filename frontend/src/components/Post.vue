@@ -48,90 +48,7 @@
             </li>
           </ul>
           <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div>
-                  <label for="message-text" class="col-form-label"
-                    >Modifiez votre post ici :</label
-                  >
-                  <div class="d-flex">
-                    <div
-                      class="
-                        input-group input-group-sm
-                        mb-3
-                        mt-3
-                        d-flex
-                        flex-row
-                        justify-content-start
-                      "
-                    >
-                      <img
-                        class="rounded-circle img-xs"
-                        src="../assets/icon-above-font.png"
-                        alt=""
-                      />
-
-                      <div class="col-sm-5 col-md-8">
-                        <input
-                          class="form-control mr-sm-2 bg-light"
-                          v-model="postContent"
-                          :maxlength="max"
-                          type="text"
-                          placeholder="Publier ici..."
-                          aria-label="publication"
-                          id="publication"
-                        />
-                      </div>
-                      <input
-                        type="file"
-                        id="file"
-                        ref="image"
-                        v-on:change="handleFileUpload()"
-                      />
-                      <font-awesome-icon
-                        class="ms-1"
-                        :icon="['fas', 'image']"
-                        size="2x"
-                        for="imageFile"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <div>
-                    <button
-                      class="btn btn-primary btn-icon-text btn-edit-profile"
-                      @click="submitFile"
-                    >
-                      Republier
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Update :postId="post.id"></Update>
           <!-- fin modal -->
         </div>
       </div>
@@ -145,7 +62,7 @@
       </div>
       <div class="card-footer">
         <div class="d-flex post-actions">
-          <label
+          <!-- <label
             class="
               d-flex
               align-items-center
@@ -157,7 +74,7 @@
           >
             <font-awesome-icon class="mb-1 me-2" :icon="['fas', 'thumbs-up']" />
             Like
-          </label>
+          </label> -->
           <label
             class="
               d-flex
@@ -188,6 +105,7 @@ import moment from "moment";
 // import data from "../views/Home.vue"
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
+import Update from "./modalUpdate.vue";
 import axios from "axios";
 
 export default {
@@ -196,6 +114,7 @@ export default {
   components: {
     Comment,
     CommentWrite,
+    Update,
   },
   data() {
     return {

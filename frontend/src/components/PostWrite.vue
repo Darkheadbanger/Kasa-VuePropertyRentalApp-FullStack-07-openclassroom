@@ -72,7 +72,6 @@ export default {
       this.image = this.$refs.image.files[0];
     },
     submitPost() {
-      console.log("submitPost");
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
@@ -107,16 +106,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.profile-body {
-  div {
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  .img-xs {
-    width: 3rem;
-    height: auto;
-  }
-}
 
 // card footer
 
