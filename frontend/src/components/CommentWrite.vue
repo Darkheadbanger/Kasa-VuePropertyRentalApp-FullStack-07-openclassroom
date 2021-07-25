@@ -24,12 +24,19 @@
         placeholder="Commenter..."
         aria-label="Commenter"
         id="commentText"
-        
       />
       <!-- exampleModal -->
     </div>
-    <input type="file" id="file" ref="image" v-on:change="handleFileUpload()" />
-    <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
+    <label>
+      <font-awesome-icon class="ms-1" :icon="['fas', 'image']" size="2x" />
+      <input
+        type="file"
+        id="FileInput"
+        ref="image"
+        name="image_attachment_upload"
+        v-on:change="handleFileUpload()"
+      />
+    </label>
     <div>
       <button
         class="btn btn-primary btn-icon-text btn-edit-profile"
@@ -85,39 +92,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.profile-body {
-  div {
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  .profile-pic {
-    width: 6rem;
-    height: auto;
-  }
-  p {
-    text-align: left;
-    padding: 0 0 0 0;
-  }
-  label {
-    margin-right: 5rem;
-  }
-  .img-xs {
-    width: 3rem;
-    height: auto;
-  }
-  .s-image {
-    width: 3rem;
-    height: 3rem;
-  }
-}
-
 // card footer
-
-.card-header {
-  padding: 0 0 0 0;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
-}
 
 .card-footer {
   background-color: white;
@@ -140,6 +115,9 @@ export default {
   }
   .ms-perso-2 {
     margin-left: 0.15rem !important;
+  }
+  #FileInput {
+    display: none;
   }
 }
 </style>
