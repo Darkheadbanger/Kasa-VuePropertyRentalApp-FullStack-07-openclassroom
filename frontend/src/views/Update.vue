@@ -41,10 +41,11 @@
                           <div class="col-sm-6 col-md-9 mt-2">
                             <input
                               class="form-control mr-sm-2 bg-light"
+                              v-model="firstName"
+                              :maxlength="max"
                               type="text"
                               placeholder="Edit"
                               aria-label="Edit"
-                              id="searchText"
                             />
                           </div>
                         </div>
@@ -53,7 +54,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateFirstName"
+                            @click="updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -72,10 +73,11 @@
                             <div class="col-sm-6 col-md-9 mt-2">
                               <input
                                 class="form-control mr-sm-2 bg-light"
+                                v-model="lastName"
+                                :maxlength="max"
                                 type="text"
                                 placeholder="Edit"
                                 aria-label="Edit"
-                                id="searchText"
                               />
                             </div>
                           </div>
@@ -85,7 +87,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateFirstName"
+                            @click="updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -104,10 +106,11 @@
                             <div class="col-sm-6 col-md-9 mt-2">
                               <input
                                 class="form-control mr-sm-2 bg-light"
+                                v-model="userName"
+                                :maxlength="max"
                                 type="text"
                                 placeholder="Edit"
                                 aria-label="Edit"
-                                id="searchText"
                               />
                             </div>
                           </div>
@@ -117,7 +120,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateFirstName"
+                            @click="updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -136,10 +139,11 @@
                             <div class="col-sm-6 col-md-9 mt-2">
                               <input
                                 class="form-control mr-sm-2 bg-light"
-                                type="text"
+                                :maxlength="max"
+                                type="email"
+                                v-model="email"
                                 placeholder="Edit"
                                 aria-label="Edit"
-                                id="searchText"
                               />
                             </div>
                           </div>
@@ -149,13 +153,43 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateFirstName"
+                            @click="updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
                           </button>
                         </div>
                       </div>
+                      <div class="d-flex justify-content-between border-bottom">
+                        <div class="ml-2 d-flex">
+                          <span class="mt-3 mb-3">Password:</span>
+                        </div>
+                        <div class="ml-2 d-flex">
+                          <div class="ml-2 d-flex">
+                            <div class="col-sm-6 col-md-9 mt-2">
+                              <input
+                                class="form-control mr-sm-2 bg-light"
+                                type="password"
+                                v-model="password"
+                                placeholder="Edit"
+                                aria-label="Edit"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <button
+                            class="
+                              btn btn-primary btn-icon-text btn-edit-profile
+                            "
+                            @click="updateUser"
+                          >
+                            <font-awesome-icon :icon="['fas', 'edit']" />
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+
                       <div class="mt-2 mb-2">
                         <button
                           class="
@@ -174,7 +208,7 @@
                           <span class="mt-3 mb-3">Admin :</span>
                         </div>
                         <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">{{ user.isZdmin }}</span>
+                          <span class="mt-3 mb-3">{{ user.isAdmin }}</span>
                         </div>
                         <div class="ml-2 d-flex">
                           <input
@@ -211,7 +245,16 @@ export default {
     Nav,
     Header,
   },
-
+  data() {
+    return {
+      firstName: "",
+      lastName: "",
+      userName: "",
+      email: "",
+      password: "",
+      max: 50,
+    };
+  },
   created() {},
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
@@ -231,6 +274,24 @@ export default {
           if (response && clearToken) {
             this.$router.push({ name: "Login" });
           }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    // createUpdatePost
+    updateUser() {
+      const updateUser = `api/account/me/${this.user.id}`;
+      axios
+        .put(updateUser, {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          userName: this.userName,
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);

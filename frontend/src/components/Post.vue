@@ -24,7 +24,7 @@
           <button
             class="btn btn-light dropdown-toggle me-5"
             type="button"
-            id="defaultDropdown"
+            id="defaultDropdown1"
             data-bs-toggle="dropdown"
             data-bs-auto-close="true"
             aria-expanded="false"
@@ -34,7 +34,7 @@
               <button
                 class="dropdown-item"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
               >
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
@@ -48,7 +48,7 @@
             </li>
           </ul>
           <!-- Modal -->
-          <Update :postId="post.id"></Update>
+          <UpdatePost :postId="post.id"></UpdatePost>
           <!-- fin modal -->
         </div>
       </div>
@@ -102,10 +102,9 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-// import data from "../views/Home.vue"
+import UpdatePost from "./modalUpdate.vue"
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-import Update from "./modalUpdate.vue";
 import axios from "axios";
 
 export default {
@@ -114,7 +113,7 @@ export default {
   components: {
     Comment,
     CommentWrite,
-    Update,
+    UpdatePost,
   },
   data() {
     return {
@@ -164,8 +163,8 @@ export default {
         .then((response) => {
           console.log(response);
         })
-        .catch(() => {
-          // console.log(error);
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

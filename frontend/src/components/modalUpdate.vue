@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="exampleModal"
+    id="postModal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
@@ -105,11 +105,9 @@ export default {
       this.image = this.$refs.image.files[0];
     },
     submitUpdatePost() {
-      console.log("submitPost");
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
-      console.log("formData", formData);
       const createUpdatePost = `/api/post/${this.postId}`;
       console.log(createUpdatePost)
       axios

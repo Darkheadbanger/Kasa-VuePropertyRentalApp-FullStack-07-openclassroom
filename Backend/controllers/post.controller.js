@@ -122,6 +122,7 @@ exports.updatePost = (req, res, next) => {
     attributes: ["id", "email", "userName", "isAdmin"],
     where: { id: userId },
   })
+  // postContent
     .then((user) => {
       Post.findOne({
         where: {
