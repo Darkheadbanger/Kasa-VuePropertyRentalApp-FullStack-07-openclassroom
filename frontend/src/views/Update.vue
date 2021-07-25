@@ -282,6 +282,7 @@ export default {
     // createUpdatePost
     updateUser() {
       const updateUser = `api/account/me/${this.user.id}`;
+      console.log(updateUser);
       axios
         .put(updateUser, {
           firstName: this.firstName,
@@ -293,8 +294,8 @@ export default {
         .then((response) => {
           console.log(response);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          // console.log(error);
         });
     },
   },
