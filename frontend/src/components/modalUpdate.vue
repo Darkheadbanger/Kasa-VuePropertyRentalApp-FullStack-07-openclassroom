@@ -74,7 +74,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click="submitUpdatePost"
+              @click="updatePost"
             >
               Republier
             </button>
@@ -104,7 +104,7 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    submitUpdatePost() {
+    updatePost() {
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
