@@ -68,17 +68,18 @@ exports.getAllComments = (req, res) => {
 };
 
 exports.updateComments = (req, res) => {
-  const userId = req.params.userId;
-  const commentPost = req.body.comment;
   const commentId = req.params.id;
+  const userId = req.params.userId;
+  const comment = req.body.comment;
+  // const imageUrl = req.body.imageUrl;
   const commentObject = req.file
     ? {
-        commentPost: commentPost,
+        comment: req.body.comment,
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
       }
-    : { commentPost /*: commentPost */ };
+    : { comment };
 
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
@@ -91,33 +92,77 @@ exports.updateComments = (req, res) => {
         },
       })
         .then((commentFind) => {
-          console.log("Ici, c'est :", commentFind);
-          filename = commentFind.imageUrl.split("/images/")[1];
-          fs.unlink(`images/${filename}`, () => {
-            console.log("Hey :", commentFind.userId);
-            if (
-              user &&
-              (user.isAdmin == true || user.id == commentFind.userId)
-            ) {
-              Comment.update(commentObject, {
-                where: { id: commentId },
-              })
-                .then(() => {
-                  return res
-                    .status(200)
-                    .json({ message: "Commentaire modifié !" });
-                })
-                .catch((error) => {
-                  console.error(error.message);
-                  return res.status(500).json({ error });
+          console.log("Hello", commentFind.comment);
+          console.log("Hello", commentFind.imageUrl);
+          if (commentFind.imageUrl != null) {
+            const fileName = commentFind.imageUrl.split("/images/")[1];
+            console.log("fileName", fileName);
+            fs.unlink(`images/${fileName}`, () => {
+              if (user && (user.isAdmin || user.id == commentFind.userId)) {
+                if (commentFind) {
+                  Comment.update(commentObject, {
+                    where: { id: commentId },
+                  })
+                    .then((updated) => {
+                      if (!updated) {
+                        throw error;
+                      } else {
+                        // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                        console.log("Modified!");
+                        return res
+                          .status(200)
+                          .json({ message: "Commentaire modifiée" });
+                      }
+                    })
+                    .catch((error) => {
+                      console.error(error.message);
+                      return res.status(500).json({ error: "internal error" });
+                    });
+                } else {
+                  res
+                    .status(404)
+                    .json({ message: "Le commentaire est introuvable" });
+                }
+              } else {
+                res.status(403).json({
+                  message:
+                    "Vous n'avez pas l'autorisation pour modifier ce commentaire!",
                 });
+              }
+            });
+          } else {
+            if (user && (user.isAdmin || user.id == commentFind.userId)) {
+              if (commentFind) {
+                Comment.update(commentObject, {
+                  where: { id: commentId },
+                })
+                  .then((updated) => {
+                    if (!updated) {
+                      throw error;
+                    } else {
+                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                      console.log("Modified!");
+                      return res
+                        .status(200)
+                        .json({ message: "Commentaire modifiée" });
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(error.message);
+                    return res.status(500).json({ error: "internal error" });
+                  });
+              } else {
+                res
+                  .status(404)
+                  .json({ message: "Le commentaire est introuvable" });
+              }
             } else {
               res.status(403).json({
                 message:
                   "Vous n'avez pas l'autorisation pour modifier ce commentaire!",
               });
             }
-          });
+          }
         })
         .catch((error) => {
           console.error(error.message);

@@ -118,11 +118,11 @@ exports.updatePost = (req, res, next) => {
         }`,
       }
     : { postContent }; // Si non, on ne modifie que le postContent
+
   User.findOne({
     attributes: ["id", "email", "userName", "isAdmin"],
     where: { id: userId },
   })
-  // postContent
     .then((user) => {
       Post.findOne({
         where: {
@@ -130,6 +130,7 @@ exports.updatePost = (req, res, next) => {
         },
       }).then((postFind) => {
         const fileName = postFind.imageUrl.split("/images/")[1];
+        console.log("fileName", fileName);
         fs.unlink(`images/${fileName}`, () => {
           if (user && (user.isAdmin || user.id == postFind.userId)) {
             if (postFind) {
@@ -156,8 +157,7 @@ exports.updatePost = (req, res, next) => {
             }
           } else {
             res.status(403).json({
-              message:
-                "Vous n'avez pas l'autorisation pour modifier ce message!",
+              message: "Vous n'avez pas l'autorisation pour modifier ce post!",
             });
           }
         }).catch((error) => {
