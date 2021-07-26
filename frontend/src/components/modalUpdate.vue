@@ -48,18 +48,21 @@
                   id="publication"
                 />
               </div>
-              <input
-                type="file"
-                id="file"
-                ref="image"
-                v-on:change="handleFileUpload()"
-              />
-              <font-awesome-icon
-                class="ms-1"
-                :icon="['fas', 'image']"
-                size="2x"
-                for="imageFile"
-              />
+              <label>
+                <font-awesome-icon
+                  class="ms-1"
+                  :icon="['fas', 'image']"
+                  size="2x"
+                  for="imageFile"
+                />
+                <input
+                  type="file"
+                  id="FileInput"
+                  ref="image"
+                  name="image_attachment_upload"
+                  v-on:change="handleFileUpload()"
+                />
+              </label>
             </div>
           </div>
         </div>
@@ -109,7 +112,7 @@ export default {
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
       const createUpdatePost = `/api/post/${this.postId}`;
-      console.log(createUpdatePost)
+      console.log(createUpdatePost);
       axios
         .put(createUpdatePost, formData)
         .then((response) => {
@@ -124,4 +127,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#FileInput {
+  display: none;
+}
 </style>
