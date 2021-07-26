@@ -16,10 +16,12 @@
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-xxl">
                 <div class="card rounded bg-light">
-                  <div class="card-header mb-4 mt-4 flex-wrap">
-                    <div v-for="user in users" :key="user.id">
-                      <UserList :user="user"></UserList>
-                    </div>
+                  <div class="card-header mb-4 mt-4 d-flex flex-wrap">
+                    <UserList
+                      v-for="user in users"
+                      :key="user.id"
+                      :user="user"
+                    ></UserList>
                   </div>
                 </div>
               </div>
