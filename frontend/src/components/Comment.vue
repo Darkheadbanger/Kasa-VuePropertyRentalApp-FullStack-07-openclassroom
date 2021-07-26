@@ -44,14 +44,14 @@
     </div>
     <div class="btn-group ml-auto p-2 button-right">
       <button
-        class="btn dropdown-toggle me-5"
+        class="btn btn-light dropdown-toggle me-5"
         type="button"
         id="defaultDropdown1"
         data-bs-toggle="dropdown"
         data-bs-auto-close="true"
         aria-expanded="false"
       ></button>
-      <ul class="dropdown-menu" aria-labelledby="defaultDropdown1">
+      <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
         <li>
           <button
             class="dropdown-item"
@@ -59,8 +59,7 @@
             data-bs-target="#commentModal"
             data-bs-whatever="@mdo"
           >
-            <font-awesome-icon :icon="['fas', 'edit']" />
-            Edit commentaire
+            <font-awesome-icon :icon="['fas', 'edit']" /> Edit commentaire
           </button>
         </li>
         <li>
@@ -76,25 +75,14 @@
     </div>
   </div>
 </template>
-
 <script>
+import UpdateComment from "./UpdateComment.vue";
 import { mapGetters } from "vuex";
-// import UpdateComment from "./ModalUpdateComment.vue";
 import axios from "axios";
-
 export default {
   name: "Comment",
   props: ["comment"],
-  component: {
-    // UpdateComment,
-  },
-  data() {
-    return {
-      formattedTime: "",
-      now: 0,
-      comments: [],
-    };
-  },
+  components: { UpdateComment },
   methods: {
     deleteComment() {
       const deleteComment = `api/comment/${this.comment.id}`;
@@ -103,17 +91,16 @@ export default {
         .then((response) => {
           console.log(response);
         })
-        .catch(() => {
-          // console.log(error);
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
-  // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["user"]),
   },
-}; //  Pour le corps de la poste
+};
 </script>
 
 <style lang="scss" scoped>
