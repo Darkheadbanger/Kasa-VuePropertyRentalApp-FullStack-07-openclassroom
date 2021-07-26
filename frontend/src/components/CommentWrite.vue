@@ -41,6 +41,7 @@
       <button
         class="btn btn-primary btn-icon-text btn-edit-profile"
         @click="submitComment"
+        :disabled="!comment"
       >
         Publier
       </button>
@@ -67,7 +68,7 @@ export default {
       this.image = this.$refs.image.files[0];
     },
     submitComment() {
-      console.log("submitComment");
+      console.log(this.comment);
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("comment", this.comment);
