@@ -48,6 +48,7 @@
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
               @click="submitPost"
+              :disabled="!postContent && !image"
             >
               Publier
             </button>
@@ -75,6 +76,7 @@ export default {
       this.image = this.$refs.image.files[0];
     },
     submitPost() {
+      console.log(this.postContent);
       let formData = new FormData();
       formData.append("image", this.image);
       formData.append("postContent", this.postContent);
