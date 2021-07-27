@@ -63,6 +63,8 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+      
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {

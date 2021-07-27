@@ -44,23 +44,23 @@
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Joined:</label
           >
-          <p class="text-muted">{{ users }}</p>
+          <p class="text-muted">{{ formattedTime }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase">Nom:</label>
-          <p class="text-muted">{{ user.lastName }}</p>
+          <p class="text-muted">{{ users.lastName }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Prénom:</label
           >
-          <p class="text-muted">{{ user.firstName }}</p>
+          <p class="text-muted">{{ users.firstName }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Pseudeo:</label
           >
-          <p class="text-muted">{{ user.userName }}</p>
+          <p class="text-muted">{{ users.userName }}</p>
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@ export default {
 
   watch: {
     now() {
-      this.formattedTime = this.getFormattedTime(this.user.createdAt);
+      this.formattedTime = this.getFormattedTime(this.users.createdAt);
     },
   },
 
@@ -115,13 +115,13 @@ export default {
         console.log(response);
         this.users = response.data;
         console.log(this.users);
+        // Methods pour la date
+        this.formattedTime = moment();
+        this.formattedTime = this.getFormattedTime(this.users.createdAt);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    this.formattedTime = moment();
-    this.formattedTime = this.getFormattedTime(this.user.createdAt);
   },
 };
 </script>
