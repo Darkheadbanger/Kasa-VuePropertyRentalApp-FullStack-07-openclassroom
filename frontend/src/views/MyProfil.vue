@@ -7,7 +7,7 @@
         <Header></Header>
         <div class="row profile-body d-flex flex-row justify-content-center">
           <!-- left wrapper start -->
-          <Profile></Profile>
+          <Profile ></Profile>
           <!-- left wrapper end -->
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       myPosts: "",
+      users: "",
     };
   },
   created() {

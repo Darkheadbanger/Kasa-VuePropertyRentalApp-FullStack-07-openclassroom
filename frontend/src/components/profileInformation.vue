@@ -44,23 +44,23 @@
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Joined:</label
           >
-          <p class="text-muted">November 15, 2015</p>
+          <p class="text-muted">{{ formattedTime }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase">Nom:</label>
-          <p class="text-muted">New York, USA</p>
+          <p class="text-muted">{{ user.lastName }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Prénom:</label
           >
-          <p class="text-muted">me@nobleui.com</p>
+          <p class="text-muted">{{ user.firstName }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
-            >Pseudep:</label
+            >Pseudeo:</label
           >
-          <p class="text-muted">www.nobleui.com</p>
+          <p class="text-muted">{{ user.userName }}</p>
         </div>
       </div>
     </div>
@@ -69,10 +69,30 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import moment from "moment";
 export default {
   name: "profileInformation",
   // Logique pour récuperer les datas depuis la base de données MySQL
+  data() {
+    return {
+      formattedTime: "",
+      now: 0,
+      created_At: moment(),
+    };
+  },
+
+  methods: {
+    watch: {
+      now() {
+        this.formattedTime = this.getFormattedTime(this.user.createdAt);
+      },
+    },
+
+    created() {
+      this.formattedTime = moment();
+      this.formattedTime = this.getFormattedTime(this.user.createdAt);
+    },
+  },
   computed: {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["user"]),
