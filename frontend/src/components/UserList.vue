@@ -48,7 +48,7 @@ export default {
       let years = duration.asYears();
 
       if (years > 0) {
-        return end.format("D-MMM-Y");
+        return end.format("D/MMM/Y");
       }
     },
   },
