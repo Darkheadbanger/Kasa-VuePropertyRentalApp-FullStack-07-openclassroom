@@ -44,7 +44,7 @@
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Joined:</label
           >
-          <p class="text-muted">{{ formattedTime }}</p>
+          <p class="text-muted">{{ users }}</p>
         </div>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase">Nom:</label>
@@ -70,6 +70,7 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+import axios from "axios";
 export default {
   name: "profileInformation",
   // Logique pour récuperer les datas depuis la base de données MySQL
@@ -78,6 +79,7 @@ export default {
       formattedTime: "",
       now: 0,
       created_At: moment(),
+      users: "",
     };
   },
 
@@ -85,18 +87,41 @@ export default {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["user"]),
   },
-
   methods: {
-    watch: {
-      now() {
-        this.formattedTime = this.getFormattedTime(this.user.createdAt);
-      },
-    },
+    getFormattedTime(date) {
+      let now = moment(); //todays date
+      let end = moment(date); // another date
+      let duration = moment.duration(now.diff(end));
+      let years = duration.asYears();
 
-    created() {
-      this.formattedTime = moment();
+      if (years > 0) {
+        return end.format("D/MMM/Y");
+      }
+    },
+  },
+
+  watch: {
+    now() {
       this.formattedTime = this.getFormattedTime(this.user.createdAt);
     },
+  },
+
+  created() {
+    const userIdDynamic = this.user.id;
+    const getUserProfil = `api/account/me/${userIdDynamic}`;
+    axios
+      .get(getUserProfil)
+      .then((response) => {
+        console.log(response);
+        this.users = response.data;
+        console.log(this.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    this.formattedTime = moment();
+    this.formattedTime = this.getFormattedTime(this.user.createdAt);
   },
 };
 </script>

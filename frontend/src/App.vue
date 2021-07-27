@@ -26,6 +26,10 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+        const token = this.$store.dispatch("user", error.data.token);
+        if (!token) {
+          this.$router.push({ name: "Login" });
+        }
         //  Redirection when token lost dosen't work
         // const token = localStorage.getItem("userToken");
         // if (token) {

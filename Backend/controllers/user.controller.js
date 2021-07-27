@@ -31,8 +31,17 @@ exports.userProfil = (req, res) => {
   const userId = req.params.id;
   console.log("userId :", userId);
   User.findOne({
-    id: userId,
-    attributes: ["firstName", "lastName", "userName", "email", "isAdmin"],
+    where: {
+      id: userId,
+    },
+    attributes: [
+      "firstName",
+      "lastName",
+      "userName",
+      "email",
+      "createdAt",
+      "isAdmin",
+    ],
   }) //A veifier
     .then((user) => {
       res.status(200).json(user); //recuperer tous le model de user
@@ -115,20 +124,16 @@ exports.updateUser = (req, res) => {
                             .status(200)
                             .json({ message: "Utilisateur modifié" });
                         } else {
-                          return res
-                            .status(403)
-                            .json({
-                              error: "La modification d'utilisateur échoué !",
-                            });
+                          return res.status(403).json({
+                            error: "La modification d'utilisateur échoué !",
+                          });
                         }
                       })
                       .catch((error) => {
                         console.error(error.message);
-                        return res
-                          .status(500)
-                          .json({
-                            error: "Impossible a mettre a jour, internal error",
-                          });
+                        return res.status(500).json({
+                          error: "Impossible a mettre a jour, internal error",
+                        });
                       });
                   })
                   .catch((error) => {
@@ -141,12 +146,9 @@ exports.updateUser = (req, res) => {
                   .json({ message: "L'utilisateur introuvable !" });
               }
             } else {
-              res
-                .status(403)
-                .json({
-                  error:
-                    "Vous n'avez pas d'autorisation pour modifier ce compte",
-                });
+              res.status(403).json({
+                error: "Vous n'avez pas d'autorisation pour modifier ce compte",
+              });
             }
           })
           .catch((error) => {
@@ -229,8 +231,7 @@ exports.deleteMyAccount = (req, res) => {
                         .status(500)
                         .json({ error: "Ici, Internal error !" });
                     });
-                } 
-                else {
+                } else {
                   res
                     .status(403)
                     .json({ error: "Vous n'avez pas d'autorisation" });
