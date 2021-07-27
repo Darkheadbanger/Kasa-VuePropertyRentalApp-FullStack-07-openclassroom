@@ -84,24 +84,25 @@ export default {
   },
 
   methods: {
-    _loginForm: function() {
-      const email=this.email;
-      const password=this.password;
+    _loginForm: function () {
+      console.log(this.password, this.email);
+      const email = this.email;
+      const password = this.password;
       this.$store
         .dispatch("login", { email, password })
         .then(() => {
           this.$router.push({ name: "Home" });
         })
         .catch((error) => {
-          this.showError=true;
-          this.error=error.response.data;
+          this.showError = true;
+          this.error = error.response.data;
         });
     },
     get loginForm() {
       return this._loginForm;
     },
     set loginForm(value) {
-      this._loginForm=value;
+      this._loginForm = value;
     },
   },
 };
