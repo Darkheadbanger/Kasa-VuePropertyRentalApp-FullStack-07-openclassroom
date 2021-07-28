@@ -202,23 +202,6 @@
                           Supprimer compte
                         </button>
                       </div>
-
-                      <!-- <div class="d-flex justify-content-between border-bottom">
-                        <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">Admin :</span>
-                        </div>
-                        <div class="ml-2 d-flex">
-                          <span class="mt-3 mb-3">{{ user.isAdmin }}</span>
-                        </div>
-                        <div class="ml-2 d-flex">
-                          <input
-                            class="form-check-input mt-0"
-                            type="checkbox"
-                            value=""
-                            aria-label="Checkbox for following text input"
-                          />
-                        </div>
-                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -263,8 +246,8 @@ export default {
     },
 
     deleteUser() {
-      const dynamicId = this.user.id;
-      const deleteUser = `api/account/me/${dynamicId}`;
+      // const dynamicId = this.user.id;
+      const deleteUser = `api/account/me/${this.user.id}`;
       const clearToken = localStorage.clear("userToken");
 
       axios
@@ -279,12 +262,14 @@ export default {
           console.log(error);
         });
     },
+
     // createUpdatePost
     updateUser() {
-      const updateUser = `api/account/me/${this.user.id}`;
+      // const updateUser = `api/account/me/${this.user.id}`;
+      const updateUser = `api/account/me`;
       console.log(updateUser);
       axios
-        .put(updateUser, {
+        .patch(updateUser, {
           firstName: this.firstName,
           lastName: this.lastName,
           userName: this.userName,
@@ -293,9 +278,10 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          this.$router.push({ name: "Update" });
         })
-        .catch(() => {
-          // console.log(error);
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
