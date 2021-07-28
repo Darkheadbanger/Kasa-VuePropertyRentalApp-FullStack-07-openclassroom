@@ -8,6 +8,7 @@ export default createStore({
   state: {
     user: null, //!localStorage.getItem("userToken")
     post: null,
+    posts: null,
   },
   getters: {
     user: (state) => {
@@ -17,6 +18,10 @@ export default createStore({
     post: (state) => {
       //  get current value of the post
       return state.post;
+    },
+    posts: (state) => {
+      //  get current value of the post
+      return state.posts;
     },
   },
 
@@ -89,7 +94,7 @@ export default createStore({
           .post(createPost, formData)
           .then((response) => {
             console.log(response);
-            commit("posts");
+            commit("post");
             resolve(response);
           })
           .catch((error) => {
@@ -99,14 +104,15 @@ export default createStore({
       });
     },
 
-    created() {
+    getAllPost({ commit }, /*posts*/) {
       const getAllPost = "api/post";
       return new Promise((resolve, reject) => {
         axios
           .get(getAllPost)
           .then((response) => {
             console.log(response);
-            this.posts = response.data.post;
+            // posts.posts = response.data.post;
+            commit("posts", response.data.post)
             console.log(this.posts);
             resolve(response);
           })
@@ -125,6 +131,9 @@ export default createStore({
     },
     post(state, post) {
       state.post = post;
+    },
+    posts(state, posts) {
+      state.posts = posts;
     },
   },
 });

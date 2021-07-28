@@ -35,7 +35,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "Home",
@@ -52,17 +52,27 @@ export default {
   },
 
   created() {
-    const getAllPost = "api/post";
-    axios
-      .get(getAllPost)
+    // const getAllPost = "api/post";
+    // axios
+    //   .get(getAllPost)
+    //   .then((response) => {
+    //     // console.log(response);
+    //     this.posts = response.data.post;
+    //     // console.log(this.posts);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // const thisPost = (this.posts = response.data.post);
+    this.$store
+      .dispatch("getAllPost")
       .then((response) => {
-        // console.log(response);
         this.posts = response.data.post;
-        // console.log(this.posts);
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
-
       });
   },
 
