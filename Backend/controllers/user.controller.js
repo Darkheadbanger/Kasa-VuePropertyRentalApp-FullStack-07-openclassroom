@@ -50,7 +50,78 @@ exports.userProfil = (req, res) => {
       res.status(404).json(error);
     });
 };
+exports.updateProfil = (req, res) => {
+  //Write to Update a User informations
+  const loggedUserId = req.params.userId;
 
+  const { firstName, lastName, userName, email, password } = req.body;
+
+  //ici declaration de regex
+  const regexMail =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
+  const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
+  const regexName = /(.*[a-z]){3,30}/;
+  if (
+    (!email || regexMail.test(email)) &&
+    (!password || regexPassword.test(password)) &&
+    (!firstName || regexName.test(firstName)) &&
+    (!lastName || regexName.test(lastName)) &&
+    (!userName || regexName.test(userName))
+  ) {
+    User.findOne({
+      where: {
+        id: loggedUserId,
+      },
+    })
+      .then(async (loggedUser) => {
+        if (loggedUser) {
+          if (firstName) {
+            loggedUser.firstName = firstName;
+          }
+          if (lastName) {
+            loggedUser.lastName = lastName;
+          }
+          if (userName) {
+            loggedUser.userName = userName;
+          }
+          if (email) {
+            loggedUser.email = email;
+          }
+          if (password) {
+            loggedUser.password = await bcryptjs.hash(password, 10);
+          }
+          User.update(loggedUser.dataValues, {
+            where: {
+              id: loggedUserId,
+            },
+          })
+            .then((updated) => {
+              if (updated) {
+                return res.status(200).json({ message: "Utilisateur modifié" });
+              } else {
+                return res.status(403).json({
+                  error: "La modification d'utilisateur échoué !",
+                });
+              }
+            })
+            .catch((error) => {
+              console.error(error.message);
+              return res.status(400).json({
+                error: "Impossible a mettre a jour",
+              });
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error.message);
+        res.status(404).json({ error: "Utilisateur non trovué" });
+      });
+  } else {
+    return res
+      .status(401)
+      .json({ message: "Email, mot de passe ou le nom n'est pas bon" });
+  }
+};
 exports.updateUser = (req, res) => {
   //Write to Update a User informations
   const updatedUser = req.params.id;
@@ -74,7 +145,7 @@ exports.updateUser = (req, res) => {
 
   //ici declaration de regex
   const regexMail =
-    /^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/g;
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
   const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
   const regexName = /(.*[a-z]){3,30}/;
   if (
@@ -103,14 +174,14 @@ exports.updateUser = (req, res) => {
               if (userLogged) {
                 bcryptjs
                   .hash(password, 10)
-                  .then((hash) => {
+                  .then((hashedPassword) => {
                     User.update(
                       {
                         firstName,
                         lastName,
                         userName,
                         email,
-                        password: hash,
+                        password: hashedPassword,
                       },
                       {
                         where: {
@@ -138,7 +209,9 @@ exports.updateUser = (req, res) => {
                   })
                   .catch((error) => {
                     console.error(error.message);
-                    return res.status(500).json({ error: "Internal error" });
+                    return res
+                      .status(400)
+                      .json({ error: "Le mot de passe n'a pas pu être haché" });
                   });
               } else {
                 res
