@@ -47,7 +47,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click="submitPost"
+              @click="_createPost"
               :disabled="!postContent && !image"
             >
               Publier
@@ -61,7 +61,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "PostWrite",
   data() {
@@ -75,32 +75,20 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    submitPost() {
-      console.log(this.postContent);
-      let formData = new FormData();
-      formData.append("image", this.image);
-      formData.append("postContent", this.postContent);
-      console.log("formData", formData);
-      const createPost = "/api/post";
-      axios
-        .post(createPost, formData)
+    _createPost: function () {
+      const postContent = this.postContent;
+      const image = this.image;
+
+      this.$store
+        .dispatch("createPost", { postContent, image })
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
-          console.log(error);
+          this.showError = true;
+          this.error = error.response.data;
         });
     },
-    // handleFileUpload() {
-    //   this.image = this.$refs.image.files[0];
-    // },
-    // submitFile() {
-    //   console.log("submitFile");
-    //   let formData = new FormData();
-    //   formData.append("image", this.image);
-    //   formData.append("postContent", this.postContent);
-    //   console.log("formData", formData);
-    // },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
