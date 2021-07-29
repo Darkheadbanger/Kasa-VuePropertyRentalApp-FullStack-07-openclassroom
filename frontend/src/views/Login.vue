@@ -34,7 +34,7 @@
                     />
                   </div>
                 </div>
-                <button type="submit">
+                <button type="submit" @click="submit" :key="succes">
                   <span>Se connecter</span>
                 </button>
                 <p v-if="showError" class="error">
@@ -70,7 +70,7 @@
 <script>
 export default {
   name: "Login",
-
+  component: {},
   data() {
     return {
       formValues: {
@@ -83,6 +83,8 @@ export default {
     };
   },
 
+  created() {},
+
   methods: {
     _loginForm: function () {
       console.log(this.password, this.email);
@@ -91,7 +93,9 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then(() => {
-          this.$router.push({ name: "Home" });
+          setTimeout(() => {
+            this.succes = this.$router.go({ name: "Home" });
+          }, 1000);
         })
         .catch((error) => {
           this.showError = true;
