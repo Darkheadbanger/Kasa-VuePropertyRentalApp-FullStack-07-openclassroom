@@ -52,18 +52,6 @@ export default {
   },
 
   created() {
-    // const getAllPost = "api/post";
-    // axios
-    //   .get(getAllPost)
-    //   .then((response) => {
-    //     // console.log(response);
-    //     this.posts = response.data.post;
-    //     // console.log(this.posts);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
     // const thisPost = (this.posts = response.data.post);
     this.$store
       .dispatch("getAllPost")

@@ -103,8 +103,8 @@ export default createStore({
           });
       });
     },
-
-    getAllPost({ commit }, /*posts*/) {
+    // Impression de tous les posts
+    getAllPost({ commit } /*posts*/) {
       const getAllPost = "api/post";
       return new Promise((resolve, reject) => {
         axios
@@ -112,8 +112,28 @@ export default createStore({
           .then((response) => {
             console.log(response);
             // posts.posts = response.data.post;
-            commit("posts", response.data.post)
+            commit("posts", response.data.post);
             console.log(this.posts);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+
+    // impression de mes posts
+    getAllMyPost({ commit }, posts) {
+      // const userIdDynamic = posts.DynamicId;
+      const getAllMyPost = `api/post/${posts.DynamicId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .get(getAllMyPost)
+          .then((response) => {
+            console.log(response);
+            // posts.thisMyPosts = response.data.myPost;
+            commit("posts", response.data.myPost);
             resolve(response);
           })
           .catch((error) => {

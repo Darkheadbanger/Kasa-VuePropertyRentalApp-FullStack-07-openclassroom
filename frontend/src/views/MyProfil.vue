@@ -7,13 +7,19 @@
         <Header></Header>
         <div class="row profile-body d-flex flex-row justify-content-center">
           <!-- left wrapper start -->
-          <Profile ></Profile>
+          <Profile></Profile>
           <!-- left wrapper end -->
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
             <PostWrite></PostWrite>
-            <div v-for="myPost in myPosts" :key="myPost.id">
-              <Post :post="myPost"></Post>
+            <div class="row mt-4 mt-md-4 mt-lg-0">
+              <div class="col-md-12">
+                <div class="card rounded">
+                  <div v-for="myPost in myPosts" :key="myPost.id">
+                    <Post :post="myPost"></Post>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <!-- middle wrapper end -->
@@ -32,7 +38,7 @@ import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
 import Profile from "../components/profileInformation.vue";
 
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "MyProfil",
@@ -51,20 +57,17 @@ export default {
     };
   },
   created() {
-    const userIdDynamic = this.user.id;
-    const getAllMyPost = `api/post/${userIdDynamic}`;
-    axios
-      .get(getAllMyPost)
+    const DynamicId = this.user.id;
+    this.$store
+      .dispatch("getAllMyPost", { DynamicId })
       .then((response) => {
-        console.log(response);
+        console.log("response");
         this.myPosts = response.data.myPost;
         console.log(this.myPosts);
       })
       .catch((error) => {
         console.log(error);
       });
-
-      
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
