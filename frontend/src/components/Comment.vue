@@ -63,7 +63,7 @@
           </button>
         </li>
         <li>
-          <button class="dropdown-item" @click="deleteComment">
+          <button class="dropdown-item" @click="_deleteComment">
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
             Supprimer commentaire
           </button>
@@ -84,10 +84,10 @@ export default {
   props: ["comment"],
   components: { UpdateComment },
   methods: {
-    deleteComment() {
-      const deleteComment = `api/comment/${this.comment.id}`;
-      axios
-        .delete(deleteComment)
+    _deleteComment: function () {
+      const dynamicId = this.comment.id;
+      this.$store
+        .dispatch("deleteComment", { dynamicId })
         .then((response) => {
           console.log(response);
         })
