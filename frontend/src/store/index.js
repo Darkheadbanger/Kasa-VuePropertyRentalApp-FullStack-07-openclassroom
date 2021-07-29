@@ -108,6 +108,30 @@ export default createStore({
           });
       });
     },
+
+    updatePost({ commit }, post) {
+      let formData = new FormData();
+      formData.append("image", post.image);
+      formData.append("postContent", post.postContent);
+      const createUpdatePost = `/api/post/${post.dynamicId}`;
+      console.log(createUpdatePost);
+      return new Promise((resolve, reject) => {
+        axios
+          .put(createUpdatePost, formData)
+          .then((response) => {
+            console.log(response);
+            commit("updatePost");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+
+    
+
     // Impression de tous les posts
     getAllPost({ commit } /*posts*/) {
       const getAllPost = "api/post";
@@ -164,7 +188,7 @@ export default createStore({
           });
       });
     },
-    
+
     deleteComment({ commit }, comment) {
       const deleteComment = `api/comment/${comment.dynamicId}`;
       return new Promise((resolve, reject) => {
