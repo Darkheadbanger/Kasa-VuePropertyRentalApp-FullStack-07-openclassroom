@@ -78,7 +78,7 @@
 <script>
 import UpdateComment from "./UpdateComment.vue";
 import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "Comment",
   props: ["comment"],

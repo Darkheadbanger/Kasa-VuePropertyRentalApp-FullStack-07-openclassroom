@@ -164,6 +164,28 @@ export default createStore({
           });
       });
     },
+
+    createComment({ commit }, comment) {
+      console.log("this.comment");
+      let formData = new FormData();
+      formData.append("image", comment.image);
+      formData.append("comment", comment.commentaire);
+      console.log("formData", formData);
+      const createComment = `api/comment/${comment.postId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .post(createComment, formData)
+          .then((response) => {
+            console.log(response);
+            commit("comment");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
   },
 
   mutations: {

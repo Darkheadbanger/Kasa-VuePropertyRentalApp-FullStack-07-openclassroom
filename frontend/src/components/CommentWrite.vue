@@ -40,7 +40,7 @@
     <div>
       <button
         class="btn btn-primary btn-icon-text btn-edit-profile"
-        @click="submitComment"
+        @click="_createComment"
         :disabled="!comment"
       >
         Publier
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -67,20 +67,21 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    submitComment() {
-      console.log(this.comment);
-      let formData = new FormData();
-      formData.append("image", this.image);
-      formData.append("comment", this.comment);
-      console.log("formData", formData);
-      const createComment = `api/comment/${this.postId}`;
-      axios
-        .post(createComment, formData)
+
+    _createComment: function () {
+      const commentaire = this.comment;
+      const image = this.image;
+      const postId = this.postId;
+      console.log(postId);
+      this.$store
+        .dispatch("createComment", { commentaire, image, postId })
         .then((response) => {
           console.log(response);
         })
-        .catch((error) => {
+        .then((error) => {
           console.log(error);
+          this.showError = true;
+          this.error = error.response.data;
         });
     },
   },
