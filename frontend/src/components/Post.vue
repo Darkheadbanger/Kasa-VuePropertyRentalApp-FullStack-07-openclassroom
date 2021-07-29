@@ -91,9 +91,11 @@
         </div>
         <CommentWrite :postId="post.id"></CommentWrite>
         <!-- V-for le tableau que je parcours est a droite de int, le commentaire dans le tableau de commentaier -->
-        <div v-for="comment in post.comments" :key="comment.id">
-          <Comment :comment="comment"></Comment>
-        </div>
+        <Comment
+          v-for="comment in post.comments"
+          :key="comment.id"
+          :comment="comment"
+        ></Comment>
       </div>
     </div>
   </div>
@@ -102,10 +104,10 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-import UpdatePost from "./modalUpdate.vue"
+import UpdatePost from "./modalUpdate.vue";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "Post",
@@ -154,12 +156,10 @@ export default {
       }
     },
 
-    deletePost() {
-      const dynamicPost = this.post.id;
-      const deletePost = `api/post/${dynamicPost}`;
-
-      axios
-        .delete(deletePost)
+    deletePost: function () {
+      const dynamicId = this.post.id;
+      this.$store
+        .dispatch("deletePost", { dynamicId })
         .then((response) => {
           console.log(response);
         })

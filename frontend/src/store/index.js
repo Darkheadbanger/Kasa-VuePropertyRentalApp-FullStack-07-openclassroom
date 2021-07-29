@@ -165,6 +165,23 @@ export default createStore({
       });
     },
 
+    deletePost({ commit }, post) {
+      const deletePost = `api/post/${post.dynamicId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(deletePost)
+          .then((response) => {
+            console.log(response);
+            commit("deletePost");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+
     createComment({ commit }, comment) {
       console.log("this.comment");
       let formData = new FormData();
