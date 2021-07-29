@@ -197,7 +197,7 @@
                             d-flex
                             justify-content-center
                           "
-                          @click="deleteUser"
+                          @click="_deleteUser"
                         >
                           Supprimer compte
                         </button>
@@ -217,7 +217,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 //  getting the current user via the state by mapGetters
 import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
@@ -245,16 +245,14 @@ export default {
       this.$router.push({ name: "Update" });
     },
 
-    deleteUser() {
-      // const dynamicId = this.user.id;
-      const deleteUser = `api/account/me/${this.user.id}`;
+    _deleteUser: function () {
+      const dynamicId = this.user.id;
       const clearToken = localStorage.clear("userToken");
-
-      axios
-        .delete(deleteUser)
+      this.$store
+        .dispatch("deleteUser", { dynamicId })
         .then((response) => {
           console.log(response);
-          if (response && clearToken) {
+          if (clearToken) {
             this.$router.push({ name: "Login" });
           }
         })

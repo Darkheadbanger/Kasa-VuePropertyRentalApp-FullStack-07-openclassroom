@@ -291,6 +291,27 @@ export default createStore({
           });
       });
     },
+
+    deleteUser({ commit }, user) {
+      // const dynamicId = this.user.id;
+      const deleteUser = `api/account/me/${user.dynamicId}`;
+      // const clearToken = localStorage.clear("userToken");
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(deleteUser)
+          .then((response) => {
+            console.log(response);
+            // if (response && clearToken) {
+            // this.$router.push({ name: "Login" });
+            commit("deleteUser");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
   },
 
   mutations: {
