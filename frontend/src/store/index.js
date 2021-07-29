@@ -9,6 +9,7 @@ export default createStore({
     user: null, //!localStorage.getItem("userToken")
     post: null,
     posts: null,
+    comment: null,
   },
   getters: {
     user: (state) => {
@@ -22,6 +23,10 @@ export default createStore({
     posts: (state) => {
       //  get current value of the post
       return state.posts;
+    },
+    comment: (state) => {
+      //  get current value of the comment
+      return state.comment;
     },
   },
 
@@ -142,6 +147,23 @@ export default createStore({
           });
       });
     },
+
+    deleteComment({ commit }, comment) {
+      const deleteComment = `api/comment/${comment.dynamicId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(deleteComment)
+          .then((response) => {
+            console.log(response);
+            commit("comment");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
   },
 
   mutations: {
@@ -154,6 +176,9 @@ export default createStore({
     },
     posts(state, posts) {
       state.posts = posts;
+    },
+    comment(state, comment) {
+      state.comment = comment;
     },
   },
 });
