@@ -60,8 +60,8 @@ export default {
 
   created() {
     const getAllUser = "api/account/";
-    axios
-      .get(getAllUser)
+    this.$store
+      .dispatch("getAllUser")
       .then((response) => {
         console.log(response);
         this.users = response.data.users;
