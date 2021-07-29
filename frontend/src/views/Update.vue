@@ -54,7 +54,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateUser"
+                            @click="_updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -87,7 +87,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateUser"
+                            @click="_updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -120,7 +120,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateUser"
+                            @click="_updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -153,7 +153,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateUser"
+                            @click="_updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -182,7 +182,7 @@
                             class="
                               btn btn-primary btn-icon-text btn-edit-profile
                             "
-                            @click="updateUser"
+                            @click="_updateUser"
                           >
                             <font-awesome-icon :icon="['fas', 'edit']" />
                             Edit
@@ -264,21 +264,24 @@ export default {
     },
 
     // createUpdatePost
-    updateUser() {
+    _updateUser: function () {
       // const updateUser = `api/account/me/${this.user.id}`;
-      const updateUser = `api/account/me`;
-      console.log(updateUser);
-      axios
-        .patch(updateUser, {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          userName: this.userName,
-          email: this.email,
-          password: this.password,
+      const thisFirstName = this.firstName;
+      const thisLastName = this.lastName;
+      const thisUserName = this.userName;
+      const thisEmail = this.email;
+      const thisPassword = this.password;
+      this.$store
+        .dispatch("updateUser", {
+          thisFirstName,
+          thisLastName,
+          thisUserName,
+          thisEmail,
+          thisPassword,
         })
         .then((response) => {
           console.log(response);
-          this.$router.push({ name: "Update" });
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
           console.log(error);

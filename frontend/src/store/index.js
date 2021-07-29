@@ -253,13 +253,41 @@ export default createStore({
           .then((response) => {
             console.log(response);
             // this.users = response.data.users;
-            commit("getAllUser", response.data.users)
+            commit("getAllUser", response.data.users);
             console.log(this.users);
-            resolve(response)
+            resolve(response);
           })
           .catch((error) => {
             console.log(error);
-            reject(error)
+            reject(error);
+          });
+      });
+    },
+
+    // page profileInformation, getUserid pas la peine de passer par vuex
+
+    updateUser({ commit }, user) {
+      // const updateUser = `api/account/me/${this.user.id}`;
+      const updateUser = `api/account/me`;
+      console.log(updateUser);
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(updateUser, {
+            firstName: user.thisFirstName,
+            lastName: user.thisLastName,
+            userName: user.thisUserName,
+            email: user.thisEmail,
+            password: user.thisPassword,
+          })
+          .then((response) => {
+            console.log(response);
+            // this.$router.push({ name: "Update" });
+            commit("updateUser");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
           });
       });
     },
