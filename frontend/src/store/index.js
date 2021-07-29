@@ -130,7 +130,26 @@ export default createStore({
       });
     },
 
-    
+    updateComment({ commit }, comment) {
+      let formData = new FormData();
+      formData.append("image", comment.image);
+      formData.append("comment", comment.commentaire);
+      const updateComment = `api/comment/${comment.dynamicId}`;
+      console.log(updateComment);
+      return new Promise((resolve, reject) => {
+        axios
+          .put(updateComment, formData)
+          .then((response) => {
+            console.log(response);
+            commit("updateComment");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
 
     // Impression de tous les posts
     getAllPost({ commit } /*posts*/) {

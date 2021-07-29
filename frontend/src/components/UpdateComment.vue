@@ -90,7 +90,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "UpdateComment",
@@ -106,19 +106,19 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    updateComment() {
-      let formData = new FormData();
-      formData.append("image", this.image);
-      formData.append("comment", this.comment);
-      const updateComment = `api/comment/${this.commentId}`;
-      console.log(updateComment);
-      axios
-        .put(updateComment, formData)
+    updateComment: function () {
+      const commentaire = this.comment;
+      const image = this.image;
+      const dynamicId = this.commentId;
+      this.$store
+        .dispatch("updateComment", { image, commentaire, dynamicId })
         .then((response) => {
           console.log(response);
         })
         .catch((error) => {
           console.log(error);
+          this.showError = true;
+          this.error = error.response.data;
         });
     },
   },
