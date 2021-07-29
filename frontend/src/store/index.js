@@ -130,27 +130,6 @@ export default createStore({
       });
     },
 
-    updateComment({ commit }, comment) {
-      let formData = new FormData();
-      formData.append("image", comment.image);
-      formData.append("comment", comment.commentaire);
-      const updateComment = `api/comment/${comment.dynamicId}`;
-      console.log(updateComment);
-      return new Promise((resolve, reject) => {
-        axios
-          .put(updateComment, formData)
-          .then((response) => {
-            console.log(response);
-            commit("updateComment");
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    },
-
     // Impression de tous les posts
     getAllPost({ commit } /*posts*/) {
       const getAllPost = "api/post";
@@ -207,7 +186,26 @@ export default createStore({
           });
       });
     },
-
+    updateComment({ commit }, comment) {
+      let formData = new FormData();
+      formData.append("image", comment.image);
+      formData.append("comment", comment.commentaire);
+      const updateComment = `api/comment/${comment.dynamicId}`;
+      console.log(updateComment);
+      return new Promise((resolve, reject) => {
+        axios
+          .put(updateComment, formData)
+          .then((response) => {
+            console.log(response);
+            commit("updateComment");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
     deleteComment({ commit }, comment) {
       const deleteComment = `api/comment/${comment.dynamicId}`;
       return new Promise((resolve, reject) => {
@@ -243,6 +241,25 @@ export default createStore({
           .catch((error) => {
             console.log(error);
             reject(error);
+          });
+      });
+    },
+
+    getAllUser({ commit }) {
+      const getAllUser = "api/account/";
+      return new Promise((resolve, reject) => {
+        axios
+          .get(getAllUser)
+          .then((response) => {
+            console.log(response);
+            // this.users = response.data.users;
+            commit("getAllUser", response.data.users)
+            console.log(this.users);
+            resolve(response)
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error)
           });
       });
     },

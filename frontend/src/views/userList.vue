@@ -41,7 +41,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Profile from "../components/profileInformation.vue";
 import UserList from "../components/UserList.vue";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "MyProfil",
@@ -59,7 +59,6 @@ export default {
   },
 
   created() {
-    const getAllUser = "api/account/";
     this.$store
       .dispatch("getAllUser")
       .then((response) => {
