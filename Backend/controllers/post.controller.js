@@ -129,9 +129,46 @@ exports.updatePost = (req, res, next) => {
           id: postId,
         },
       }).then((postFind) => {
-        const fileName = postFind.imageUrl.split("/images/")[1];
-        console.log("fileName", fileName);
-        fs.unlink(`images/${fileName}`, () => {
+        console.log("Comment", postFind.postContent);
+        console.log("Image", postFind.imageUrl);
+        if (postFind.imageUrl != null) {
+          const fileName = postFind.imageUrl.split("/images/")[1];
+          console.log("fileName", fileName);
+          fs.unlink(`images/${fileName}`, () => {
+            if (user && (user.isAdmin || user.id == postFind.userId)) {
+              if (postFind) {
+                Post.update(postObject, {
+                  where: { id: postId },
+                })
+                  .then((updated) => {
+                    if (!updated) {
+                      throw error;
+                    } else {
+                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                      console.log("Modified!");
+                      return res.status(200).json({ message: "Post modifiée" });
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(error.message);
+                    return res.status(500).json({
+                      error: "internal error",
+                    });
+                  });
+              } else {
+                res.status(404).json({ message: "Le post introuvable !" });
+              }
+            } else {
+              res.status(403).json({
+                message:
+                  "Vous n'avez pas l'autorisation pour modifier ce post!",
+              });
+            }
+          }).catch((error) => {
+            console.error(error.message);
+            return res.status(500).json({ error });
+          });
+        } else {
           if (user && (user.isAdmin || user.id == postFind.userId)) {
             if (postFind) {
               Post.update(postObject, {
@@ -160,10 +197,7 @@ exports.updatePost = (req, res, next) => {
               message: "Vous n'avez pas l'autorisation pour modifier ce post!",
             });
           }
-        }).catch((error) => {
-          console.error(error.message);
-          return res.status(500).json({ error });
-        });
+        }
       });
     })
     .catch((error) => {

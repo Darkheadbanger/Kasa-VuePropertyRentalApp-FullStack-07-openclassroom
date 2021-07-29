@@ -148,23 +148,6 @@ export default createStore({
       });
     },
 
-    deleteComment({ commit }, comment) {
-      const deleteComment = `api/comment/${comment.dynamicId}`;
-      return new Promise((resolve, reject) => {
-        axios
-          .delete(deleteComment)
-          .then((response) => {
-            console.log(response);
-            commit("comment");
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    },
-
     deletePost({ commit }, post) {
       const deletePost = `api/post/${post.dynamicId}`;
       return new Promise((resolve, reject) => {
@@ -173,6 +156,23 @@ export default createStore({
           .then((response) => {
             console.log(response);
             commit("deletePost");
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
+    
+    deleteComment({ commit }, comment) {
+      const deleteComment = `api/comment/${comment.dynamicId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(deleteComment)
+          .then((response) => {
+            console.log(response);
+            commit("comment");
             resolve(response);
           })
           .catch((error) => {
