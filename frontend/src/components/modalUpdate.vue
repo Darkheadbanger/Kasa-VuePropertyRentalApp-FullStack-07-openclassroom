@@ -77,7 +77,7 @@
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
-              @click="updatePost"
+              @click="_updatePost"
             >
               Republier
             </button>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "modalUpdate",
@@ -107,14 +107,12 @@ export default {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
     },
-    updatePost() {
-      let formData = new FormData();
-      formData.append("image", this.image);
-      formData.append("postContent", this.postContent);
-      const createUpdatePost = `/api/post/${this.postId}`;
-      console.log(createUpdatePost);
-      axios
-        .put(createUpdatePost, formData)
+    _updatePost: function () {
+      const postContent = this.postContent;
+      const image = this.image;
+      const dynamicId = this.postId
+      this.$store
+        .dispatch("updatePost", { postContent, image, dynamicId })
         .then((response) => {
           console.log(response);
         })
