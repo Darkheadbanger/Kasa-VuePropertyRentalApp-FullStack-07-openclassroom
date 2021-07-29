@@ -29,13 +29,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-//  getting the current user via the state by mapGetters
-// import axios from "axios";
 import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
-// import axios from "axios";
 
 export default {
   name: "Home",
@@ -52,7 +49,6 @@ export default {
   },
 
   created() {
-    // const thisPost = (this.posts = response.data.post);
     this.$store
       .dispatch("getAllPost")
       .then((response) => {
