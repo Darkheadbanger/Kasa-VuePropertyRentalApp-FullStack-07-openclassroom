@@ -238,7 +238,6 @@ export default {
       max: 50,
     };
   },
-  created() {},
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
     toUpdate() {
@@ -247,15 +246,13 @@ export default {
 
     _deleteUser: function () {
       const dynamicId = this.user.id;
+      // const clearToken = localStorage.clear("userToken");
       this.$store
         .dispatch("deleteUser", { dynamicId })
         .then((response) => {
           console.log(response);
-          // const clearToken = localStorage.clear("userToken");
           if (response) {
-            this.$router.push({ name: "Login" }); // Problème, ne veut pas aller a la page login
-          } else {
-            this.$router.push({ name: "Update" });
+            this.$router.push({ name: "Login" });
           }
         })
         .catch((error) => {
@@ -281,7 +278,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push({ name: "Update" });
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
           console.log(error);
