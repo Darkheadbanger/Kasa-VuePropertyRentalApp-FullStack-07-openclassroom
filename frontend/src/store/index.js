@@ -7,6 +7,7 @@ let ls = new SecureLS({ isCompression: false });
 export default createStore({
   state: {
     user: null, //!localStorage.getItem("userToken")
+    users: null,
     post: null,
     posts: null,
     comment: null,
@@ -15,6 +16,10 @@ export default createStore({
     user: (state) => {
       // Get current value of the user, which in this case user is null
       return state.user;
+    },
+    users: (state) => {
+      // Get current value of the user, which in this case user is null
+      return state.users;
     },
     post: (state) => {
       //  get current value of the post
@@ -245,6 +250,7 @@ export default createStore({
     },
 
     getAllUser({ commit }) {
+      // Source d'erreur ici quand je change le commit a user
       const getAllUser = "api/account/";
       return new Promise((resolve, reject) => {
         axios
@@ -252,7 +258,7 @@ export default createStore({
           .then((response) => {
             console.log(response);
             // this.users = response.data.users;
-            commit("getAllUser", response.data.users);
+            commit("getAllUser", response.data.users); // Source d'erreur si je mets user au lieu de users
             console.log(this.users);
             resolve(response);
           })
@@ -266,7 +272,7 @@ export default createStore({
     // page profileInformation, getUserid pas la peine de passer par vuex
 
     updateUser({ commit }, user) {
-      // const updateUser = `api/account/me/${this.user.id}`;
+      // ATTENTION ICI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       const updateUser = `api/account/me`;
       return new Promise((resolve, reject) => {
         axios
@@ -278,6 +284,7 @@ export default createStore({
             password: user.thisPassword,
           })
           .then((response) => {
+            // console.log(response.data.user);
             commit("user", response.data.user);
             resolve(response);
           })
@@ -289,7 +296,6 @@ export default createStore({
     },
 
     deleteUser({ commit }, user) {
-      // const dynamicId = this.user.id;
       const deleteUser = `api/account/me/${user.dynamicId}`;
       // const clearToken = localStorage.clear("userToken");
       return new Promise((resolve, reject) => {
@@ -297,9 +303,11 @@ export default createStore({
           .delete(deleteUser)
           .then((response) => {
             console.log(response);
-            // if (response && clearToken) {
-            // this.$router.push({ name: "Login" });
-            commit("deleteUser");
+            confirm("Êtes vous sur de vouloir d'effacer votre compte ?");
+            const clearToken = localStorage.clear("userToken");
+            if (response && clearToken) {
+              commit("user");
+            }
             resolve(response);
           })
           .catch((error) => {
@@ -313,7 +321,11 @@ export default createStore({
   mutations: {
     // This is state.user is equal to actions,
     user(state, user) {
+      console.log(user);
       state.user = user; //foncitonne
+    },
+    users(state, users) {
+      state.user = users; //foncitonne
     },
     post(state, post) {
       state.post = post;
