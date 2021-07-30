@@ -97,7 +97,9 @@ exports.updateProfil = (req, res) => {
           })
             .then((updated) => {
               if (updated) {
-                return res.status(200).json({ message: "Utilisateur modifié" });
+                return res
+                  .status(200)
+                  .json({ message: "Utilisateur modifié", user: loggedUser });
               } else {
                 return res.status(403).json({
                   error: "La modification d'utilisateur échoué !",

@@ -48,7 +48,7 @@ export default {
     };
   },
 
-  created() {
+  mounted() {
     this.$store
       .dispatch("getAllPost")
       .then((response) => {

@@ -106,7 +106,7 @@ export default {
     },
   },
 
-  created() {
+  mounted() {
     const userIdDynamic = this.user.id;
     const getUserProfil = `api/account/me/${userIdDynamic}`;
     axios

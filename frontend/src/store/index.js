@@ -52,6 +52,8 @@ export default createStore({
           })
           .then((response) => {
             localStorage.setItem("userToken", response.data.token);
+            axios.defaults.headers.common["Authorization"] =
+              "Bearer " + response.data.token;
             commit("user", response.data.user);
             resolve(response);
           })
@@ -137,10 +139,7 @@ export default createStore({
         axios
           .get(getAllPost)
           .then((response) => {
-            console.log(response);
-            // posts.posts = response.data.post;
             commit("posts", response.data.post);
-            console.log(this.posts);
             resolve(response);
           })
           .catch((error) => {
@@ -269,7 +268,6 @@ export default createStore({
     updateUser({ commit }, user) {
       // const updateUser = `api/account/me/${this.user.id}`;
       const updateUser = `api/account/me`;
-      console.log(updateUser);
       return new Promise((resolve, reject) => {
         axios
           .patch(updateUser, {
@@ -280,9 +278,7 @@ export default createStore({
             password: user.thisPassword,
           })
           .then((response) => {
-            console.log(response);
-            // this.$router.push({ name: "Update" });
-            commit("updateUser");
+            commit("user", response.data.user);
             resolve(response);
           })
           .catch((error) => {

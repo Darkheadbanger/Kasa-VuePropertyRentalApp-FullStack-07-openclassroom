@@ -34,7 +34,7 @@
                     />
                   </div>
                 </div>
-                <button type="submit" @click="submit" :key="succes">
+                <button type="submit" @click="submit">
                   <span>Se connecter</span>
                 </button>
                 <p v-if="showError" class="error">
@@ -90,26 +90,18 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then(() => {
-          setTimeout(() => {
-            this.succes = this.$router.push({ name: "Home" });
-          }, 1000);
+          this.$router.push({ name: "Home" });
         })
         .catch((error) => {
           this.showError = true;
           this.error = error.response.data;
         });
     },
-    get loginForm() {
-      return this._loginForm;
-    },
-    set loginForm(value) {
-      this._loginForm = value;
-    },
   },
 
-  mounted() {
-    this._loginForm;
-  },
+  // mounted() {
+  //   this._loginForm;
+  // },
 };
 </script>
 

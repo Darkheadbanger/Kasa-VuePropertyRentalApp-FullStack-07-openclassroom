@@ -7,35 +7,13 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import Home from "./views/Home.vue";
 
 export default {
   name: "App",
   component: {
     Home,
-  },
-
-  created() {
-    const userAPI = `user`; //:id ? => il faut faire get id dynamiquement
-    axios
-      .get(userAPI)
-      .then((response) => {
-        this.$store.dispatch("user", response.data);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-        const token = this.$store.dispatch("user", error.data.token);
-        if (!token) {
-          this.$router.push({ name: "Login" });
-        }
-        //  Redirection when token lost dosen't work
-        // const token = localStorage.getItem("userToken");
-        // if (token) {
-        //   this.$store.push({ name: "Login" });
-        // }
-      });
   },
 };
 </script>

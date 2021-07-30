@@ -56,7 +56,7 @@ export default {
       users: "",
     };
   },
-  created() {
+  mounted() {
     const DynamicId = this.user.id;
     this.$store
       .dispatch("getAllMyPost", { DynamicId })
