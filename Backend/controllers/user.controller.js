@@ -22,7 +22,7 @@ exports.findAllUsers = (req, res, next) => {
     })
     .catch((error) => {
       console.error(error.message);
-      return res.status(500).json({ message: "Internal error" + error });
+      return res.status(404).json({ error: "Il n'y a aucun utilisaturs" });
     });
 };
 

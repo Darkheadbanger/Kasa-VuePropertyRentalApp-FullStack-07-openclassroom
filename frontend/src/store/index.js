@@ -258,7 +258,7 @@ export default createStore({
           .then((response) => {
             console.log(response);
             // this.users = response.data.users;
-            commit("getAllUser", response.data.users); // Source d'erreur si je mets user au lieu de users
+            commit("getAllUser", response.data); // Source d'erreur si je mets user au lieu de users
             console.log(this.users);
             resolve(response);
           })
@@ -296,25 +296,31 @@ export default createStore({
     },
 
     deleteUser({ commit }, user) {
-      const deleteUser = `api/account/me/${user.dynamicId}`;
-      // const clearToken = localStorage.clear("userToken");
-      return new Promise((resolve, reject) => {
-        axios
-          .delete(deleteUser)
-          .then((response) => {
-            console.log(response);
-            confirm("Êtes vous sur de vouloir d'effacer votre compte ?");
-            const clearToken = localStorage.clear("userToken");
-            if (response && clearToken) {
-              commit("user");
-            }
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
+      const confirmDelete = confirm(
+        "Are you sure you want to save this thing into the database?"
+      );
+      if (confirmDelete) {
+        const deleteUser = `api/account/me/${user.dynamicId}`;
+        // const clearToken = localStorage.clear("userToken");
+        return new Promise((resolve, reject) => {
+          axios
+            .delete(deleteUser)
+            .then((response) => {
+              console.log(response);
+              if (response) {
+                localStorage.clear("userToken");
+                commit("user");
+              }
+              resolve(response);
+            })
+            .catch((error) => {
+              console.log(error);
+              reject(error);
+            });
+        });
+      } else {
+        localStorage.getItem("userToken");
+      }
     },
   },
 
