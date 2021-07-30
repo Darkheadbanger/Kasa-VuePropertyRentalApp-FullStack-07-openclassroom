@@ -9,11 +9,11 @@
           <!-- Pour mettre de publication -->
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
-            <PostWrite></PostWrite>
+            <PostWrite :key="posts"></PostWrite>
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
                 <div class="card rounded">
-                  <div v-for="post in posts" :key="post.id">
+                  <div v-for="post in posts" :key="post.ic">
                     <Post :post="post"></Post>
                   </div>
                 </div>
@@ -53,6 +53,7 @@ export default {
       .dispatch("getAllPost")
       .then((response) => {
         this.posts = response.data.post;
+        this.$forceUpdate();
         console.log(response);
       })
       .catch((error) => {

@@ -82,9 +82,6 @@ export default {
       succes: "",
     };
   },
-
-  created() {},
-
   methods: {
     _loginForm: function () {
       console.log(this.password, this.email);
@@ -94,7 +91,7 @@ export default {
         .dispatch("login", { email, password })
         .then(() => {
           setTimeout(() => {
-            this.succes = this.$router.go({ name: "Home" });
+            this.succes = this.$router.push({ name: "Home" });
           }, 1000);
         })
         .catch((error) => {
@@ -108,6 +105,10 @@ export default {
     set loginForm(value) {
       this._loginForm = value;
     },
+  },
+
+  mounted() {
+    this._loginForm;
   },
 };
 </script>

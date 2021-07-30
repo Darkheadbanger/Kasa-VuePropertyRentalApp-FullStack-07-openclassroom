@@ -78,11 +78,11 @@ export default {
     _createPost: function () {
       const postContent = this.postContent;
       const image = this.image;
-
       this.$store
         .dispatch("createPost", { postContent, image })
         .then((response) => {
           console.log(response);
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error);
