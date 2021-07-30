@@ -297,7 +297,7 @@ export default createStore({
 
     deleteUser({ commit }, user) {
       const confirmDelete = confirm(
-        "Are you sure you want to save this thing into the database?"
+        "Êtes vous sûr de vouloir supprimer votre compte ?"
       );
       if (confirmDelete) {
         const deleteUser = `api/account/me/${user.dynamicId}`;
