@@ -30,10 +30,13 @@ exports.createComment = (req, res) => {
   });
   comment
     .save()
-    .then(() => {
+    .then((response) => {
       res
         .status(200)
-        .json({ message: "Objet enregistrée à la base de donées" });
+        .json({
+          message: "Objet enregistrée à la base de donées",
+          comment: response,
+        });
     })
     .catch((error) => {
       console.error(error.message);

@@ -198,6 +198,27 @@ export default createStore({
           });
       });
     },
+    createComment({ commit }, comment) {
+      console.log("this.comment");
+      let formData = new FormData();
+      formData.append("image", comment.image);
+      formData.append("comment", comment.commentaire);
+      console.log("formData", formData);
+      const createComment = `api/comment/${comment.postId}`;
+      return new Promise((resolve, reject) => {
+        axios
+          .post(createComment, formData)
+          .then((response) => {
+            console.log("Hey::", response.data.comment);
+            commit("addComment", response.data.comment);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
     updateComment({ commit }, comment) {
       let formData = new FormData();
       formData.append("image", comment.image);
@@ -234,29 +255,6 @@ export default createStore({
           });
       });
     },
-
-    createComment({ commit }, comment) {
-      console.log("this.comment");
-      let formData = new FormData();
-      formData.append("image", comment.image);
-      formData.append("comment", comment.commentaire);
-      console.log("formData", formData);
-      const createComment = `api/comment/${comment.postId}`;
-      return new Promise((resolve, reject) => {
-        axios
-          .post(createComment, formData)
-          .then((response) => {
-            console.log(response);
-            commit("comment");
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    },
-
     // userList n'as pas besoin de le mettre dans vuex
 
     // page profileInformation, getUserid pas la peine de passer par vuex
@@ -325,13 +323,21 @@ export default createStore({
     },
     posts(state, posts) {
       state.posts = posts;
+      console.log(state.posts)
     },
     comment(state, comment) {
       state.comment = comment;
     },
     addPost(state, post) {
-      state.posts.push(post);
+      console.log(post);
+      state.posts.unshift(post);
       console.log(state.posts);
+    },
+    addComment(state, comment) {
+      // parcourir state.posts (array/tableau de posts) pour trouver celui qui a le même id (postId) que comment.postId
+      // rajouter le comment à ce post dans post.comments
+
+      console.log(comment);
     },
   },
 });

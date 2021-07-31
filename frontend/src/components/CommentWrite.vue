@@ -75,14 +75,6 @@ export default {
       console.log(postId);
       this.$store
         .dispatch("createComment", { commentaire, image, postId })
-        .then((response) => {
-          console.log(response);
-        })
-        .then((error) => {
-          console.log(error);
-          this.showError = true;
-          this.error = error.response.data;
-        });
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL

@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => {
     .save()
     .then((created) => {
       if (created) {
-        Post.findAll({
+        Post.findOne({
           where: { id: created.id },
           include: [
             {

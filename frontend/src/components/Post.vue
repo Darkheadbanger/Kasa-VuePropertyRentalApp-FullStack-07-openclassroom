@@ -107,7 +107,7 @@ import moment from "moment";
 import UpdatePost from "./modalUpdate.vue";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-// import axios from "axios";
+// import axios from "axios"; user
 
 export default {
   name: "Post",
