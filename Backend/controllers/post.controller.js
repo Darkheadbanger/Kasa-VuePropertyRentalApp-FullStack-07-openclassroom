@@ -35,7 +35,6 @@ exports.createPost = (req, res, next) => {
           ],
         })
           .then((postFounded) => {
-            // console.log("postFounded::::::::::::::::::::::", postFounded);
             res
               .status(200)
               .json({

@@ -78,14 +78,13 @@ export default {
     _createPost: function () {
       const postContent = this.postContent;
       const image = this.image;
-      this.$store
-        .dispatch("createPost", { postContent, image })
+      this.$store.dispatch("createPost", { postContent, image });
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "addPost"]),
   },
 };
 </script>

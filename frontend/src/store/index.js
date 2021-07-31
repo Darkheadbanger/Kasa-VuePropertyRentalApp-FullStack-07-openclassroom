@@ -11,6 +11,7 @@ export default createStore({
     post: null,
     posts: null,
     comment: null,
+    addPost: null,
   },
   getters: {
     user: (state) => {
@@ -32,6 +33,10 @@ export default createStore({
     comment: (state) => {
       //  get current value of the comment
       return state.comment;
+    },
+    addPost: (state) => {
+      //  get current value of the comment
+      return state.addPost;
     },
   },
 

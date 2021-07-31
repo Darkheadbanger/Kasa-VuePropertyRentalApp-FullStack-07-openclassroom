@@ -9,11 +9,11 @@
           <!-- Pour mettre de publication -->
           <!-- middle wrapper start -->
           <div class="col-xl-6 middle-wrapper">
-            <PostWrite :key="posts"></PostWrite>
+            <PostWrite></PostWrite>
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
                 <div class="card rounded">
-                  <div v-for="post in posts" :key="post.ic">
+                  <div v-for="post in posts" :key="post">
                     <Post :post="post"></Post>
                   </div>
                 </div>
@@ -43,8 +43,8 @@ export default {
     PostWrite,
   },
 
-  created() {      
-    console.log('getallpost')
+  created() {
+    console.log("getallpost");
 
     this.$store.dispatch("getAllPost");
   },
@@ -52,7 +52,7 @@ export default {
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user", "posts"]),
+    ...mapGetters(["user", "posts", "addPost", "post"]),
   },
 };
 </script>
