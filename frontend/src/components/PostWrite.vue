@@ -22,6 +22,7 @@
             <input
               class="form-control mr-sm-2 bg-light"
               v-model="postContent"
+              ref="resetInput"
               :maxlength="max"
               type="text"
               placeholder="Publier ici..."
@@ -66,6 +67,7 @@ export default {
   name: "PostWrite",
   data() {
     return {
+      resetPost: "",
       postContent: "",
       image: "",
       max: 280,
@@ -79,6 +81,7 @@ export default {
       const postContent = this.postContent;
       const image = this.image;
       this.$store.dispatch("createPost", { postContent, image });
+      this.$refs["resetInput"].value = "";
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
