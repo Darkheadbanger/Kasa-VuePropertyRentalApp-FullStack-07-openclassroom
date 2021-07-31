@@ -106,6 +106,7 @@ export default createStore({
           .post(createPost, formData)
           .then((response) => {
             console.log(response);
+            console.log("response create post")
             commit("post");
             resolve(response);
           })
@@ -249,25 +250,7 @@ export default createStore({
       });
     },
 
-    getAllUser({ commit }) {
-      // Source d'erreur ici quand je change le commit a user
-      const getAllUser = "api/account/";
-      return new Promise((resolve, reject) => {
-        axios
-          .get(getAllUser)
-          .then((response) => {
-            console.log(response);
-            // this.users = response.data.users;
-            commit("getAllUser", response.data); // Source d'erreur si je mets user au lieu de users
-            console.log(this.users);
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    },
+    // userList n'as pas besoin de le mettre dans vuex
 
     // page profileInformation, getUserid pas la peine de passer par vuex
 
@@ -318,7 +301,8 @@ export default createStore({
               reject(error);
             });
         });
-      } else {
+      } 
+      else {
         localStorage.getItem("userToken");
       }
     },

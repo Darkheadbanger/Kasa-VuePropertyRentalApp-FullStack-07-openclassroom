@@ -41,10 +41,10 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Profile from "../components/profileInformation.vue";
 import UserList from "../components/UserList.vue";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
-  name: "MyProfil",
+  name: "userList",
   components: {
     Nav,
     Header,
@@ -59,18 +59,22 @@ export default {
   },
 
   mounted() {
-    this.$store
-      .dispatch("getAllUser")
-      .then((response) => {
-        console.log(response);
-        this.users = response.data.users;
-        console.log(this.users);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const getAllUser = "api/account/";
+    return new Promise((resolve, reject) => {
+      axios
+        .get(getAllUser)
+        .then((response) => {
+          console.log(response);
+          this.users = response.data.users;
+          // commit("users", response.data.users);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    });
   },
-  // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
     toUpdate() {
       this.$router.push({ name: "Update" });

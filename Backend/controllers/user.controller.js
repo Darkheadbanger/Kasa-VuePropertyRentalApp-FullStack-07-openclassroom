@@ -15,7 +15,9 @@ exports.findAllUsers = (req, res, next) => {
   })
     .then((users) => {
       if (users) {
-        res.status(200).json({ users });
+        res
+          .status(200)
+          .json({ message: "Tous les utilisateurs disponibles", users });
       } else {
         return res.status(404).json({ message: "Il n'y a aucun utilisaturs" });
       }
