@@ -105,7 +105,7 @@ export default createStore({
         axios
           .post(createPost, formData)
           .then((response) => {
-            console.log(response);
+            console.log("createPost", response);
             commit("addPost", response.data.post);
             console.log(response.data);
             resolve(response);
@@ -145,6 +145,7 @@ export default createStore({
         axios
           .get(getAllPost)
           .then((response) => {
+            console.log("GetAllPost");
             commit("posts", response.data.posts);
             resolve(response);
           })
@@ -325,7 +326,7 @@ export default createStore({
     },
     addPost(state, post) {
       state.posts.push(post);
-      console.log(state.posts)
+      console.log(state.posts);
     },
   },
 });

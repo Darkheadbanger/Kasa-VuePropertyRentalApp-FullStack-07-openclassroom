@@ -15,7 +15,7 @@
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
                 <div class="card rounded">
-                  <div v-for="myPost in myPosts" :key="myPost.id">
+                  <div v-for="myPost in posts" :key="myPost.id">
                     <Post :post="myPost"></Post>
                   </div>
                 </div>
@@ -60,14 +60,7 @@ export default {
     const DynamicId = this.user.id;
     this.$store
       .dispatch("getAllMyPost", { DynamicId })
-      .then((response) => {
-        console.log("response");
-        this.myPosts = response.data.myPost;
-        console.log(this.myPosts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
@@ -79,7 +72,7 @@ export default {
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "posts"]),
   },
 };
 </script>

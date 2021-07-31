@@ -80,14 +80,6 @@ export default {
       const image = this.image;
       this.$store
         .dispatch("createPost", { postContent, image })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.showError = true;
-          this.error = error.response.data;
-        });
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL

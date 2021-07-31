@@ -21,15 +21,6 @@ exports.createPost = (req, res, next) => {
     .save()
     .then((created) => {
       if (created) {
-        // chercher le post créée en base de données
-        // en utilisant Post.findOne et en cherchant
-        // created.id
-        // Ca va te retourner un post avec le User et les comments
-        // Et il faudra retourner celui-ci
-        //
-        // OU
-        //userId
-        // Tu trouves un moyen pour que created renvoie le user et les comments
         Post.findAll({
           where: { id: created.id },
           include: [
@@ -47,7 +38,10 @@ exports.createPost = (req, res, next) => {
             // console.log("postFounded::::::::::::::::::::::", postFounded);
             res
               .status(200)
-              .json({ message: "Le post est trouvé et sauvegardé à la base de donées", post: postFounded });
+              .json({
+                message: "Le post est trouvé et sauvegardé à la base de donées",
+                post: postFounded,
+              });
           })
           .catch((error) => {
             console.error(error.message);
@@ -106,7 +100,7 @@ exports.getAllMyPost = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["userName"],
+        attributes: ["firstName", "lastName", "userName"],
       },
       {
         model: Comment,
