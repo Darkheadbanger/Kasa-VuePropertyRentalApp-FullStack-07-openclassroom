@@ -106,8 +106,8 @@ export default createStore({
           .post(createPost, formData)
           .then((response) => {
             console.log(response);
-            console.log("response create post")
-            commit("post");
+            commit("addPost", response.data.post);
+            console.log(response.data);
             resolve(response);
           })
           .catch((error) => {
@@ -128,7 +128,7 @@ export default createStore({
           .put(createUpdatePost, formData)
           .then((response) => {
             console.log(response);
-            commit("updatePost");
+            commit("post");
             resolve(response);
           })
           .catch((error) => {
@@ -139,13 +139,13 @@ export default createStore({
     },
 
     // Impression de tous les posts
-    getAllPost({ commit } /*posts*/) {
+    getAllPost({ commit }) {
       const getAllPost = "api/post";
       return new Promise((resolve, reject) => {
         axios
           .get(getAllPost)
           .then((response) => {
-            commit("posts", response.data.post);
+            commit("posts", response.data.posts);
             resolve(response);
           })
           .catch((error) => {
@@ -165,6 +165,7 @@ export default createStore({
           .then((response) => {
             console.log(response);
             // posts.thisMyPosts = response.data.myPost;
+            console.log("Recuperer mes posts");
             commit("posts", response.data.myPost);
             resolve(response);
           })
@@ -182,7 +183,7 @@ export default createStore({
           .delete(deletePost)
           .then((response) => {
             console.log(response);
-            commit("deletePost");
+            commit("post");
             resolve(response);
           })
           .catch((error) => {
@@ -202,7 +203,7 @@ export default createStore({
           .put(updateComment, formData)
           .then((response) => {
             console.log(response);
-            commit("updateComment");
+            commit("comment");
             resolve(response);
           })
           .catch((error) => {
@@ -255,7 +256,6 @@ export default createStore({
     // page profileInformation, getUserid pas la peine de passer par vuex
 
     updateUser({ commit }, user) {
-      // ATTENTION ICI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       const updateUser = `api/account/me`;
       return new Promise((resolve, reject) => {
         axios
@@ -267,7 +267,6 @@ export default createStore({
             password: user.thisPassword,
           })
           .then((response) => {
-            // console.log(response.data.user);
             commit("user", response.data.user);
             resolve(response);
           })
@@ -301,8 +300,7 @@ export default createStore({
               reject(error);
             });
         });
-      } 
-      else {
+      } else {
         localStorage.getItem("userToken");
       }
     },
@@ -311,7 +309,6 @@ export default createStore({
   mutations: {
     // This is state.user is equal to actions,
     user(state, user) {
-      console.log(user);
       state.user = user; //foncitonne
     },
     users(state, users) {
@@ -325,6 +322,10 @@ export default createStore({
     },
     comment(state, comment) {
       state.comment = comment;
+    },
+    addPost(state, post) {
+      state.posts.push(post);
+      console.log(state.posts)
     },
   },
 });

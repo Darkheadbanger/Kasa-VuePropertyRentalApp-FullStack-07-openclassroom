@@ -42,29 +42,17 @@ export default {
     Post,
     PostWrite,
   },
-  data() {
-    return {
-      posts: [],
-    };
-  },
 
-  mounted() {
-    this.$store
-      .dispatch("getAllPost")
-      .then((response) => {
-        this.posts = response.data.post;
-        this.$forceUpdate();
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  created() {      
+    console.log('getallpost')
+
+    this.$store.dispatch("getAllPost");
   },
 
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "posts"]),
   },
 };
 </script>

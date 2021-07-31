@@ -1,28 +1,18 @@
 //const fse = require("fs-extra");
 const db = require("../models");
 const fs = require("fs");
-const { exception } = require("console");
-// const modelPost = require("../models/post.model");
 
 const Post = db.post; // post depuis model Post
 const User = db.user; // user depuis model User/Auth
 const Comment = db.comment;
 
 exports.createPost = (req, res, next) => {
-  //Declarations des varibales pour récuperer les données du modèles
   const userId = req.params.userId;
-  // if (req.file) {
-  //   const urlImage = `${req.protocol}://${req.get("host")}/images/${
-  //     req.file.filename
-  //   }`;
-  // } else {
-  //   const urlImage = null;
-  // }
+  // const postId = req.params.id;
   const urlImage = req.file
     ? `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
     : null;
   const post = new Post({
-    // ...postObject,
     postContent: req.body.postContent,
     imageUrl: urlImage,
     userId: userId,
@@ -31,9 +21,42 @@ exports.createPost = (req, res, next) => {
     .save()
     .then((created) => {
       if (created) {
-        res
-          .status(200)
-          .json({ message: "Objet enregistrée à la base de données" });
+        // chercher le post créée en base de données
+        // en utilisant Post.findOne et en cherchant
+        // created.id
+        // Ca va te retourner un post avec le User et les comments
+        // Et il faudra retourner celui-ci
+        //
+        // OU
+        //userId
+        // Tu trouves un moyen pour que created renvoie le user et les comments
+        Post.findAll({
+          where: { id: created.id },
+          include: [
+            {
+              model: User,
+              attributes: ["lastName", "firstName", "userName"],
+            },
+            {
+              model: Comment,
+              attributes: ["id", "comment", "imageUrl", "createdAt"],
+            },
+          ],
+        })
+          .then((postFounded) => {
+            // console.log("postFounded::::::::::::::::::::::", postFounded);
+            res
+              .status(200)
+              .json({ message: "Le post est trouvé et sauvegardé à la base de donées", post: postFounded });
+          })
+          .catch((error) => {
+            console.error(error.message);
+            return res.status(404).json({ error: "Le post est introuvable" });
+          });
+        // res.status(200).json({
+        //   message: "Objet enregistrée à la base de données",
+        //   post: created,
+        // });
       } else {
         return res.status(403).json({
           error: "L'enregistrement dans la base de données échouée !",
@@ -62,9 +85,9 @@ exports.getAllPost = (req, res, next) => {
     // order: [ "createdAt"], //DESC ou non ?
     // ['title', 'DESC'],
   })
-    .then((post) => {
-      if (post) {
-        return res.status(200).json({ post });
+    .then((posts) => {
+      if (posts) {
+        return res.status(200).json({ posts });
       } else {
         return res.status(404).json({ message: "Pas de publication!" });
       }

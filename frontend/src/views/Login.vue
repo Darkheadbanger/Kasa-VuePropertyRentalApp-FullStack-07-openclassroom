@@ -98,10 +98,6 @@ export default {
         });
     },
   },
-
-  // mounted() {
-  //   this._loginForm;
-  // },
 };
 </script>
 
