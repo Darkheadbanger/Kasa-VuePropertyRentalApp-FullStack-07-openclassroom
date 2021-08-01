@@ -12,7 +12,7 @@ export default createStore({
     post: null,
     posts: null,
     comment: null,
-    addPost: null,
+    // addPos : null,
   },
   getters: {
     user: (state) => {
@@ -34,10 +34,6 @@ export default createStore({
     comment: (state) => {
       //  get current value of the comment
       return state.comment;
-    },
-    addPost: (state) => {
-      //  get current value of the comment
-      return state.addPost;
     },
   },
 
@@ -189,8 +185,8 @@ export default createStore({
         axios
           .delete(deletePost)
           .then((response) => {
-            console.log(response);
-            commit("post");
+            console.log("delete reponse: ", response);
+            commit("deletePost");
             resolve(response);
           })
           .catch((error) => {
@@ -247,7 +243,7 @@ export default createStore({
           .delete(deleteComment)
           .then((response) => {
             console.log(response);
-            commit("comment");
+            commit("commentDelete");
             resolve(response);
           })
           .catch((error) => {
@@ -331,26 +327,46 @@ export default createStore({
     },
     addPost(state, post) {
       state.posts.unshift(post);
-      // console.log(state.posts);
-      // console.log(post);
+
+      // for (let postFind of state.posts) {
+      //   console.log(postFind);
+      //   if (postFind.id == post.id) {
+      //     console.log(postFind.id, "==", post.id);
+      //     // postFind.comments.push(comment);
+      //   }
+      // }
     },
     addComment(state, comment) {
       // parcourir state.posts (array/tableau de posts) pour trouver celui qui a le même id (postId) que comment.postId
       // rajouter le comment à ce post dans post.comments
-      console.log(state.posts);
-      // for (let i = 0; i < state.posts.length; i++) {
-      //   if (state.posts[i].id == comment.postId) {
-      //     state.posts[i].comments.push(comment);
-      //     // A gauche le tableau et a droite le commentaire qu'on veut ajouter
-      //     // Je dois pusher comment à l'interieur du comments qui se trouve dans le post qu'on a trouvé
-      //   }
-      // }
       for (let postFind of state.posts) {
-        console.log(postFind);
         if (postFind.id == comment.postId) {
           postFind.comments.push(comment);
         }
       }
     },
+    deletePost(state, post) {
+      // Donc, l'action permet à faire une demande axios au backend, si la réponse la réponse est bon alors on efface les données dans le backend
+      // quand le bouton effacer se déclanche (appuyer)
+      // Ensuite, côté frontend
+      // state.posts.shift(post);
+      for (let postFind of state.posts) {
+        console.log(postFind.id);
+        if (postFind.id == post.id) {
+          console.log(postFind.id, "==", post.id);
+          postFind.slice(post);
+        }
+      }
+    },
+    commentDelete(state, comment) {
+      console.log(state, comment);
+      for (let postFind of state.posts) {
+        console.log(postFind.id);
+        if (postFind.id == comment.id) {
+          postFind.slice(comment);
+        }
+      }
+    },
   },
 });
+// Les codes à connaitre sont tous ce qui est parsing du tableau, la condition

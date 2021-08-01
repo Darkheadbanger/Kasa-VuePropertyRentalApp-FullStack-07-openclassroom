@@ -160,12 +160,6 @@ export default {
       const dynamicId = this.post.id;
       this.$store
         .dispatch("deletePost", { dynamicId })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
 

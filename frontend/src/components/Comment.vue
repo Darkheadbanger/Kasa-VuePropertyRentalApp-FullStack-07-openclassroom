@@ -86,14 +86,7 @@ export default {
   methods: {
     _deleteComment: function () {
       const dynamicId = this.comment.id;
-      this.$store
-        .dispatch("deleteComment", { dynamicId })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.$store.dispatch("deleteComment", { dynamicId });
     },
   },
   computed: {
