@@ -26,17 +26,15 @@ exports.createComment = (req, res) => {
     comment: commentPost,
     imageUrl: urlImage,
     userId: userId, //original userId,
-    postId: postId,
+    postId: JSON.parse(postId),
   });
   comment
     .save()
     .then((response) => {
-      res
-        .status(200)
-        .json({
-          message: "Objet enregistrée à la base de donées",
-          comment: response,
-        });
+      res.status(200).json({
+        message: "Objet enregistrée à la base de donées",
+        comment: response,
+      });
     })
     .catch((error) => {
       console.error(error.message);

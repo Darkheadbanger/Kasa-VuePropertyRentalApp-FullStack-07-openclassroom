@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
 import axios from "axios";
+// import post from "../../../Backend/models/post";
 let ls = new SecureLS({ isCompression: false });
 
 export default createStore({
@@ -323,21 +324,33 @@ export default createStore({
     },
     posts(state, posts) {
       state.posts = posts;
-      console.log(state.posts)
+      console.log(state.posts);
     },
     comment(state, comment) {
       state.comment = comment;
     },
     addPost(state, post) {
-      console.log(post);
       state.posts.unshift(post);
-      console.log(state.posts);
+      // console.log(state.posts);
+      // console.log(post);
     },
     addComment(state, comment) {
       // parcourir state.posts (array/tableau de posts) pour trouver celui qui a le même id (postId) que comment.postId
       // rajouter le comment à ce post dans post.comments
-
-      console.log(comment);
+      console.log(state.posts);
+      // for (let i = 0; i < state.posts.length; i++) {
+      //   if (state.posts[i].id == comment.postId) {
+      //     state.posts[i].comments.push(comment);
+      //     // A gauche le tableau et a droite le commentaire qu'on veut ajouter
+      //     // Je dois pusher comment à l'interieur du comments qui se trouve dans le post qu'on a trouvé
+      //   }
+      // }
+      for (let postFind of state.posts) {
+        console.log(postFind);
+        if (postFind.id == comment.postId) {
+          postFind.comments.push(comment);
+        }
+      }
     },
   },
 });
