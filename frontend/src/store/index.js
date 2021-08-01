@@ -349,7 +349,7 @@ export default createStore({
       // Donc, l'action permet à faire une demande axios au backend, si la réponse la réponse est bon alors on efface les données dans le backend
       // quand le bouton effacer se déclanche (appuyer)
       // Ensuite, côté frontend
-      // state.posts.shift(post);
+      // state.posts.slice.(post);
       for (let postFind of state.posts) {
         console.log(postFind.id);
         if (postFind.id == post.id) {
