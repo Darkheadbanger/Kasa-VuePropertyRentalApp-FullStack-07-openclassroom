@@ -277,9 +277,10 @@ exports.deletePost = (req, res) => {
                               }
                             });
                           }
-                          return res
-                            .status(200)
-                            .json({ message: "Publication supprimée" });
+                          return res.status(200).json({
+                            message: "Publication supprimée",
+                            post: postFind,
+                          });
                         })
                         .catch((error) => {
                           res.status(500).json({ error });
@@ -317,7 +318,10 @@ exports.deletePost = (req, res) => {
                         }
                         return res
                           .status(200)
-                          .json({ message: "Publication supprimée" });
+                          .json({
+                            message: "Publication supprimée",
+                            post: postFind,
+                          });
                       })
                       .catch((error) => {
                         res.status(500).json({ error });

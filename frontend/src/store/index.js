@@ -184,10 +184,10 @@ export default createStore({
       console.log("before promise", post.dynamicId);
       return new Promise((resolve, reject) => {
         console.log("after promise");
-        console
-          .log(axios.delete(deletePost))
+        axios
+          .delete(deletePost)
           .then((response) => {
-            console.log("delete reponse: ", response.data);
+            console.log("delete reponse: ", response.data.post);
             commit("deletePost", response.data);
             console.log("delete reponse");
             resolve(response);
@@ -246,8 +246,8 @@ export default createStore({
         axios
           .delete(deleteComment)
           .then((response) => {
-            console.log(response);
-            commit("commentDelete");
+            console.log(response.data.comments);
+            commit("commentDelete", response.data);
             resolve(response);
           })
           .catch((error) => {
@@ -347,11 +347,11 @@ export default createStore({
       // quand le bouton effacer se déclanche (appuyer)
       // Ensuite, côté frontend
       // state.posts.slice.(post);
-      console.log(post); // Je ne comprends pas pourquoi post est undefined
+      // console.log(state.posts.slice(post));
       for (let postFind of state.posts) {
-        console.log(postFind.id);
-        if (postFind.id == post.id) {
-          // console.log(postFind.id, "==", post.id);
+        console.log(postFind);
+        console.log(post.post.id, "==", postFind.id);
+        if (postFind.id == post.post.id) {
           console.log(postFind.slice(post));
         }
       }
@@ -359,9 +359,13 @@ export default createStore({
     commentDelete(state, comment) {
       console.log(state, comment);
       for (let postFind of state.posts) {
-        console.log(postFind.id);
-        if (postFind.id == comment.id) {
-          postFind.slice(comment);
+        console.log(postFind.id, "=", comment.comments.id);
+        if (postFind.id) {
+          console.log("Hello", postFind.id);
+          if (comment.comments.id) {
+            console.log("comment id ici", comment.comments.id);
+            console.log(postFind.slice(comment));
+          }
         }
       }
     },
