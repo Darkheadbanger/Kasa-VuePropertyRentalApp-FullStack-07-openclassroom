@@ -187,11 +187,10 @@ export default createStore({
         axios
           .delete(deletePost)
           .then((response) => {
-            console.log("delete reponse");
-            commit("deletePost");
+            console.log("delete reponse: ", response.data);
+            commit("deletePost", response.data);
             console.log("delete reponse");
             resolve(response);
-            console.log("delete reponse");
           })
           .catch((error) => {
             // post
@@ -331,6 +330,7 @@ export default createStore({
       state.comment = comment;
     },
     addPost(state, post) {
+      console.log(post);
       state.posts.unshift(post);
     },
     addComment(state, comment) {
@@ -347,10 +347,9 @@ export default createStore({
       // quand le bouton effacer se déclanche (appuyer)
       // Ensuite, côté frontend
       // state.posts.slice.(post);
-      console.log(post);
+      console.log(post); // Je ne comprends pas pourquoi post est undefined
       for (let postFind of state.posts) {
         console.log(postFind.id);
-        console.log(post);
         if (postFind.id == post.id) {
           // console.log(postFind.id, "==", post.id);
           console.log(postFind.slice(post));
