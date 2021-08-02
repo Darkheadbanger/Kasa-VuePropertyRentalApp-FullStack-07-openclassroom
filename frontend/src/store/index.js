@@ -363,14 +363,16 @@ export default createStore({
       // Faire une boucle pour trouver le post, ensuite je cherche le commentaire dans le commentaire de post
       // à partir de la, on peut supprimer le commentaire
       console.log(state, comment);
+      let index = 0;
       for (let postFind of state.posts) {
-        console.log(postFind.id, "=", comment.comments.id);
-        if (postFind.id) {
-          console.log("Hello", postFind.id);
-          // if (comment.comments.id) {
-          //   console.log("comment id ici", comment.comments.id);
-          //   console.log(postFind.slice(comment));
-          // }
+        console.log(postFind.comments);
+        for (let commentFind of postFind.comments) {
+          console.log(commentFind.id, "==", comment.comments.id);
+          if (commentFind.id == comment.comments.id) {
+            console.log("ici hei ::::::::::::::::::");
+            postFind.comments.splice(index, 1);
+          }
+          index++;
         }
       }
     },
