@@ -342,30 +342,35 @@ export default createStore({
         }
       }
     },
+
     deletePost(state, post) {
       // Donc, l'action permet à faire une demande axios au backend, si la réponse la réponse est bon alors on efface les données dans le backend
       // quand le bouton effacer se déclanche (appuyer)
       // Ensuite, côté frontend
-      // state.posts.slice.(post);
-      // console.log(state.posts.slice(post));
+      let index = 0;
       for (let postFind of state.posts) {
         console.log(postFind);
         console.log(post.post.id, "==", postFind.id);
         if (postFind.id == post.post.id) {
-          console.log(postFind.slice(post));
+          state.posts.splice(index, 1);
+          // console.log(postFind.splice(post));
         }
+        index++;
       }
     },
+
     commentDelete(state, comment) {
+      // Faire une boucle pour trouver le post, ensuite je cherche le commentaire dans le commentaire de post
+      // à partir de la, on peut supprimer le commentaire
       console.log(state, comment);
       for (let postFind of state.posts) {
         console.log(postFind.id, "=", comment.comments.id);
         if (postFind.id) {
           console.log("Hello", postFind.id);
-          if (comment.comments.id) {
-            console.log("comment id ici", comment.comments.id);
-            console.log(postFind.slice(comment));
-          }
+          // if (comment.comments.id) {
+          //   console.log("comment id ici", comment.comments.id);
+          //   console.log(postFind.slice(comment));
+          // }
         }
       }
     },
