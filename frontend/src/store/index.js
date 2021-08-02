@@ -184,8 +184,8 @@ export default createStore({
       console.log("before promise", post.dynamicId);
       return new Promise((resolve, reject) => {
         console.log("after promise");
-        axios
-          .delete(deletePost)
+        console
+          .log(axios.delete(deletePost))
           .then((response) => {
             console.log("delete reponse: ", response.data);
             commit("deletePost", response.data);

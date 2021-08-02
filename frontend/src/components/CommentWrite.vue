@@ -41,7 +41,7 @@
       <button
         class="btn btn-primary btn-icon-text btn-edit-profile"
         @click="_createComment"
-        :disabled="!comment"
+        :disabled="!comment && !image"
       >
         Publier
       </button>
@@ -73,8 +73,7 @@ export default {
       const image = this.image;
       const postId = this.postId;
       console.log(postId);
-      this.$store
-        .dispatch("createComment", { commentaire, image, postId })
+      this.$store.dispatch("createComment", { commentaire, image, postId });
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
