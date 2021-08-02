@@ -21,6 +21,7 @@
         v-model="comment"
         :maxlength="max"
         type="text"
+        ref="resetInput"
         placeholder="Commenter..."
         aria-label="Commenter"
         id="commentText"
@@ -74,6 +75,7 @@ export default {
       const postId = this.postId;
       console.log(postId);
       this.$store.dispatch("createComment", { commentaire, image, postId });
+      this.$refs["resetInput"].value = "";
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
