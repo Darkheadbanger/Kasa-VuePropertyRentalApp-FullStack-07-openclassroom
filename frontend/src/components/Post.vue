@@ -158,8 +158,8 @@ export default {
 
     deletePost: function () {
       const dynamicId = this.post.id;
-      this.$store
-        .dispatch("deletePost", { dynamicId })
+      console.log("dynamicId");
+      this.$store.dispatch("deletePost", { dynamicId });
     },
   },
 

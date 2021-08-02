@@ -35,12 +35,10 @@ exports.createPost = (req, res, next) => {
           ],
         })
           .then((postFounded) => {
-            res
-              .status(200)
-              .json({
-                message: "Le post est trouvé et sauvegardé à la base de donées",
-                post: postFounded,
-              });
+            res.status(200).json({
+              message: "Le post est trouvé et sauvegardé à la base de donées",
+              post: postFounded,
+            });
           })
           .catch((error) => {
             console.error(error.message);
@@ -299,9 +297,12 @@ exports.deletePost = (req, res) => {
                   }
                 });
               } else {
+                console.log("ici::::::::::::::::::::", postFind.textContent);
                 // Supression sans image
                 if (user && (user.isAdmin || user.id == postFind.userId)) {
+                  //on fait une condition, si c'est un admin (true) ou si c'est l'id de l'utilisateur, on peut accder a la publication
                   if ((postFind && commentFind) || (postFind && !commentFind)) {
+                    //Si l'id de post a été envoyé dans la requête
                     //Il faut faire une requête postId pour vérifier s'il existe en bdd avant destroy, si non on envoie message erreur
                     Post.destroy({
                       // attributes: ['id', 'postContent', 'imageUrl'],// Mettre les attributs pour pouvoir trouver l'id du post et l'effacer par rapport à l'id de user qu'il a mis pour qu'il puisse effacer sa pubication, admin peut effacer tous le monde pub
@@ -314,14 +315,23 @@ exports.deletePost = (req, res) => {
                           // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                           console.log("File deleted!");
                         }
+                        return res
+                          .status(200)
+                          .json({ message: "Publication supprimée" });
                       })
                       .catch((error) => {
-                        console.error(error.message);
-                        return res
-                          .status(500)
-                          .json({ error: "internal error" });
+                        res.status(500).json({ error });
                       });
+                  } else {
+                    res
+                      .status(404)
+                      .json({ message: "La publication introuvable!" });
                   }
+                } else {
+                  // Si on ne trouve pas ni l'admin ni l'utilisateur qui a publier cette pubication, alors, on a pas acces pour effacer la publication
+                  return res.status(403).json({
+                    message: "Vous ne pouvez pas effacer ce post !",
+                  });
                 }
               }
             })

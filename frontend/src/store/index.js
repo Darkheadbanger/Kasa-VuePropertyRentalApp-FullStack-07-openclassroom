@@ -107,7 +107,7 @@ export default createStore({
         axios
           .post(createPost, formData)
           .then((response) => {
-            console.log("createPost", response);
+            console.log("createPost");
             commit("addPost", response.data.post);
             console.log(response.data);
             resolve(response);
@@ -181,15 +181,20 @@ export default createStore({
 
     deletePost({ commit }, post) {
       const deletePost = `api/post/${post.dynamicId}`;
+      console.log("before promise", post.dynamicId);
       return new Promise((resolve, reject) => {
+        console.log("after promise");
         axios
           .delete(deletePost)
           .then((response) => {
-            console.log("delete reponse: ", response);
+            console.log("delete reponse");
             commit("deletePost");
+            console.log("delete reponse");
             resolve(response);
+            console.log("delete reponse");
           })
           .catch((error) => {
+            // post
             console.log(error);
             reject(error);
           });
@@ -327,14 +332,6 @@ export default createStore({
     },
     addPost(state, post) {
       state.posts.unshift(post);
-
-      // for (let postFind of state.posts) {
-      //   console.log(postFind);
-      //   if (postFind.id == post.id) {
-      //     console.log(postFind.id, "==", post.id);
-      //     // postFind.comments.push(comment);
-      //   }
-      // }
     },
     addComment(state, comment) {
       // parcourir state.posts (array/tableau de posts) pour trouver celui qui a le même id (postId) que comment.postId
@@ -350,11 +347,13 @@ export default createStore({
       // quand le bouton effacer se déclanche (appuyer)
       // Ensuite, côté frontend
       // state.posts.slice.(post);
+      console.log(post);
       for (let postFind of state.posts) {
         console.log(postFind.id);
+        console.log(post);
         if (postFind.id == post.id) {
-          console.log(postFind.id, "==", post.id);
-          postFind.slice(post);
+          // console.log(postFind.id, "==", post.id);
+          console.log(postFind.slice(post));
         }
       }
     },
