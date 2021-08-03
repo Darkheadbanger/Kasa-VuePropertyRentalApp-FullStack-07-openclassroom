@@ -376,5 +376,13 @@ export default createStore({
       }
     },
   },
+
+  updatePost(state, post) {
+    console.log(state, post);
+  },
+
+  updateComment(state, comment) {
+    console.lpg(state, comment);
+  },
 });
 // Les codes à connaitre sont tous ce qui est parsing du tableau, la condition

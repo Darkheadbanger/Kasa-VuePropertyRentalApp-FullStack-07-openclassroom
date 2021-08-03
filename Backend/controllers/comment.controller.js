@@ -112,7 +112,10 @@ exports.updateComments = (req, res) => {
                         console.log("Modified!");
                         return res
                           .status(200)
-                          .json({ message: "Commentaire modifiée" });
+                          .json({
+                            message: "Commentaire modifiée",
+                            comments: commentFind,
+                          });
                       }
                     })
                     .catch((error) => {
@@ -145,7 +148,10 @@ exports.updateComments = (req, res) => {
                       console.log("Modified!");
                       return res
                         .status(200)
-                        .json({ message: "Commentaire modifiée" });
+                        .json({
+                          message: "Commentaire modifiée",
+                          comments: commentFind,
+                        });
                     }
                   })
                   .catch((error) => {
@@ -234,12 +240,10 @@ exports.deleteComment = (req, res) => {
                 where: { id: comment.id }, // Alors, on trouve l'id du poste cet utilisateur là
               })
                 .then(() => {
-                  return res
-                    .status(200)
-                    .json({
-                      message: "Publication supprimée",
-                      comments: comment,
-                    });
+                  return res.status(200).json({
+                    message: "Publication supprimée",
+                    comments: comment,
+                  });
                 })
                 .catch(() => {
                   console.error(error.message);

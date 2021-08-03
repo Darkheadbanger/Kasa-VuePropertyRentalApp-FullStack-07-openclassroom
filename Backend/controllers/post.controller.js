@@ -108,7 +108,7 @@ exports.getAllMyPost = (req, res) => {
   })
     .then((myPost) => {
       if (myPost) {
-        return res.status(200).json({ myPost });
+        return res.status(200).json({ message: "publication trouvé" });
       } else {
         return res.status(404).json({ message: "Pas de publication!" });
       }
@@ -160,7 +160,9 @@ exports.updatePost = (req, res, next) => {
                     } else {
                       // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                       console.log("Modified!");
-                      return res.status(200).json({ message: "Post modifiée" });
+                      return res
+                        .status(200)
+                        .json({ message: "Post modifiée", post: postFind });
                     }
                   })
                   .catch((error) => {
@@ -194,7 +196,9 @@ exports.updatePost = (req, res, next) => {
                   } else {
                     // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                     console.log("Modified!");
-                    return res.status(200).json({ message: "Post modifiée" });
+                    return res
+                      .status(200)
+                      .json({ message: "Post modifiée", post: postFind });
                   }
                 })
                 .catch((error) => {
@@ -316,12 +320,10 @@ exports.deletePost = (req, res) => {
                           // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                           console.log("File deleted!");
                         }
-                        return res
-                          .status(200)
-                          .json({
-                            message: "Publication supprimée",
-                            post: postFind,
-                          });
+                        return res.status(200).json({
+                          message: "Publication supprimée",
+                          post: postFind,
+                        });
                       })
                       .catch((error) => {
                         res.status(500).json({ error });
