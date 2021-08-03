@@ -160,7 +160,8 @@ exports.updatePost = (req, res, next) => {
                   // returning: true,
                   // plain: true,
                 })
-                  .then(() => {
+                  .then((updated) => {
+                    console.log("ici updateeeeeeeeee::::::::::", updated);
                     Post.findOne({
                       where: {
                         id: postId,
@@ -201,25 +202,17 @@ exports.updatePost = (req, res, next) => {
                   "Vous n'avez pas l'autorisation pour modifier ce post!",
               });
             }
-          }).catch((error) => {
-            console.error(error.message);
-            return res.status(500).json({ error });
           });
         } else {
           if (user && (user.isAdmin || user.id == postFind.userId)) {
             if (postFind) {
               Post.update(postObject, {
                 where: { id: postId },
-                include: [
-                  {
-                    model: Post,
-                    attributes: ["createdAt", "updateAt", "userId"],
-                  },
-                ],
-                // returning: true,
+                // returning: true, postid
                 // plain: true,
               })
-                .then(() => {
+                .then((updated) => {
+                  console.log("ici:::::::::::::::", updated);
                   Post.findOne({
                     where: {
                       id: postId,

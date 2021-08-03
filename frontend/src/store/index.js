@@ -382,6 +382,8 @@ export default createStore({
         }
       }
 
+      
+
       // for (let i = 0; i < state.posts.length; i++) {
       //   for (let postsFind of state.posts) {
       //     if (postsFind.id == post.id) {
