@@ -73,8 +73,6 @@ exports.getAllPost = (req, res, next) => {
       },
     ],
     order: [["createdAt", "DESC"]],
-    // order: [ "createdAt"], //DESC ou non ?
-    // ['title', 'DESC'],
   })
     .then((posts) => {
       if (posts) {
@@ -153,17 +151,40 @@ exports.updatePost = (req, res, next) => {
               if (postFind) {
                 Post.update(postObject, {
                   where: { id: postId },
+                  include: [
+                    {
+                      model: Post,
+                      attributes: ["createdAt", "updatedAt", "userId"],
+                    },
+                  ],
+                  // returning: true,
+                  // plain: true,
                 })
-                  .then((updated) => {
-                    if (!updated) {
-                      throw error;
-                    } else {
-                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                      console.log("Modified!");
-                      return res
-                        .status(200)
-                        .json({ message: "Post modifiée", post: postFind });
-                    }
+                  .then(() => {
+                    Post.findOne({
+                      where: {
+                        id: postId,
+                      },
+                    })
+                      .then((updatedFound) => {
+                        console.log("updateeeeeeeeeeeeed", updatedFound);
+                        if (!updatedFound) {
+                          throw error;
+                        } else {
+                          // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                          console.log(updatedFound, "lol");
+                          return res.status(200).json({
+                            message: "Post modifiée",
+                            post: updatedFound,
+                          });
+                        }
+                      })
+                      .catch((error) => {
+                        console.error(error.message);
+                        return res
+                          .status(401)
+                          .json({ error: "La modification échouée" });
+                      });
                   })
                   .catch((error) => {
                     console.error(error.message);
@@ -189,17 +210,40 @@ exports.updatePost = (req, res, next) => {
             if (postFind) {
               Post.update(postObject, {
                 where: { id: postId },
+                include: [
+                  {
+                    model: Post,
+                    attributes: ["createdAt", "updateAt", "userId"],
+                  },
+                ],
+                // returning: true,
+                // plain: true,
               })
-                .then((updated) => {
-                  if (!updated) {
-                    throw error;
-                  } else {
-                    // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                    console.log("Modified!");
-                    return res
-                      .status(200)
-                      .json({ message: "Post modifiée", post: postFind });
-                  }
+                .then(() => {
+                  Post.findOne({
+                    where: {
+                      id: postId,
+                    },
+                  })
+                    .then((updatedFound) => {
+                      console.log("updateeeeeeeeeeeeed", updatedFound);
+                      if (!updatedFound) {
+                        throw error;
+                      } else {
+                        // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                        console.log(updatedFound, "lol");
+                        return res.status(200).json({
+                          message: "Post modifiée",
+                          post: updatedFound,
+                        });
+                      }
+                    })
+                    .catch((error) => {
+                      console.error(error.message);
+                      return res
+                        .status(401)
+                        .json({ error: "La modification échouée" });
+                    });
                 })
                 .catch((error) => {
                   console.error(error.message);

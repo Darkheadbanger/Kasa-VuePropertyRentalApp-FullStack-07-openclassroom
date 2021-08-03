@@ -230,8 +230,8 @@ export default createStore({
         axios
           .put(updateComment, formData)
           .then((response) => {
-            console.log(response);
-            commit("comment");
+            console.log(response.data);
+            commit("updateComment", response.data);
             resolve(response);
           })
           .catch((error) => {
@@ -272,7 +272,7 @@ export default createStore({
             password: user.thisPassword,
           })
           .then((response) => {
-            commit("user", response.data.user);
+            commit("updateComment", response.data.user);
             resolve(response);
           })
           .catch((error) => {
@@ -324,7 +324,6 @@ export default createStore({
     },
     posts(state, posts) {
       state.posts = posts;
-      console.log(state.posts);
     },
     comment(state, comment) {
       state.comment = comment;
@@ -376,28 +375,28 @@ export default createStore({
       }
     },
     updatePost(state, post) {
-      console.log(state.posts);
-      console.log(post);
-      let addPost = state.posts.unshift(post);
-      console.log(addPost);
-      for (let postFind of state.posts) {
-        if (postFind.id == post.id) {
-          console.log(post);
-          console.log(postFind.id, "==", post.id);
-          let updatePost = postFind.splice();
-          updatePost = addPost;
-          // let postStored = post.slice();
-          // postFind.slice(post);
-          // let postUpdate = post.slice();
-          // console.lpg((postFind = addPost));
-          // console.log(addPost);
-          // return postUpdate;
+      // console.log(state.posts);
+      // console.log(post);
+      // let addPost = state.posts.unshift(post);
+      // console.log(addPost);
+      // for (let postFind of state.posts)
+      for (let i = 0; i < state.posts.length; i++) {
+        if (state.posts[i].id == post.id) {
+          console.log("Ici c'est :::::::", state.posts[i]);
+          console.log(state.posts[i], "==", post);
+
+          state.posts[i] = post;
         }
       }
     },
 
     updateComment(state, comment) {
-      console.lpg(state, comment);
+      console.log(state, comment.comments);
+      for (let postFind of state.posts) {
+        for (let commentFind of postFind.comments) {
+          console.log(commentFind);
+        }
+      }
     },
   },
 });
