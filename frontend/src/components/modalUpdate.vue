@@ -78,6 +78,8 @@
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
               @click="_updatePost"
+              :disabled="!postContent && !image"
+              data-bs-dismiss="modal"
             >
               Republier
             </button>
@@ -110,7 +112,7 @@ export default {
     _updatePost: function () {
       const postContent = this.postContent;
       const image = this.image;
-      const dynamicId = this.postId
+      const dynamicId = this.postId;
       this.$store
         .dispatch("updatePost", { postContent, image, dynamicId })
         .then((response) => {

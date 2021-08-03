@@ -369,8 +369,7 @@ export default createStore({
         for (let commentFind of postFind.comments) {
           console.log(commentFind.id, "==", comment.comments.id);
           if (commentFind.id == comment.comments.id) {
-            console.log("ici hei ::::::::::::::::::");
-            postFind.comments.splice(index, 1);
+            console.log(postFind.comments.splice(index, 1));
           }
           index++;
         }

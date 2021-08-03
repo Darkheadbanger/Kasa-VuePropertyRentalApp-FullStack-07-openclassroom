@@ -78,6 +78,8 @@
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
               @click="updateComment"
+              :disabled="!comment && !image"
+              data-bs-dismiss="modal"
             >
               Republier
             </button>
@@ -110,16 +112,8 @@ export default {
       const commentaire = this.comment;
       const image = this.image;
       const dynamicId = this.commentId;
-      this.$store
-        .dispatch("updateComment", { image, commentaire, dynamicId })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.showError = true;
-          this.error = error.response.data;
-        });
+      this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
+      // this.$router.push({ name: "Home" });
     },
   },
   computed: {
