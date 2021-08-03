@@ -375,17 +375,24 @@ export default createStore({
       }
     },
     updatePost(state, post) {
-      // console.log(state.posts);
-      // console.log(post);
-      // let addPost = state.posts.unshift(post);
-      // console.log(addPost);
-      // for (let postFind of state.posts)
       for (let i = 0; i < state.posts.length; i++) {
         if (state.posts[i].id == post.id) {
           console.log(state.posts[i].id, "==", post.id);
           state.posts[i] = post;
         }
       }
+
+      // for (let i = 0; i < state.posts.length; i++) {
+      //   for (let postsFind of state.posts) {
+      //     if (postsFind.id == post.id) {
+      //       if (state.posts[i] == post.id) {
+      //         console.log(postsFind.id, "==", post.id);
+      //         console.log(state.posts[i]);
+      //         state.posts = post;
+      //       }
+      //     }
+      //   }
+      // }
     },
 
     updateComment(state, comment) {

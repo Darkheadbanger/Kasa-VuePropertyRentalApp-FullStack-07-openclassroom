@@ -113,14 +113,7 @@ export default {
       const postContent = this.postContent;
       const image = this.image;
       const dynamicId = this.postId;
-      this.$store
-        .dispatch("updatePost", { postContent, image, dynamicId })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.$store.dispatch("updatePost", { postContent, image, dynamicId });
     },
   },
 };
