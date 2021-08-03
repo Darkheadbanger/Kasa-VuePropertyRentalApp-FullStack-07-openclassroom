@@ -129,8 +129,8 @@ export default createStore({
         axios
           .put(createUpdatePost, formData)
           .then((response) => {
-            console.log(response);
-            commit("post");
+            console.log(response.data.post);
+            commit("updatePost", response.data.post);
             resolve(response);
           })
           .catch((error) => {
@@ -330,7 +330,6 @@ export default createStore({
       state.comment = comment;
     },
     addPost(state, post) {
-      console.log(post);
       state.posts.unshift(post);
     },
     addComment(state, comment) {
@@ -362,27 +361,44 @@ export default createStore({
     commentDelete(state, comment) {
       // Faire une boucle pour trouver le post, ensuite je cherche le commentaire dans le commentaire de post
       // à partir de la, on peut supprimer le commentaire
+      // let index = 0;
       console.log(state, comment);
-      let index = 0;
       for (let postFind of state.posts) {
         console.log(postFind.comments);
+        let index = 0; // L
         for (let commentFind of postFind.comments) {
           console.log(commentFind.id, "==", comment.comments.id);
           if (commentFind.id == comment.comments.id) {
-            console.log(postFind.comments.splice(index, 1));
+            postFind.comments.splice(index, 1);
           }
           index++;
         }
       }
     },
-  },
+    updatePost(state, post) {
+      console.log(state.posts);
+      console.log(post);
+      let addPost = state.posts.unshift(post);
+      console.log(addPost);
+      for (let postFind of state.posts) {
+        if (postFind.id == post.id) {
+          console.log(post);
+          console.log(postFind.id, "==", post.id);
+          let updatePost = postFind.splice();
+          updatePost = addPost;
+          // let postStored = post.slice();
+          // postFind.slice(post);
+          // let postUpdate = post.slice();
+          // console.lpg((postFind = addPost));
+          // console.log(addPost);
+          // return postUpdate;
+        }
+      }
+    },
 
-  updatePost(state, post) {
-    console.log(state, post);
-  },
-
-  updateComment(state, comment) {
-    console.lpg(state, comment);
+    updateComment(state, comment) {
+      console.lpg(state, comment);
+    },
   },
 });
 // Les codes à connaitre sont tous ce qui est parsing du tableau, la condition
