@@ -382,9 +382,7 @@ export default createStore({
       // for (let postFind of state.posts)
       for (let i = 0; i < state.posts.length; i++) {
         if (state.posts[i].id == post.id) {
-          console.log("Ici c'est :::::::", state.posts[i]);
-          console.log(state.posts[i], "==", post);
-
+          console.log(state.posts[i].id, "==", post.id);
           state.posts[i] = post;
         }
       }

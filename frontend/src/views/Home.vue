@@ -52,7 +52,7 @@ export default {
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user", "posts", "addPost", "post"]),
+    ...mapGetters(["user", "posts",]),
   },
 };
 </script>
