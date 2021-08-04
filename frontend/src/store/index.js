@@ -379,9 +379,14 @@ export default createStore({
       for (let i = 0; i < state.posts.length; i++) {
         // Condition pour comparer l'id de la post existant et la nouvelle post
         if (state.posts[i].id == post.id) {
-          console.log(state.posts[i], "==", post);
-          //  Implementation de la logique update de bon post à partir de son Id
-          state.posts[i] = post;
+          console.log(state.posts[i].postContent, "==", post.postContent);
+          // Si l'image existe, on n'efface pas l'image quand on écrit le texte, si le texte existe on efface pas le texte si on change l'image
+          if (state.posts[i].postContent && state.posts[i].imageUrl) {
+            //  Implementation de la logique update de bon post à partir de son Id
+            state.posts[i].postContent = post.postContent;
+            state.posts[i].imageUrl = post.imageUrl;
+            state.posts[i].updatedAt = post.updatedAt;
+          }
         }
       }
     },
@@ -401,10 +406,13 @@ export default createStore({
           if (beforeUpdateComment.id == afterUpdateComment.id) {
             console.log("Do update");
             console.log(beforeUpdateComment, "==", afterUpdateComment);
-            // Implementation de la logique update
-            beforeUpdateComment.comment = afterUpdateComment.comment;
-            beforeUpdateComment.imageUrl = afterUpdateComment.imageUrl;
-            beforeUpdateComment.updateAt = afterUpdateComment.updateAt;
+            // Si l'image existe, on n'efface pas l'image quand on écrit le texte, si le texte existe on efface pas le texte si on change l'image
+            if (beforeUpdateComment.imageUrl && beforeUpdateComment.comment) {
+              // Implementation de la logique update commentaire, image et update at
+              beforeUpdateComment.comment = afterUpdateComment.comment;
+              beforeUpdateComment.imageUrl = afterUpdateComment.imageUrl;
+              beforeUpdateComment.updateAt = afterUpdateComment.updateAt;
+            }
             // statePost.comments[i] = comment.comments
           }
         }
