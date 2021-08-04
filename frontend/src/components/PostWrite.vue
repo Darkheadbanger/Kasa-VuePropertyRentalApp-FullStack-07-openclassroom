@@ -115,6 +115,8 @@ export default {
       const image = this.image;
       this.$store.dispatch("createPost", { postContent, image });
       this.$refs["resetInput"].value = "";
+      this.image = null;
+      this.preview = null;
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL

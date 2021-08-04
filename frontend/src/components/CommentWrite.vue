@@ -109,6 +109,8 @@ export default {
       console.log(postId);
       this.$store.dispatch("createComment", { commentaire, image, postId });
       this.$refs["resetInput"].value = "";
+      this.image = null;
+      this.preview = null;
     },
 
     resetImage: function () {
