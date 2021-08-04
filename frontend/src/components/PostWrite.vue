@@ -30,13 +30,14 @@
               id="publication"
             />
           </div>
-          <label>
+          <label class="addImage">
             <font-awesome-icon
               class="ms-1"
               :icon="['fas', 'image']"
               size="2x"
               for="imageFile"
             />
+            <span class="title-image">Ajouter image</span>
             <input
               type="file"
               id="FileInput"
@@ -101,6 +102,17 @@ export default {
   background-color: #00000000;
   #FileInput {
     display: none;
+  }
+  .addImage {
+    margin: 0 5px 0 5px;
+    color: grey;
+    cursor: pointer;
+    &:hover {
+      color: blue;
+    }
+    .title-image {
+      margin: 0 5px 0 5px;
+    }
   }
 }
 
