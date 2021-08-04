@@ -402,7 +402,9 @@ export default createStore({
             console.log("Do update");
             console.log(beforeUpdateComment, "==", afterUpdateComment);
             // Implementation de la logique update
-            beforeUpdateComment = afterUpdateComment;
+            beforeUpdateComment.comment = afterUpdateComment.comment;
+            beforeUpdateComment.imageUrl = afterUpdateComment.imageUrl;
+            beforeUpdateComment.updateAt = afterUpdateComment.updateAt;
             // statePost.comments[i] = comment.comments
           }
         }
