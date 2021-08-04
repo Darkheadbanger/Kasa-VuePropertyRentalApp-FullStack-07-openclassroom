@@ -27,18 +27,12 @@
           </router-link>
         </div>
         <div>
-          <span>
-            <div class="me-perso float-start mb-5">
-              {{ comment.comment }}
-            </div>
-            <div class="w-50 mt-5 mb-3 me-5">
-              <img
-                class="img-fluid d-flex w-50"
-                :src="comment.imageUrl"
-                alt=""
-              />
-            </div>
-          </span>
+          <div class="me-perso float-start mb-5">
+            {{ comment.comment }}
+          </div>
+          <div class="w-50 mt-5 mb-3 me-5">
+            <img class="img-fluid" :src="comment.imageUrl" alt="" />
+          </div>
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@
             <div class="d-flex">
               <p class="mb-0 mt-2">file name: {{ image.name }}</p>
               <font-awesome-icon
-                class="trash mt-1"
+                class="trash mt-1 ms-5"
                 :icon="['fas', 'trash-alt']"
                 @click="resetImage"
                 size="2x"
