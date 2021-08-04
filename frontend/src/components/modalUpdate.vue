@@ -43,6 +43,7 @@
                   v-model="postContent"
                   :maxlength="max"
                   type="text"
+                  ref="resetInput"
                   placeholder="Publier ici..."
                   aria-label="publication"
                   id="publication"
@@ -114,6 +115,7 @@ export default {
       const image = this.image;
       const dynamicId = this.postId;
       this.$store.dispatch("updatePost", { postContent, image, dynamicId });
+      this.$refs["resetInput"].value = "";
     },
   },
 };
