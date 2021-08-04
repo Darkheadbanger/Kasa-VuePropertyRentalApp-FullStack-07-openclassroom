@@ -100,21 +100,4 @@ router.beforeResolve((to, from, next) => {
     }
   }
 });
-
-// router.beforeEnter((to, from, next) => {
-//   if (!store.state.accessToken || store.state.user) {
-//     return next({ name: "Login" });
-//   } else if (store.state.accessToken) {
-//     return store
-//       .dispatch("user")
-//       .then((response) => {
-//         console.logt(response);
-//         next();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//         store.commit("accessToken", null);
-//       });
-//   }
-// });
 export default router;

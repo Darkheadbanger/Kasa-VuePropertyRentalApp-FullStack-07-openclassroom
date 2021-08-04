@@ -171,13 +171,13 @@ export default {
 
   watch: {
     now() {
-      this.formattedTime = this.getFormattedTime(this.post.createdAt);
+      this.formattedTime = this.getFormattedTime(this.post.updatedAt);
     },
   },
 
   created() {
     this.formattedTime = moment();
-    this.formattedTime = this.getFormattedTime(this.post.createdAt);
+    this.formattedTime = this.getFormattedTime(this.post.updatedAt);
     setInterval(() => {
       this.now = moment();
     }, 3000);

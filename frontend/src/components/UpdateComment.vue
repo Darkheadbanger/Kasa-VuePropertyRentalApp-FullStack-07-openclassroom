@@ -113,7 +113,7 @@ export default {
       const image = this.image;
       const dynamicId = this.commentId;
       this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
-      // this.$router.push({ name: "Home" });
+      // this.$refs["resetInput"].value = "";
     },
   },
   computed: {

@@ -114,6 +114,7 @@ export default {
       const image = this.image;
       const dynamicId = this.postId;
       this.$store.dispatch("updatePost", { postContent, image, dynamicId });
+      // this.$refs["resetInput"].value = "";
     },
   },
 };
