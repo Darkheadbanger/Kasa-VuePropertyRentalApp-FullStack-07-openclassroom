@@ -114,11 +114,8 @@ export default {
       const image = this.image;
       const dynamicId = this.commentId;
       this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
-<<<<<<< HEAD
       // this.$refs["resetInput"].value = "";
-=======
       this.$refs["resetInput"].value = "";
->>>>>>> df7378531b0a0934136e471721dbb0b0dc75ac3c
     },
   },
   computed: {
