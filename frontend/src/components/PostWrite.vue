@@ -58,7 +58,7 @@
           </div>
         </div>
 
-        <div class="border p-2 mt-3 mb-3">
+        <div class="p-2 mb-3">
           <template v-if="preview">
             <img :src="preview" class="img-fluid" />
             <div class="d-flex">
