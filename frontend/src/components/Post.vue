@@ -21,7 +21,7 @@
             >
             Ici haut, source d'erreur -->
             <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
-              <!-- {{ post.createdAt }} -->
+              <!-- {{ post.createdAt }} src -->
               {{ formattedTime }}
             </span>
           </div>
