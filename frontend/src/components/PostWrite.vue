@@ -1,7 +1,7 @@
 <template>
   <div class="card rounded mb-5">
     <div class="card-header">
-      <div class="d-flex">
+      <div class="d-flex flex-column">
         <div
           class="
             input-group input-group-sm
@@ -39,6 +39,7 @@
             />
             <span class="title-image">Ajouter image</span>
             <input
+              accept="image/*"
               type="file"
               id="FileInput"
               ref="image"
@@ -56,6 +57,22 @@
             </button>
           </div>
         </div>
+
+        <div class="border p-2 mt-3 mb-3">
+          <template v-if="preview">
+            <img :src="preview" class="img-fluid" />
+            <div class="d-flex">
+              <p class="mb-0 mt-2">file name: {{ image.name }}</p>
+              <font-awesome-icon
+                class="trash mt-1"
+                :icon="['fas', 'trash-alt']"
+                @click="resetImage"
+                size="2x"
+                for="imageFile"
+              />
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -72,11 +89,26 @@ export default {
       postContent: "",
       image: "",
       max: 280,
+      preview: null,
     };
   },
   methods: {
-    handleFileUpload() {
+    handleFileUpload: function () {
       this.image = this.$refs.image.files[0];
+
+      let input = event.target;
+      if (input.files) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.preview = e.target.result;
+        };
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    resetImage: function () {
+      this.image = null;
+      this.preview = null;
     },
     _createPost: function () {
       const postContent = this.postContent;
@@ -112,6 +144,13 @@ export default {
     }
     .title-image {
       margin: 0 5px 0 5px;
+    }
+  }
+  .trash {
+    margin-left: 5rem !important;
+    &:hover {
+      color: red;
+      cursor: pointer;
     }
   }
 }

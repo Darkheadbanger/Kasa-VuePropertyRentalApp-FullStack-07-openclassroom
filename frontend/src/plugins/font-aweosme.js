@@ -32,6 +32,7 @@ library.add(
   faThumbsUp,
   faTrashAlt,
   faImage
+
 );
 
 export { FontAwesomeIcon };
