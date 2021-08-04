@@ -105,18 +105,30 @@ exports.updateComments = (req, res) => {
                     where: { id: commentId },
                   })
                     .then((updated) => {
-                      if (!updated) {
-                        throw error;
-                      } else {
-                        // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                        console.log("Modified!");
-                        return res
-                          .status(200)
-                          .json({
-                            message: "Commentaire modifiée",
-                            comments: commentFind,
+                      console.log("ici updateeeeeeeeeed", updated);
+                      Comment.findOne({
+                        where: {
+                          id: commentId,
+                        },
+                      })
+                        .then((updatedFound) => {
+                          if (!updatedFound) {
+                            throw error;
+                          } else {
+                            // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                            console.log("Modified!");
+                            return res.status(200).json({
+                              message: "Commentaire modifiée",
+                              comments: updatedFound,
+                            });
+                          }
+                        })
+                        .catch((error) => {
+                          console.error(error.message);
+                          return res(401).json({
+                            error: " La modification échouée",
                           });
-                      }
+                        });
                     })
                     .catch((error) => {
                       console.error(error.message);
@@ -141,18 +153,30 @@ exports.updateComments = (req, res) => {
                   where: { id: commentId },
                 })
                   .then((updated) => {
-                    if (!updated) {
-                      throw error;
-                    } else {
-                      // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                      console.log("Modified!");
-                      return res
-                        .status(200)
-                        .json({
-                          message: "Commentaire modifiée",
-                          comments: commentFind,
+                    console.log("ici updateeeeeeeeeed", updated);
+                    Comment.findOne({
+                      where: {
+                        id: commentId,
+                      },
+                    })
+                      .then((updatedFound) => {
+                        if (!updatedFound) {
+                          throw error;
+                        } else {
+                          // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                          console.log("Modified!");
+                          return res.status(200).json({
+                            message: "Commentaire modifiée",
+                            comments: updatedFound,
+                          });
+                        }
+                      })
+                      .catch((error) => {
+                        console.error(error.message);
+                        return res(401).json({
+                          error: " La modification échouée",
                         });
-                    }
+                      });
                   })
                   .catch((error) => {
                     console.error(error.message);

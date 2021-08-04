@@ -151,12 +151,6 @@ exports.updatePost = (req, res, next) => {
               if (postFind) {
                 Post.update(postObject, {
                   where: { id: postId },
-                  include: [
-                    {
-                      model: Post,
-                      attributes: ["createdAt", "updatedAt", "userId"],
-                    },
-                  ],
                   // returning: true,
                   // plain: true,
                 })
@@ -173,7 +167,7 @@ exports.updatePost = (req, res, next) => {
                           throw error;
                         } else {
                           // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                          console.log(updatedFound, "lol");
+                          console.log("Modified");
                           return res.status(200).json({
                             message: "Post modifiée",
                             post: updatedFound,
