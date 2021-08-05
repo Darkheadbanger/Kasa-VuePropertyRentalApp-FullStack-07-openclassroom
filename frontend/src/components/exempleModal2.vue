@@ -1,5 +1,6 @@
 <!-- ProductDetailsModal.vue -->
 <template>
+<!-- modals -->
     <div class="modal fade" id="product-details-modal" ref="modalElement">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -8,8 +9,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Product name: {{ product.name }}</p>
-                    <p>Product price: {{ product.price }}</p>
+                    <p>Product name: {{ post.name }}</p>
+                    <p>Product price: {{ post.price }}</p>
                 </div>
             </div>
         </div>
@@ -35,7 +36,7 @@ export default {
         }
     },
     props: {
-        product: {
+        post: {
             required: true,
             type: Object,
         },

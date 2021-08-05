@@ -6,7 +6,6 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-    <span>{{ postId }}</span>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -18,10 +17,10 @@
           ></button>
         </div>
         <div>
-          <label for="message-text" class="col-form-label"
-            >Modifiez votre post ici : {{ post }}</label
+          <label id="postModal" for="message-text" class="col-form-label"
+            >Modifiez votre post ici : {{ post.id }}</label
           >
-          <div class="d-flex justify-content-center">
+          <div id="postModal" class="d-flex justify-content-center">
             <div
               class="
                 input-group input-group-sm
@@ -98,7 +97,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "modalUpdate",
-  props: ["post"],
+  props: ["post", "postModal"],
 
   data() {
     return {

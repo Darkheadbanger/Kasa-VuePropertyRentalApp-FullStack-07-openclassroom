@@ -40,15 +40,18 @@
               <button
                 class="dropdown-item"
                 type="button"
-                data-bs-toggle="modal"
+                data-bs-toggle="`postModal_${post.id}`"
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
                 data-
-                @click="showDetails(post)"
+                @click="showDetails(postModal)"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
               </button>
+              <portal to="modals" v-if="showModal">
+                <product-details-modal v-bind:post="post" />
+              </portal>
             </li>
             <li>
               <button class="dropdown-item" @click="deletePost">
@@ -101,11 +104,10 @@
         </div>
         <CommentWrite :postId="post.id"></CommentWrite>
         <!-- V-for le tableau que je parcours est a droite de int, le commentaire dans le tableau de commentaier -->
-        <Comment
-          v-for="comment in post.comments"
-          :key="comment.id"
-          :comment="comment"
-        ></Comment>
+        <div v-for="comment in post.comments" :key="comment.id">
+          <Comment :comment="comment"></Comment>
+          <UpdateComment :commentId="comment"></UpdateComment>
+        </div>
       </div>
     </div>
   </div>
@@ -117,6 +119,7 @@ import moment from "moment";
 // import UpdatePost from "./modalUpdate.vue";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
+import UpdateComment from "./UpdateComment.vue";
 
 export default {
   name: "Post",
@@ -124,6 +127,7 @@ export default {
   components: {
     Comment,
     CommentWrite,
+    UpdateComment,
     // UpdatePost,
   },
   data() {
@@ -173,7 +177,7 @@ export default {
 
     showDetails() {
       // this.$emit("clicked");
-      console.log(this.post)
+      console.log(this.postModal.id);
     },
   },
 

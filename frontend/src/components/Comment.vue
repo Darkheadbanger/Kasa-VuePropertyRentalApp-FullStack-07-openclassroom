@@ -64,19 +64,19 @@
         </li>
       </ul>
       <!-- Modal -->
-      <UpdateComment :commentId="comment.id"></UpdateComment>
+      <!-- <UpdateComment :commentId="comment.id"></UpdateComment> -->
       <!-- fin modal -->
     </div>
   </div>
 </template>
 <script>
-import UpdateComment from "./UpdateComment.vue";
+// import UpdateComment from "./UpdateComment.vue";
 import { mapGetters } from "vuex";
 // import axios from "axios";
 export default {
   name: "Comment",
   props: ["comment"],
-  components: { UpdateComment },
+  // components: { UpdateComment },
   methods: {
     _deleteComment: function () {
       const dynamicId = this.comment.id;

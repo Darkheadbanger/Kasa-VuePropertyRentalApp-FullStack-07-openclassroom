@@ -13,9 +13,9 @@
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
                 <div class="card rounded">
-                  <div v-for="post in posts" :key="post">
+                  <div v-for="post in posts" :key="post.id">
                     <Post :post="post"></Post>
-                    <UpdatePost :post="post.id"></UpdatePost>
+                    <UpdatePost :post="post"></UpdatePost>
                   </div>
                 </div>
               </div>

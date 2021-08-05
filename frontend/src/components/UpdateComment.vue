@@ -112,7 +112,8 @@ export default {
     updateComment: function () {
       const commentaire = this.comment;
       const image = this.image;
-      const dynamicId = this.commentId;
+      const dynamicId = this.commentId.id;
+      console.log(dynamicId)
       this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
       // this.$refs["resetInput"].value = "";
       this.$refs["resetInput"].value = "";
