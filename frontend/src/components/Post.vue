@@ -39,10 +39,14 @@
             <li>
               <button
                 class="dropdown-item"
+                type="button"
                 data-bs-toggle="modal"
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
+                data-
+                @click="showDetails(post)"
               >
+                <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
               </button>
             </li>
@@ -54,7 +58,7 @@
             </li>
           </ul>
           <!-- Modal -->
-          <UpdatePost :postId="post.id"></UpdatePost>
+          <!-- <UpdatePost  :postId="post.id"></UpdatePost> -->
           <!-- fin modal -->
         </div>
       </div>
@@ -110,10 +114,9 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-import UpdatePost from "./modalUpdate.vue";
+// import UpdatePost from "./modalUpdate.vue";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-// import axios from "axios"; user
 
 export default {
   name: "Post",
@@ -121,7 +124,7 @@ export default {
   components: {
     Comment,
     CommentWrite,
-    UpdatePost,
+    // UpdatePost,
   },
   data() {
     return {
@@ -166,6 +169,11 @@ export default {
       const dynamicId = this.post.id;
       console.log("dynamicId");
       this.$store.dispatch("deletePost", { dynamicId });
+    },
+
+    showDetails() {
+      // this.$emit("clicked");
+      console.log(this.post)
     },
   },
 

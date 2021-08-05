@@ -15,6 +15,7 @@
                 <div class="card rounded">
                   <div v-for="post in posts" :key="post">
                     <Post :post="post"></Post>
+                    <UpdatePost :post="post.id"></UpdatePost>
                   </div>
                 </div>
               </div>
@@ -33,6 +34,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
+import UpdatePost from "../components/modalUpdate.vue";
 
 export default {
   name: "Home",
@@ -41,6 +43,7 @@ export default {
     Header,
     Post,
     PostWrite,
+    UpdatePost,
   },
 
   created() {
@@ -52,7 +55,7 @@ export default {
   // Logique pour récuperer les datas depuis la base de données MySQL
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user", "posts",]),
+    ...mapGetters(["user", "posts"]),
   },
 };
 </script>

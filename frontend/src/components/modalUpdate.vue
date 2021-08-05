@@ -6,6 +6,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
+    <span>{{ postId }}</span>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -18,7 +19,7 @@
         </div>
         <div>
           <label for="message-text" class="col-form-label"
-            >Modifiez votre post ici :</label
+            >Modifiez votre post ici : {{ post }}</label
           >
           <div class="d-flex justify-content-center">
             <div
@@ -93,10 +94,11 @@
 
 <script>
 // import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   name: "modalUpdate",
-  props: ["postId"],
+  props: ["post"],
 
   data() {
     return {
@@ -112,12 +114,20 @@ export default {
     },
     _updatePost: function () {
       const postContent = this.postContent;
+      console.log(postContent);
       const image = this.image;
-      const dynamicId = this.postId;
+      console.log(image);
+      const dynamicId = this.post;
+      console.log(dynamicId);
       this.$store.dispatch("updatePost", { postContent, image, dynamicId });
       // this.$refs["resetInput"].value = "";
       this.$refs["resetInput"].value = "";
     },
+  },
+
+  computed: {
+    //  getting the current user via the state by mapGetters
+    ...mapGetters(["user", "posts", "post"]),
   },
 };
 </script>
