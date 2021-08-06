@@ -33,7 +33,6 @@ export default createStore({
     },
     comment: (state) => {
       //  get current value of the comment
-      console.log(state.comment)
       return state.comment;
     },
   },

@@ -87,7 +87,7 @@ import { mapGetters } from "vuex";
 // import axios from "axios";
 export default {
   name: "Comment",
-  // props: ["comment"],
+  props: ["comment"],
   // components: { UpdateComment },
   data() {
     return {
@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user", "comment"]),
+    ...mapGetters(["user"]),
   },
 };
 </script>
