@@ -40,14 +40,15 @@
               <button
                 class="dropdown-item"
                 type="button"
-                data-bs-toggle="`postModal_${post.id}`"
+                data-bs-toggle="modal"
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
                 data-
-                @click="showDetails(postModal)"
+                @click=" post"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
+                {{ postModal }}
               </button>
               <portal to="modals" v-if="showModal">
                 <product-details-modal v-bind:post="post" />

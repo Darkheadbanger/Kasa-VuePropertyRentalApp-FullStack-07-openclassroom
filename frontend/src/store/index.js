@@ -180,24 +180,29 @@ export default createStore({
     },
 
     deletePost({ commit }, post) {
+      const confirmDelete = confirm(
+        "Êtes vous sûr de vouloir supprimer ce post ?"
+      );
       const deletePost = `api/post/${post.dynamicId}`;
       console.log("before promise", post.dynamicId);
-      return new Promise((resolve, reject) => {
-        console.log("after promise");
-        axios
-          .delete(deletePost)
-          .then((response) => {
-            console.log("delete reponse: ", response.data.post);
-            commit("deletePost", response.data);
-            console.log("delete reponse");
-            resolve(response);
-          })
-          .catch((error) => {
-            // post
-            console.log(error);
-            reject(error);
-          });
-      });
+      if (confirmDelete) {
+        return new Promise((resolve, reject) => {
+          console.log("after promise");
+          axios
+            .delete(deletePost)
+            .then((response) => {
+              console.log("delete reponse: ", response.data.post);
+              commit("deletePost", response.data);
+              console.log("delete reponse");
+              resolve(response);
+            })
+            .catch((error) => {
+              // post
+              console.log(error);
+              reject(error);
+            });
+        });
+      }
     },
     createComment({ commit }, comment) {
       console.log("this.comment");
@@ -241,20 +246,25 @@ export default createStore({
       });
     },
     deleteComment({ commit }, comment) {
+      const confirmDelete = confirm(
+        "Êtes vous sûr de vouloir supprimer ce commentaire ?"
+      );
       const deleteComment = `api/comment/${comment.dynamicId}`;
-      return new Promise((resolve, reject) => {
-        axios
-          .delete(deleteComment)
-          .then((response) => {
-            console.log(response.data.comments);
-            commit("commentDelete", response.data);
-            resolve(response);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
+      if (confirmDelete) {
+        return new Promise((resolve, reject) => {
+          axios
+            .delete(deleteComment)
+            .then((response) => {
+              console.log(response.data.comments);
+              commit("commentDelete", response.data);
+              resolve(response);
+            })
+            .catch((error) => {
+              console.log(error);
+              reject(error);
+            });
+        });
+      }
     },
     // userList n'as pas besoin de le mettre dans vuex
 
