@@ -115,7 +115,6 @@
         <!-- V-for le tableau que je parcours est a droite de int, le commentaire dans le tableau de commentaier -->
         <div v-for="comment in post.comments" :key="comment.id">
           <Comment :comment="comment"></Comment>
-          <UpdateComment :commentId="comment"></UpdateComment>
         </div>
       </div>
     </div>
@@ -125,10 +124,8 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
-// import UpdatePost from "./modalUpdate.vue";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
-import UpdateComment from "./UpdateComment.vue";
 
 export default {
   name: "Post",
@@ -136,8 +133,6 @@ export default {
   components: {
     Comment,
     CommentWrite,
-    UpdateComment,
-    // UpdatePost,
   },
   data() {
     return {

@@ -18,8 +18,8 @@
         </div>
         <div>
           <label for="message-text" class="col-form-label"
-            >Modifiez votre commentaire ici :</label
-          >
+            >Modifiez votre commentaire ici : {{ comment ? comment.id : "" }}
+          </label>
           <div class="d-flex justify-content-center">
             <div
               class="
@@ -40,7 +40,7 @@
               <div class="col-sm-5 col-md-8 ms-3">
                 <input
                   class="form-control mr-sm-2 bg-light"
-                  v-model="comment"
+                  v-model="commentText"
                   :maxlength="max"
                   type="text"
                   ref="resetInput"
@@ -93,14 +93,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import axios from "axios";
 
 export default {
   name: "UpdateComment",
-  props: ["commentId"],
   data() {
     return {
-      comment: "",
+      commentText: "",
       image: "",
       max: 280,
     };
@@ -110,10 +108,10 @@ export default {
       this.image = this.$refs.image.files[0];
     },
     updateComment: function () {
-      const commentaire = this.comment;
+      const commentaire = this.commentText;
       const image = this.image;
-      const dynamicId = this.commentId.id;
-      console.log(dynamicId)
+      const dynamicId = this.comment.id;
+      console.log(dynamicId);
       this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
       // this.$refs["resetInput"].value = "";
       this.$refs["resetInput"].value = "";
@@ -121,7 +119,7 @@ export default {
   },
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "comment"]),
   },
 };
 </script>

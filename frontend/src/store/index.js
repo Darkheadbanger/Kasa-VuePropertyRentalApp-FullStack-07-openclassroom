@@ -33,6 +33,7 @@ export default createStore({
     },
     comment: (state) => {
       //  get current value of the comment
+      console.log(state.comment)
       return state.comment;
     },
   },
@@ -148,6 +149,8 @@ export default createStore({
           .get(getAllPost)
           .then((response) => {
             console.log("GetAllPost");
+            console.log(response.data.posts);
+
             commit("posts", response.data.posts);
             resolve(response);
           })
@@ -205,6 +208,7 @@ export default createStore({
       }
     },
 
+    // Pour pointer le modal de post, pour avoir le bon id
     post({ commit }, post) {
       commit("post", post);
     },
@@ -324,6 +328,11 @@ export default createStore({
         localStorage.getItem("userToken");
       }
     },
+
+    comment({ commit }, comment) {
+      console.log(comment);
+      commit("comment", comment);
+    },
   },
 
   mutations: {
@@ -341,6 +350,7 @@ export default createStore({
       state.posts = posts;
     },
     comment(state, comment) {
+      console.log(comment);
       state.comment = comment;
     },
     addPost(state, post) {

@@ -17,6 +17,7 @@
                     <Post :post="post"></Post>
                   </div>
                   <UpdatePostModal></UpdatePostModal>
+                  <UpdateComment></UpdateComment>
                 </div>
               </div>
             </div>
@@ -35,7 +36,7 @@ import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
 import UpdatePostModal from "../components/modalUpdate.vue";
-
+import UpdateComment from "../components/UpdateComment.vue";
 export default {
   name: "Home",
   components: {
@@ -44,6 +45,7 @@ export default {
     Post,
     PostWrite,
     UpdatePostModal,
+    UpdateComment,
   },
 
   created() {

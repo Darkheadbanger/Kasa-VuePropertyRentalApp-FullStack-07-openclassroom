@@ -40,6 +40,7 @@
       class="btn-group ml-auto p-2 button-right"
       v-if="showButton == (user.id == comment.userId || user.isAdmin == 1)"
     >
+      <span></span>
       <button
         class="btn btn-light dropdown-toggle me-5"
         type="button"
@@ -56,6 +57,7 @@
             data-bs-target="#commentModal"
             data-bs-whatever="@mdo"
             v-if="showButton == (user.id == comment.userId)"
+            @click="showModalComment(comment)"
           >
             <font-awesome-icon :icon="['fas', 'edit']" /> Edit commentaire
           </button>
@@ -90,12 +92,19 @@ export default {
   data() {
     return {
       showButton: true,
+      commentMidalId: null,
     };
   },
   methods: {
     _deleteComment: function () {
       const dynamicId = this.comment.id;
       this.$store.dispatch("deleteComment", { dynamicId });
+    },
+
+    showModalComment(comment) {
+      // Le paramètre va lui dire que c'est ce comment là
+      console.log(comment, comment.userId);
+      this.$store.dispatch("comment", comment);
     },
   },
   computed: {

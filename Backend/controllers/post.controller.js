@@ -69,7 +69,7 @@ exports.getAllPost = (req, res, next) => {
       },
       {
         model: Comment,
-        attributes: ["id", "comment", "imageUrl", "createdAt"],
+        attributes: ["id", "comment", "imageUrl", "createdAt", "userId"],
       },
     ],
     order: [["createdAt", "DESC"]],
