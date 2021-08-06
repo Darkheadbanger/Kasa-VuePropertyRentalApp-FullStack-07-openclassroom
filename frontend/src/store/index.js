@@ -205,6 +205,7 @@ export default createStore({
       }
     },
 
+    // Pour pointer le modal de post, pour avoir le bon id
     post({ commit }, post) {
       commit("post", post);
     },
@@ -323,6 +324,11 @@ export default createStore({
       } else {
         localStorage.getItem("userToken");
       }
+    },
+
+    comment({ commit }, comment) {
+      console.log(comment);
+      commit("comment", comment);
     },
   },
 

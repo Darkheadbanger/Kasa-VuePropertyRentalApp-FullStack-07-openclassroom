@@ -115,8 +115,8 @@
         <!-- V-for le tableau que je parcours est a droite de int, le commentaire dans le tableau de commentaier -->
         <div v-for="comment in post.comments" :key="comment.id">
           <Comment :comment="comment"></Comment>
-          <UpdateComment :commentId="comment"></UpdateComment>
         </div>
+        <UpdateComment></UpdateComment>
       </div>
     </div>
   </div>

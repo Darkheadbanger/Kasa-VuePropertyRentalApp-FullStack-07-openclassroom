@@ -18,8 +18,8 @@
         </div>
         <div>
           <label for="message-text" class="col-form-label"
-            >Modifiez votre commentaire ici :</label
-          >
+            >Modifiez votre commentaire ici : {{ comment ? comment : "" }}
+          </label>
           <div class="d-flex justify-content-center">
             <div
               class="
@@ -97,7 +97,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "UpdateComment",
-  props: ["commentId"],
+  // props: ["commentId"],
   data() {
     return {
       comment: "",
@@ -111,9 +111,10 @@ export default {
     },
     updateComment: function () {
       const commentaire = this.comment;
+      console.log(commentaire)
       const image = this.image;
-      const dynamicId = this.commentId.id;
-      console.log(dynamicId)
+      const dynamicId = this.comments;
+      console.log(dynamicId);
       this.$store.dispatch("updateComment", { image, commentaire, dynamicId });
       // this.$refs["resetInput"].value = "";
       this.$refs["resetInput"].value = "";
@@ -121,7 +122,7 @@ export default {
   },
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "comment"]),
   },
 };
 </script>
