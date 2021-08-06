@@ -36,7 +36,10 @@
         </div>
       </div>
     </div>
-    <div class="btn-group ml-auto p-2 button-right">
+    <div
+      class="btn-group ml-auto p-2 button-right"
+      v-if="showButton == (user.id == comment.userId || user.isAdmin == 1)"
+    >
       <button
         class="btn btn-light dropdown-toggle me-5"
         type="button"
@@ -52,12 +55,19 @@
             data-bs-toggle="modal"
             data-bs-target="#commentModal"
             data-bs-whatever="@mdo"
+            v-if="showButton == (user.id == comment.userId)"
           >
             <font-awesome-icon :icon="['fas', 'edit']" /> Edit commentaire
           </button>
         </li>
         <li>
-          <button class="dropdown-item" @click="_deleteComment">
+          <button
+            class="dropdown-item"
+            @click="_deleteComment"
+            v-if="
+              showButton == (user.id == comment.userId || user.isAdmin == 1)
+            "
+          >
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
             Supprimer commentaire
           </button>
@@ -77,6 +87,11 @@ export default {
   name: "Comment",
   props: ["comment"],
   // components: { UpdateComment },
+  data() {
+    return {
+      showButton: true,
+    };
+  },
   methods: {
     _deleteComment: function () {
       const dynamicId = this.comment.id;
