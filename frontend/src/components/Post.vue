@@ -116,6 +116,7 @@
         <div v-for="comment in post.comments" :key="comment.id">
           <Comment :comment="comment"></Comment>
         </div>
+        <UpdateComment></UpdateComment>
       </div>
     </div>
   </div>
