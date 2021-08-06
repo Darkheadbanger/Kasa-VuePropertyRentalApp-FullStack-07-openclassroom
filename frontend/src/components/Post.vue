@@ -28,9 +28,8 @@
         </div>
         <div
           class="btn-group"
-          v-if="showButton == (user.id == post.userId || user.isAdmin == 1 )"
+          v-if="showButton == (user.id == post.userId || user.isAdmin == 1)"
         >
-          <span>{{ user.id }} == {{ post.userId }}</span>
           <button
             class="btn btn-light dropdown-toggle me-5"
             type="button"
@@ -47,19 +46,26 @@
                 data-bs-toggle="modal"
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
-                data-
+                v-if="
+                  showButton == (user.id == post.userId)
+                "
                 @click="post"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
-                {{ postModal }}
               </button>
-              <portal to="modals" v-if="showModal">
+              <!-- <portal to="modals" v-if="showModal">
                 <product-details-modal v-bind:post="post" />
-              </portal>
+              </portal> -->
             </li>
             <li>
-              <button class="dropdown-item" @click="deletePost">
+              <button
+                class="dropdown-item"
+                @click="deletePost"
+                v-if="
+                  showButton == (user.id == post.userId || user.isAdmin == 1)
+                "
+              >
                 <font-awesome-icon :icon="['fas', 'trash-alt']" />
                 Supprimer post
               </button>
