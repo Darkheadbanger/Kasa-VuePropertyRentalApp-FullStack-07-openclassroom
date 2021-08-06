@@ -55,6 +55,7 @@
         </button>
       </div>
     </div>
+
     <div class="p-2 mb-3">
       <template v-if="preview">
         <img :src="preview" class="img-fluid" />
@@ -70,6 +71,7 @@
         </div>
       </template>
     </div>
+    
   </div>
 </template>
 
@@ -85,20 +87,26 @@ export default {
       comment: "",
       image: "",
       max: 280,
+      preview: ""
     };
   },
   methods: {
     handleFileUpload() {
+      console.log('enter in handleFileupload')
       this.image = this.$refs.image.files[0];
 
       let input = event.target;
+      console.log(input)
       if (input.files) {
+        console.log('inside condition')
         let reader = new FileReader();
         reader.onload = (e) => {
           this.preview = e.target.result;
+          console.log('assign preview', this.preview)
         };
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
+        console.log('end');
       }
     },
 

@@ -89,7 +89,7 @@ export default {
       postContent: "",
       image: "",
       max: 280,
-      preview: null,
+      preview: "",
     };
   },
   methods: {
@@ -97,6 +97,7 @@ export default {
       this.image = this.$refs.image.files[0];
 
       let input = event.target;
+      console.log(event);
       if (input.files) {
         let reader = new FileReader();
         reader.onload = (e) => {
