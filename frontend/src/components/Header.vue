@@ -60,7 +60,7 @@
                 >Home</router-link
               >
             </li>
-            <span class="me-3">|</span>
+            <span class="me-3" v-if="showButton == (user.admin == 1)">|</span>
             <li
               class="
                 header-link-item
@@ -70,7 +70,7 @@
                 d-flex
                 align-items-center
               "
-              v-if="(user.admin = 1)"
+              v-if="showButton == (user.admin == 1)"
             >
               <font-awesome-icon :icon="['fas', 'users']" />
               <!-- <a class="pt-1px text-decoration-none" href="#">Users list</a> -->
@@ -94,6 +94,11 @@ import { mapGetters } from "vuex";
 export default {
   name: "Header",
   // Logique pour pouvoir aller vers la page update si on clique update
+  data() {
+    return {
+      showButton: true,
+    };
+  },
   methods: {
     toUpdate() {
       this.$router.push({ name: "Update" });
