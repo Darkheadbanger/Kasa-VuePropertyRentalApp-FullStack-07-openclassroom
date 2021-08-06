@@ -26,7 +26,11 @@
             </span>
           </div>
         </div>
-        <div class="btn-group">
+        <div
+          class="btn-group"
+          v-if="showButton == (user.id == post.userId || user.isAdmin == 1 )"
+        >
+          <span>{{ user.id }} == {{ post.userId }}</span>
           <button
             class="btn btn-light dropdown-toggle me-5"
             type="button"
@@ -44,7 +48,7 @@
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
                 data-
-                @click=" post"
+                @click="post"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
@@ -136,6 +140,7 @@ export default {
       formattedTime: "",
       now: 0,
       created_At: moment(),
+      showButton: true,
     };
   },
   methods: {
