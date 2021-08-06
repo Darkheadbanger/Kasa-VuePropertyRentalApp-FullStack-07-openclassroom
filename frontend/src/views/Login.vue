@@ -34,9 +34,15 @@
                     />
                   </div>
                 </div>
-                <button type="submit" @click="submit">
-                  <span>Se connecter</span>
-                </button>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button
+                    type="submit"
+                    class="btn btn-light btn-outline-dark me-md-2"
+                    @click="submit"
+                  >
+                    <span>Se connecter</span>
+                  </button>
+                </div>
                 <p v-if="showError" class="error">
                   <span class="error--modifier">
                     {{ error.error
@@ -107,7 +113,6 @@ export default {
   background-size: cover;
   height: 710px;
   .container {
-    width: 30rem;
     opacity: 0.8;
     .card-body {
       form {
@@ -154,7 +159,6 @@ export default {
       }
     }
     button {
-      width: 26.5rem;
       margin-top: $spacer;
       background-color: $bg-btn--before;
       color: $cd-txt-btn--before;
