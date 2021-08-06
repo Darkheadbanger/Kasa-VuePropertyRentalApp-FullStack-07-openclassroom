@@ -18,7 +18,7 @@
         </div>
         <div>
           <label id="postModal" for="message-text" class="col-form-label"
-            >Modifiez votre post ici : {{ post.id }}</label
+            >Modifiez votre post ici : {{ post ? post.id : "" }}</label
           >
           <div id="postModal" class="d-flex justify-content-center">
             <div
@@ -97,7 +97,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "modalUpdate",
-  props: ["post", "postModal"],
+  // props: ["post", "postModalId"],
 
   data() {
     return {
@@ -116,7 +116,7 @@ export default {
       console.log(postContent);
       const image = this.image;
       console.log(image);
-      const dynamicId = this.post;
+      const dynamicId = this.post.id;
       console.log(dynamicId);
       this.$store.dispatch("updatePost", { postContent, image, dynamicId });
       // this.$refs["resetInput"].value = "";

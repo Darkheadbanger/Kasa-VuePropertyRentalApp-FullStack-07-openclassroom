@@ -15,8 +15,8 @@
                 <div class="card rounded">
                   <div v-for="post in posts" :key="post.id">
                     <Post :post="post"></Post>
-                    <UpdatePost :post="post"></UpdatePost>
                   </div>
+                  <UpdatePostModal></UpdatePostModal>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
-import UpdatePost from "../components/modalUpdate.vue";
+import UpdatePostModal from "../components/modalUpdate.vue";
 
 export default {
   name: "Home",
@@ -43,7 +43,7 @@ export default {
     Header,
     Post,
     PostWrite,
-    UpdatePost,
+    UpdatePostModal,
   },
 
   created() {

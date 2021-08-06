@@ -46,10 +46,8 @@
                 data-bs-toggle="modal"
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
-                v-if="
-                  showButton == (user.id == post.userId)
-                "
-                @click="post"
+                v-if="showButton == (user.id == post.userId)"
+                @click="showModalUpdate(post)"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
@@ -147,6 +145,7 @@ export default {
       now: 0,
       created_At: moment(),
       showButton: true,
+      postModalId: null,
     };
   },
   methods: {
@@ -187,9 +186,8 @@ export default {
       this.$store.dispatch("deletePost", { dynamicId });
     },
 
-    showDetails() {
-      // this.$emit("clicked");
-      console.log(this.postModal.id);
+    showModalUpdate(post) {
+      this.$store.dispatch("post", post);
     },
   },
 

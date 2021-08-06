@@ -7,7 +7,7 @@ let ls = new SecureLS({ isCompression: false });
 
 export default createStore({
   state: {
-    user: null, //!localStorage.getItem("userToken")
+    user: [null], //!localStorage.getItem("userToken")
     users: null,
     post: null,
     posts: null,
@@ -204,6 +204,11 @@ export default createStore({
         });
       }
     },
+
+    post({ commit }, post) {
+      commit("post", post);
+    },
+
     createComment({ commit }, comment) {
       console.log("this.comment");
       let formData = new FormData();
