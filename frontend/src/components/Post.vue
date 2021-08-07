@@ -21,7 +21,6 @@
             >
             Ici haut, source d'erreur -->
             <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
-              <!-- {{ post.createdAt }} src -->
               {{ formattedTime }}
             </span>
           </div>
@@ -76,11 +75,67 @@
       </div>
     </div>
     <div class="card-body">
-      <div v-if="post" class="card-body">
+      <div v-if="post">
         <p class="mb-3 tx-14 ms-3">
           {{ post.postContent }}
         </p>
-        <img class="img-fluid d-flex" :src="post.imageUrl" alt="" />
+        <!-- Creation d'image et zoom dans un espece de modal, imagePost est pour viser le modal -->
+        <!--
+        <div
+          class="imageBox-target modal-dialog modal-fullscreen"
+          id="imagePost"
+          tabindex="-1"
+          aria-labelledby="imagePost"
+          aria-hidden="true"
+        >
+
+        <span>hhahahaha</span>
+
+          <img
+            class="img-fluid d-flex"
+            :src="post.imageUrl"
+            alt="Image de Post"
+          />
+          <a class="imageBox-close" href="#"></a>
+        </div> -->
+
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"
+        >
+          <img
+            class="img-fluid d-flex"
+            :src="post.imageUrl"
+            alt="Image de Post"
+          />
+        </a>
+
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <font-awesome-icon
+                :icon="['fas', 'window-close']"
+                type="button"
+                class="button"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              />
+
+              <img
+                class="img-fluid d-flex"
+                src="https://wallpaperaccess.com/full/1495918.jpg"
+                alt="Image de Post"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card-footer">
         <div class="d-flex post-actions">

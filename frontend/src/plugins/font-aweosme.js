@@ -15,6 +15,7 @@ import {
   faThumbsUp,
   faTrashAlt,
   faImage,
+  faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -31,8 +32,8 @@ library.add(
   faComment,
   faThumbsUp,
   faTrashAlt,
-  faImage
-
+  faImage,
+  faWindowClose
 );
 
 export { FontAwesomeIcon };
