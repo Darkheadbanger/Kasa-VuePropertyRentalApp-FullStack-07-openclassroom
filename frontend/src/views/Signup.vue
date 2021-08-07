@@ -164,7 +164,7 @@ export default {
 #body {
   @include imageBg;
   background-size: cover;
-  height: 710px;
+  height: 100vh;
   .container {
     opacity: 0.8;
     .card-body {
