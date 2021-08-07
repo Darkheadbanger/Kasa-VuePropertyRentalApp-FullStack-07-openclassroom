@@ -118,21 +118,24 @@
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <font-awesome-icon
-                :icon="['fas', 'window-close']"
-                type="button"
-                class="button"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              />
+          <div class="modal-dialog bg-transparent">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <font-awesome-icon
+                  :icon="['fas', 'window-close']"
+                  type="button"
+                  class="button window position-absolute top-0 end-0"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
 
-              <img
-                class="img-fluid d-flex"
-                src="https://wallpaperaccess.com/full/1495918.jpg"
-                alt="Image de Post"
-              />
+                <img
+                  class="img-fluid d-flex"
+                  src="https://wallpaperaccess.com/full/1495918.jpg"
+                  alt="Image de Post"
+                />
+              </div>
+              <div class="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -297,6 +300,14 @@ export default {
   padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
+  .card-body {
+    .modal {
+      .window {
+        color: red;
+        margin: 2px 7px 0 0;
+      }
+    }
+  }
 }
 
 .card-footer {
