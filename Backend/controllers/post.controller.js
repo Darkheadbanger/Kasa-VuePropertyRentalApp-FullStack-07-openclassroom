@@ -301,16 +301,25 @@ exports.deletePost = (req, res) => {
                       })
                         .then((destroyed) => {
                           for (const comments of commentFind) {
-                            const fileName =
-                              comments.imageUrl.split("/images/")[1];
-                            fs.unlink(`images/${fileName}`, () => {
+                            if (comments.imageUrl) {
+                              const fileName =
+                                comments.imageUrl.split("/images/")[1];
+                              fs.unlink(`images/${fileName}`, () => {
+                                if (!destroyed) {
+                                  throw error;
+                                } else {
+                                  // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                                  console.log("File deleted!");
+                                }
+                              });
+                            } else {
                               if (!destroyed) {
                                 throw error;
                               } else {
                                 // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                                 console.log("File deleted!");
                               }
-                            });
+                            }
                           }
                           return res.status(200).json({
                             message: "Publication supprimée",
