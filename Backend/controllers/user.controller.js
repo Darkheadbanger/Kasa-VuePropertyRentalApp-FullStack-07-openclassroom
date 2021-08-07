@@ -274,30 +274,49 @@ exports.deleteMyAccount = (req, res) => {
                       id: deletedUser,
                     },
                   })
-                    .then((destroy) => {
-                      for (const comments of comment) {
-                        const fileName = comments.imageUrl.split("/images/")[1];
-                        fs.unlink(`images/${fileName}`, () => {
-                          if (!destroy) {
-                            throw error;
-                          } else {
-                            // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
-                            console.log("File deleted!");
-                          }
-                        });
-                      }
-
+                    .then((destroyed) => {
                       for (const posts of post) {
-                        const fileName = posts.imageUrl.split("/images/")[1];
-                        fs.unlink(`images/${fileName}`, () => {
-                          if (!destroy) {
+                        if (posts.imageUrl != null) {
+                          const fileName = posts.imageUrl.split("/images/")[1];
+                          fs.unlink(`images/${fileName}`, () => {
+                            if (!destroyed) {
+                              throw error;
+                            } else {
+                              // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                              console.log("File deleted!");
+                            }
+                          });
+                        } else {
+                          if (!destroyed) {
                             throw error;
                           } else {
                             // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
                             console.log("File deleted!");
                           }
-                        });
+                        }
                       }
+                      for (const comments of comment) {
+                        if (comments.imageUrl) {
+                          const fileName =
+                            comments.imageUrl.split("/images/")[1];
+                          fs.unlink(`images/${fileName}`, () => {
+                            if (!destroyed) {
+                              throw error;
+                            } else {
+                              // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                              console.log("File deleted!");
+                            }
+                          });
+                        } else {
+                          if (!destroyed) {
+                            throw error;
+                          } else {
+                            // Si il n'y a pas d'erreur alors, l'erreur unlink est réussi
+                            console.log("File deleted!");
+                          }
+                        }
+                      }
+                      // "error": "Ici, Internal error !"
                       res
                         .status(200)
                         .json({ message: "Utilisateur supprimée !" });
