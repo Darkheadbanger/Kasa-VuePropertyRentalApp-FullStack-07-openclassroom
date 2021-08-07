@@ -111,6 +111,7 @@ export default {
 #body {
   @include imageBg;
   background-size: cover;
+  overflow: hidden;
   height: 100vh;
   .container {
     opacity: 0.8;
