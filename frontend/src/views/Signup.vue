@@ -3,8 +3,8 @@
   <div id="body">
     <h1 class="text-white">Welcome</h1>
     <div class="container">
-      <div class="row">
-        <div class="col">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6">
           <div class="card">
             <div class="card-header">
               <font-awesome-icon icon="user" />
@@ -71,7 +71,7 @@
                     />
                   </div>
                 </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                   <button
                     type="submit"
                     class="btn btn-light btn-outline-dark me-md-2"

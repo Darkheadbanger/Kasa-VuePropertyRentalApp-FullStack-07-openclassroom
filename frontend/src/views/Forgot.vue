@@ -8,7 +8,7 @@
             <div class="card-header">
               <font-awesome-icon icon="user" />
             </div>
-            <div class="card-body">
+            <div class="card-body w-25">
               <form @submit.prevent="submit">
                 <div class="formAuth">
                   <div class="formAuth__group">
