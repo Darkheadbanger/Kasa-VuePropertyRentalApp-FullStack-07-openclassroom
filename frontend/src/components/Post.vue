@@ -304,7 +304,7 @@ export default {
     .modal {
       .window {
         color: red;
-        margin: 2px 7px 0 0;
+        margin: 3px 9px 0px 0px;
       }
     }
   }
