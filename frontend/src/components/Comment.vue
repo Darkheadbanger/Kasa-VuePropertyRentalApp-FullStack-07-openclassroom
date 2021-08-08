@@ -31,8 +31,51 @@
             {{ comment.comment }}
           </div>
           <div class="w-50 mt-5 mb-3 me-5">
-            <img class="img-fluid" :src="comment.imageUrl" alt="" />
+            <a
+              data-bs-toggle="modal"
+              data-bs-target="#commentImageModal"
+              data-bs-whatever="@mdo"
+              @click="showModalImage(comment)"
+            >
+              <img class="img-fluid" :src="comment.imageUrl" alt="" />
+            </a>
           </div>
+
+          <!-- Modal start here -->
+          <div
+            class="modal fade"
+            id="commentImageModal"
+            tabindex="-1"
+            aria-labelledby="commentImageModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog imageModal">
+              <div class="modal-content">
+                <panZoom
+                  selector=".zoomable"
+                  :options="{ minZoom: 0.5, maxZoom: 1 }"
+                  @init="onInit"
+                >
+                  <div class="zoomable">
+                    <font-awesome-icon
+                      :icon="['fas', 'window-close']"
+                      type="button"
+                      class="button window position-absolute top-0 end-0"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    />
+
+                    <img
+                      class="img-fluid d-flex"
+                      :src="comment.imageUrl"
+                      alt="Image de Post"
+                    />
+                  </div>
+                </panZoom>
+              </div>
+            </div>
+          </div>
+          <!-- Modal end here -->
         </div>
       </div>
     </div>
@@ -103,7 +146,11 @@ export default {
 
     showModalComment(comment) {
       // Le paramètre va lui dire que c'est ce comment là
-      console.log(comment, comment.userId);
+      this.$store.dispatch("comment", comment);
+    },
+
+    showModalImage(comment) {
+      // Le paramètre va lui dire que c'est ce comment là
       this.$store.dispatch("comment", comment);
     },
   },

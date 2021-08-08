@@ -82,8 +82,9 @@
         <!-- Creation d'image et zoom dans un espece de modal, imagePost est pour viser le modal -->
 
         <a
+          class="aCursor"
           data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
+          data-bs-target="#postImageModal"
           data-bs-whatever="@mdo"
           @click="showModalImage(post)"
         >
@@ -93,15 +94,15 @@
             alt="Image de Post"
           />
         </a>
-
+        <!-- Modal start here -->
         <div
           class="modal fade"
-          id="exampleModal"
+          id="postImageModal"
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby="postImageModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog imagePostModal">
+          <div class="modal-dialog imageModal">
             <div class="modal-content">
               <panZoom
                 selector=".zoomable"
@@ -125,9 +126,9 @@
                 </div>
               </panZoom>
             </div>
-            <div class="modal-footer"></div>
           </div>
         </div>
+        <!-- Modal end here -->
       </div>
       <div class="card-footer">
         <div class="d-flex post-actions">
@@ -308,8 +309,11 @@ export default {
       // Ici
     }
   }
-  .imagePostModal {
+  .imageModal {
     overflow: visible;
+  }
+  .aCursor {
+    cursor: pointer;
   }
 }
 
