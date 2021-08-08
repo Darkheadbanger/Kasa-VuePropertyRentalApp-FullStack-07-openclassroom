@@ -74,13 +74,15 @@
           {{ post.postContent }}
         </p>
         <!-- Creation d'image et zoom dans un espece de modal, imagePost est pour viser le modal -->
-
+        <!-- v-if img.url exist ou pas -->
+        
         <a
           class="aCursor"
           data-bs-toggle="modal"
           data-bs-target="#postImageModal"
           data-bs-whatever="@mdo"
           @click="showModalImage(post)"
+          v-if="post.imageUrl"
         >
           <img
             class="img-fluid d-flex"
