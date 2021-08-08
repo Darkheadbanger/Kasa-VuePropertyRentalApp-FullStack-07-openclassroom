@@ -80,24 +80,6 @@
           {{ post.postContent }}
         </p>
         <!-- Creation d'image et zoom dans un espece de modal, imagePost est pour viser le modal -->
-        <!--
-        <div
-          class="imageBox-target modal-dialog modal-fullscreen"
-          id="imagePost"
-          tabindex="-1"
-          aria-labelledby="imagePost"
-          aria-hidden="true"
-        >
-
-        <span>hhahahaha</span>
-
-          <img
-            class="img-fluid d-flex"
-            :src="post.imageUrl"
-            alt="Image de Post"
-          />
-          <a class="imageBox-close" href="#"></a>
-        </div> -->
 
         <a
           data-bs-toggle="modal"
@@ -118,25 +100,31 @@
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog bg-transparent">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <font-awesome-icon
-                  :icon="['fas', 'window-close']"
-                  type="button"
-                  class="button window position-absolute top-0 end-0"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                />
+          <div class="modal-dialog imagePostModal">
+            <div class="modal-content">
+              <panZoom
+                selector=".zoomable"
+                :options="{ minZoom: 0.5, maxZoom: 1 }"
+                @init="onInit"
+              >
+                <div class="zoomable">
+                  <font-awesome-icon
+                    :icon="['fas', 'window-close']"
+                    type="button"
+                    class="button window position-absolute top-0 end-0"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  />
 
-                <img
-                  class="img-fluid d-flex"
-                  src="https://wallpaperaccess.com/full/1495918.jpg"
-                  alt="Image de Post"
-                />
-              </div>
-              <div class="modal-footer"></div>
+                  <img
+                    class="img-fluid d-flex"
+                    src="http://ekladata.com/xBH5w9H1AYBCbYjvm6kfStb4WME.png"
+                    alt="Image de Post"
+                  />
+                </div>
+              </panZoom>
             </div>
+            <div class="modal-footer"></div>
           </div>
         </div>
       </div>
@@ -203,6 +191,12 @@ export default {
     };
   },
   methods: {
+    // onInit: function(panzoomInstance) {
+    //   panzoomInstance.on('panstart', function(e){
+    //     console.log(e);
+    //   });
+    // },
+
     getFormattedTime(date) {
       let now = moment(); //todays date
       let end = moment(date); // another date
@@ -306,7 +300,11 @@ export default {
         color: red;
         margin: 3px 9px 0px 0px;
       }
+      // Ici
     }
+  }
+  .imagePostModal {
+    overflow: visible;
   }
 }
 
