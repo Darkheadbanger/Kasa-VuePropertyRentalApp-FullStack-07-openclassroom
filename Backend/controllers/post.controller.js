@@ -94,10 +94,10 @@ exports.getAllPost = (req, res, next) => {
 };
 
 exports.getAllMyPost = (req, res) => {
-  const postId = req.params.id;
+  const userId = req.params.id;
 
   Post.findAll({
-    where: { userId: postId },
+    where: { userId: userId },
     include: [
       {
         model: User,
@@ -105,14 +105,20 @@ exports.getAllMyPost = (req, res) => {
       },
       {
         model: Comment,
-        attributes: ["comment", "imageUrl", "createdAt"],
+        attributes: ["comment", "imageUrl", "createdAt", "userId"],
+        include: [
+          {
+            model: User,
+            attributes: ["lastName", "firstName", "userName"],
+          },
+        ],
       },
     ],
     order: [["id", "DESC"]],
   })
-    .then((myPost) => {
-      if (myPost) {
-        return res.status(200).json({ message: "publication trouvé" });
+    .then((myPosts) => {
+      if (myPosts) {
+        return res.status(200).json({ message: "publication trouvé", myPosts });
       } else {
         return res.status(404).json({ message: "Pas de publication!" });
       }

@@ -30,11 +30,35 @@ exports.createComment = (req, res) => {
   });
   comment
     .save()
-    .then((response) => {
-      res.status(200).json({
-        message: "Objet enregistrée à la base de donées",
-        comment: response,
-      });
+    .then((created) => {
+      if (created) {
+        Comment.findOne({
+          where: { id: created.id },
+          include: [
+            {
+              model: User,
+              attributes: ["lastName", "firstName", "userName"],
+            },
+            // {
+            //   model: Comment,
+            //   attributes: ["id", "comment", "imageUrl", "createdAt"],
+            // },
+          ],
+        })
+          .then((commentFounded) => {
+            res.status(200).json({
+              message:
+                "Le comment est trouvé et sauvegardé à la base de donées",
+              comment: commentFounded,
+            });
+          })
+          .catch((error) => {
+            console.error(error.message);
+            return res
+              .status(404)
+              .json({ error: "Le comment est introuvable" });
+          });
+      }
     })
     .catch((error) => {
       console.error(error.message);

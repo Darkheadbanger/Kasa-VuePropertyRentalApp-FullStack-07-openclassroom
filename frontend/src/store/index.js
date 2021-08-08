@@ -161,9 +161,9 @@ export default createStore({
     },
 
     // impression de mes posts
-    getAllMyPost({ commit }, posts) {
+    getAllMyPost({ commit }, dynamicId) {
       // const userIdDynamic = posts.DynamicId;
-      const getAllMyPost = `api/post/${posts.DynamicId}`;
+      const getAllMyPost = `api/post/${dynamicId}`;
       return new Promise((resolve, reject) => {
         axios
           .get(getAllMyPost)
@@ -171,7 +171,8 @@ export default createStore({
             console.log(response);
             // posts.thisMyPosts = response.data.myPost;
             console.log("Recuperer mes posts");
-            commit("posts", response.data.myPost);
+            console.log(response.data.myPosts);
+            commit("posts", response.data.myPosts);
             resolve(response);
           })
           .catch((error) => {

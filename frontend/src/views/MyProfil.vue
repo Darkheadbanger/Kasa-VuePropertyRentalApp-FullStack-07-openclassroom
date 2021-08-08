@@ -57,10 +57,9 @@ export default {
     };
   },
   mounted() {
-    const DynamicId = this.user.id;
+    const dynamicId = this.user.id;
     this.$store
-      .dispatch("getAllMyPost", { DynamicId })
-
+      .dispatch("getAllMyPost", dynamicId)
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {
