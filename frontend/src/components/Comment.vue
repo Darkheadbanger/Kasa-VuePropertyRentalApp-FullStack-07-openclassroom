@@ -22,7 +22,7 @@
             class="text-decoration-none me-1 text-dark float-start"
           >
             <span class="fw-bold">
-              {{ user.firstName }} {{ user.lastName }}
+              {{ comment.user.firstName }} {{ comment.user.lastName }}
             </span>
           </router-link>
         </div>

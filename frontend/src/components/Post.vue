@@ -10,16 +10,10 @@
         <div class="ml-2 d-flex flex-column me-3">
           <div v-if="post" class="ml-2 d-flex flex-column me-3">
             <span class="mt-5"
-              >{{ user.firstName }} {{ user.lastName }} <br />({{
-                user.userName
-              }})</span
-            >
-            <!-- <span class="mt-5"
               >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
                 post.user.userName
               }})</span
             >
-            Ici haut, source d'erreur -->
             <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
               {{ formattedTime }}
             </span>

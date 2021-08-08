@@ -70,6 +70,12 @@ exports.getAllPost = (req, res, next) => {
       {
         model: Comment,
         attributes: ["id", "comment", "imageUrl", "createdAt", "userId"],
+        include: [
+          {
+            model: User,
+            attributes: ["lastName", "firstName", "userName"],
+          },
+        ],
       },
     ],
     order: [["createdAt", "DESC"]],
