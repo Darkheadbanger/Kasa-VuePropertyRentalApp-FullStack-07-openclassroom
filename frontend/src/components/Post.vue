@@ -85,6 +85,7 @@
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
           data-bs-whatever="@mdo"
+          @click="showModalImage(post)"
         >
           <img
             class="img-fluid d-flex"
@@ -118,7 +119,7 @@
 
                   <img
                     class="img-fluid d-flex"
-                    src="http://ekladata.com/xBH5w9H1AYBCbYjvm6kfStb4WME.png"
+                    :src="post.imageUrl"
                     alt="Image de Post"
                   />
                 </div>
@@ -235,6 +236,10 @@ export default {
     },
 
     showModalUpdate(post) {
+      this.$store.dispatch("post", post);
+    },
+
+    showModalImage(post) {
       this.$store.dispatch("post", post);
     },
   },
