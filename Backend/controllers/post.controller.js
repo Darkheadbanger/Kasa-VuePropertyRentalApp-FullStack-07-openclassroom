@@ -151,6 +151,8 @@ exports.updatePost = (req, res, next) => {
       Post.findOne({
         where: {
           id: postId,
+          // Je dois preciser
+          userId: user.id,
         },
       }).then((postFind) => {
         console.log("Comment", postFind.postContent);
@@ -282,6 +284,7 @@ exports.deletePost = (req, res) => {
       Post.findOne({
         where: {
           id: postId,
+          // userId: user.id
         },
         include: [
           {

@@ -40,7 +40,7 @@
                 data-bs-target="#postModal"
                 data-bs-whatever="@mdo"
                 v-if="showButton == (user.id == post.userId)"
-                @click="showModalUpdate(post)"
+                @click="showModal(post)"
               >
                 <!-- <span>{{ post.id }}</span> -->
                 <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
@@ -75,13 +75,13 @@
         </p>
         <!-- Creation d'image et zoom dans un espece de modal, imagePost est pour viser le modal -->
         <!-- v-if img.url exist ou pas -->
-        
+
         <a
           class="aCursor"
           data-bs-toggle="modal"
-          data-bs-target="#postImageModal"
+          data-bs-target="#postModalImage"
           data-bs-whatever="@mdo"
-          @click="showModalImage(post)"
+          @click="showModal(post)"
           v-if="post.imageUrl"
         >
           <img
@@ -91,39 +91,7 @@
           />
         </a>
         <!-- Modal start here -->
-        <div
-          class="modal fade"
-          id="postImageModal"
-          tabindex="-1"
-          aria-labelledby="postImageModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog imageModal">
-            <div class="modal-content">
-              <panZoom
-                selector=".zoomable"
-                :options="{ minZoom: 0.5, maxZoom: 1 }"
-                @init="onInit"
-              >
-                <div class="zoomable">
-                  <font-awesome-icon
-                    :icon="['fas', 'window-close']"
-                    type="button"
-                    class="button window position-absolute top-0 end-0"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  />
-
-                  <img
-                    class="img-fluid d-flex"
-                    :src="post.imageUrl"
-                    alt="Image de Post"
-                  />
-                </div>
-              </panZoom>
-            </div>
-          </div>
-        </div>
+        <!-- <PostModalImage></PostModalImage> -->
         <!-- Modal end here -->
       </div>
       <div class="card-footer">
@@ -171,6 +139,7 @@ import { mapGetters } from "vuex";
 import moment from "moment";
 import Comment from "./Comment.vue";
 import CommentWrite from "./CommentWrite.vue";
+// import PostModalImage from "./postModalImage.vue";
 
 export default {
   name: "Post",
@@ -178,6 +147,7 @@ export default {
   components: {
     Comment,
     CommentWrite,
+    // PostModalImage,
   },
   data() {
     return {
@@ -232,11 +202,8 @@ export default {
       this.$store.dispatch("deletePost", { dynamicId });
     },
 
-    showModalUpdate(post) {
-      this.$store.dispatch("post", post);
-    },
-
-    showModalImage(post) {
+    showModal(post) {
+      console.log(post);
       this.$store.dispatch("post", post);
     },
   },
@@ -296,21 +263,6 @@ export default {
   padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
-  .card-body {
-    .modal {
-      .window {
-        color: red;
-        margin: 3px 9px 0px 0px;
-      }
-      // Ici
-    }
-  }
-  .imageModal {
-    overflow: visible;
-  }
-  .aCursor {
-    cursor: pointer;
-  }
 }
 
 .card-footer {

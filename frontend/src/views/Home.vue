@@ -16,8 +16,14 @@
                   <div v-for="post in posts" :key="post.id">
                     <Post :post="post"></Post>
                   </div>
+                  <!-- Modal update for comment and post start here -->
                   <UpdatePostModal></UpdatePostModal>
                   <UpdateComment></UpdateComment>
+                  <!-- Modal update for comment and post end here -->
+                  <!-- Modal image for comment and post start here -->
+                  <PostModalImage></PostModalImage>
+                  <CommentModalImage></CommentModalImage>
+                  <!-- Modal update for comment and post start here -->
                 </div>
               </div>
             </div>
@@ -37,6 +43,9 @@ import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
 import UpdatePostModal from "../components/modalUpdate.vue";
 import UpdateComment from "../components/UpdateComment.vue";
+import PostModalImage from "../components/postModalImage.vue";
+import CommentModalImage from "../components/commentModalImage.vue";
+
 export default {
   name: "Home",
   components: {
@@ -46,6 +55,8 @@ export default {
     PostWrite,
     UpdatePostModal,
     UpdateComment,
+    PostModalImage,
+    CommentModalImage,
   },
 
   created() {
