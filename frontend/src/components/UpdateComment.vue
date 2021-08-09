@@ -18,7 +18,7 @@
         </div>
         <div>
           <label for="message-text" class="col-form-label"
-            >Modifiez votre commentaire ici : {{ comment ? comment.id : "" }}
+            >Modifiez votre commentaire ici :
           </label>
           <div class="d-flex justify-content-center">
             <div
@@ -49,21 +49,9 @@
                   id="publication"
                 />
               </div>
-              <label>
-                <font-awesome-icon
-                  class="ms-1"
-                  :icon="['fas', 'image']"
-                  size="2x"
-                  for="imageFile"
-                />
-                <input
-                  type="file"
-                  id="FileInput"
-                  ref="image"
-                  name="image_attachment_upload"
-                  v-on:change="handleFileUpload()"
-                />
-              </label>
+              <!-- add button here -->
+              <AddImageButton v-on:change="handleFileUpload()"></AddImageButton>
+              <!-- add button end here -->
             </div>
           </div>
           <!-- Preview image start here -->
@@ -104,9 +92,13 @@
 
 <script>
 import { mapGetters } from "vuex";
+import AddImageButton from "./AddImageButton.vue";
 
 export default {
   name: "UpdateComment",
+  components: {
+    AddImageButton,
+  },
   data() {
     return {
       commentText: "",
@@ -117,8 +109,6 @@ export default {
   },
   methods: {
     handleFileUpload() {
-      this.image = this.$refs.image.files[0];
-
       let input = event.target;
       console.log(event);
       if (input.files) {

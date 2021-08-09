@@ -18,7 +18,7 @@
         </div>
         <div>
           <label id="postModal" for="message-text" class="col-form-label"
-            >Modifiez votre post ici : {{ post ? post.id : "" }}</label
+            >Modifiez votre post ici :</label
           >
           <div id="postModal" class="d-flex justify-content-center">
             <div
@@ -31,6 +31,7 @@
                 justify-content-start
               "
             >
+              <!-- image -->
               <img
                 class="rounded-circle img-xs"
                 src="../assets/icon-above-font.png"
@@ -49,21 +50,9 @@
                   id="publication"
                 />
               </div>
-              <label>
-                <font-awesome-icon
-                  class="ms-1"
-                  :icon="['fas', 'image']"
-                  size="2x"
-                  for="imageFile"
-                />
-                <input
-                  type="file"
-                  id="FileInput"
-                  ref="image"
-                  name="image_attachment_upload"
-                  v-on:change="handleFileUpload()"
-                />
-              </label>
+              <!-- add button here -->
+              <AddImageButton v-on:change="handleFileUpload()"></AddImageButton>
+              <!-- add button end here -->
             </div>
           </div>
           <!-- Preview image start here -->
@@ -103,11 +92,14 @@
 </template>
 
 <script>
+import AddImageButton from "./AddImageButton.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "modalUpdate",
-
+  components: {
+    AddImageButton,
+  },
   data() {
     return {
       postContent: "",
@@ -119,8 +111,6 @@ export default {
 
   methods: {
     handleFileUpload() {
-      this.image = this.$refs.image.files[0];
-
       let input = event.target;
       console.log(event);
       if (input.files) {
@@ -155,9 +145,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-#FileInput {
-  display: none;
-}
-</style>

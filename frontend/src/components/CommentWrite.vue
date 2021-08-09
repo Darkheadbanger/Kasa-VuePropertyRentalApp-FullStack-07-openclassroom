@@ -28,22 +28,9 @@
         />
         <!-- exampleModal -->
       </div>
-      <label class="addImage">
-        <font-awesome-icon
-          class="ms-1"
-          :icon="['fas', 'image']"
-          size="2x"
-          for="imageFile"
-        />
-        <span class="title-image">Ajouter image</span>
-        <input
-          type="file"
-          id="FileInput"
-          ref="image"
-          name="image_attachment_upload"
-          v-on:change="handleFileUpload()"
-        />
-      </label>
+      <!-- add button here -->
+      <AddImageButton v-on:change="handleFileUpload()"></AddImageButton>
+      <!-- add button end here -->
       <div>
         <button
           class="btn btn-primary btn-icon-text btn-edit-profile"
@@ -74,12 +61,15 @@
 </template>
 
 <script>
-// import axios from "axios";
+import AddImageButton from "./AddImageButton.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "CommentWrite",
   props: ["postId"],
+  components: {
+    AddImageButton,
+  },
   data() {
     return {
       comment: "",
@@ -90,9 +80,6 @@ export default {
   },
   methods: {
     handleFileUpload() {
-      console.log("enter in handleFileupload");
-      this.image = this.$refs.image.files[0];
-
       let input = event.target;
       console.log(input);
       if (input.files) {

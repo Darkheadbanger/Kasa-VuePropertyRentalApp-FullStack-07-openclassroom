@@ -29,23 +29,9 @@
               id="publication"
             />
           </div>
-          <label class="addImage">
-            <font-awesome-icon
-              class="ms-1"
-              :icon="['fas', 'image']"
-              size="2x"
-              for="imageFile"
-            />
-            <span class="title-image">Ajouter image</span>
-            <input
-              accept="image/*"
-              type="file"
-              id="FileInput"
-              ref="image"
-              name="image_attachment_upload"
-              v-on:change="handleFileUpload()"
-            />
-          </label>
+          <!-- add button here -->
+          <AddImageButton v-on:change="handleFileUpload()"></AddImageButton>
+          <!-- add button end here -->
           <div>
             <button
               class="btn btn-primary btn-icon-text btn-edit-profile"
@@ -77,9 +63,14 @@
 </template>
 
 <script>
+import AddImageButton from "./AddImageButton.vue";
 import { mapGetters } from "vuex";
+
 export default {
   name: "PostWrite",
+  components: {
+    AddImageButton,
+  },
   data() {
     return {
       resetPost: "",
@@ -90,9 +81,7 @@ export default {
     };
   },
   methods: {
-    handleFileUpload: function () {
-      this.image = this.$refs.image.files[0];
-
+    handleFileUpload() {
       let input = event.target;
       console.log(event);
       if (input.files) {
@@ -104,17 +93,17 @@ export default {
         reader.readAsDataURL(input.files[0]);
       }
     },
-    resetImage: function () {
+    resetImage() {
       this.image = null;
       this.preview = null;
     },
-    _createPost: function () {
+    _createPost() {
       const postContent = this.postContent;
       const image = this.image;
       this.$store.dispatch("createPost", { postContent, image });
       this.image = null;
       this.preview = null;
-      this.postContent = null
+      this.postContent = null;
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
