@@ -30,13 +30,11 @@
                   />
                 </router-link>
               </div>
-              <div class="d-flex flex-column">
+              <div class="d-flex flex-column align-items-start">
                 <span class="profile-name"
                   >{{ user.firstName }} {{ user.lastName }}</span
                 >
-                <span class="profile-name d-flex justify-content-start">
-                  ({{ user.userName }})</span
-                >
+                <span class="profile-name"> ({{ user.userName }})</span>
               </div>
             </div>
             <div>
@@ -149,6 +147,7 @@ export default {
 
       .profile-name {
         font-weight: 600;
+        text-transform: capitalize;
       }
     }
   }

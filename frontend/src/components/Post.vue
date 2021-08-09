@@ -8,13 +8,12 @@
           alt=""
         />
         <div class="ml-2 d-flex flex-column me-3">
-          <div v-if="post" class="ml-2 d-flex flex-column me-3">
-            <span class="mt-5"
-              >{{ post.user.firstName }} {{ post.user.lastName }} <br />({{
-                post.user.userName
-              }})</span
+          <div v-if="post" class="ml-2 d-flex flex-column me-5">
+            <span class="mt-4 text-name d-flex flex-column align-items-start"
+              >{{ post.user.firstName }} {{ post.user.lastName }}
+              <span>({{ post.user.userName }})</span></span
             >
-            <span class="tx-11 text-muted mb-5 d-flex justify-content-start">
+            <span class="tx-11 text-muted mb-5 d-flex ms-3">
               {{ formattedTime }}
             </span>
           </div>
@@ -263,6 +262,9 @@ export default {
   padding: 0 0 0 0;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0);
+  .text-name {
+    text-transform: capitalize;
+  }
 }
 
 .card-footer {
