@@ -66,12 +66,23 @@
               </label>
             </div>
           </div>
+          <!-- Preview image start here -->
+          <div class="p-2 mb-3">
+            <template v-if="preview">
+              <img :src="preview" class="img-fluid" />
+              <div class="d-flex">
+                <p class="mb-0 mt-2">file name: {{ image.name }}</p>
+              </div>
+            </template>
+          </div>
+          <!-- Preview image end here -->
         </div>
         <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
+            @click="closedButton()"
           >
             Close
           </button>
@@ -102,12 +113,28 @@ export default {
       postContent: "",
       image: "",
       max: 280,
+      preview: "",
     };
   },
 
   methods: {
     handleFileUpload() {
       this.image = this.$refs.image.files[0];
+
+      let input = event.target;
+      console.log(event);
+      if (input.files) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          this.preview = e.target.result;
+        };
+        this.image = input.files[0];
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    closedButton() {
+      this.image = null;
+      this.preview = null;
     },
     _updatePost: function () {
       const postContent = this.postContent;
