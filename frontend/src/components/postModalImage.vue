@@ -23,7 +23,7 @@
             />
             <img
               class="img-fluid d-flex"
-              src=""
+              :src="post ? post.imageUrl : ''"
               alt="Image de Post"
             />
           </div>

@@ -21,10 +21,9 @@
               data-bs-dismiss="modal"
               aria-label="Close"
             />
-            <span>{{ comment.id }}</span>
             <img
               class="img-fluid d-flex"
-              src=""
+              :src="comment ? comment.imageUrl : ''"
               alt="Image de Post"
             />
           </div>
