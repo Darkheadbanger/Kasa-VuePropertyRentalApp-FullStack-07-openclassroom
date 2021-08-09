@@ -21,9 +21,10 @@
               data-bs-dismiss="modal"
               aria-label="Close"
             />
+            <span>{{ comment.id }}</span>
             <img
               class="img-fluid d-flex"
-              :src="comment.imageUrl"
+              src=""
               alt="Image de Post"
             />
           </div>
@@ -39,6 +40,11 @@ import { mapGetters } from "vuex";
 export default {
   name: "commentModalImage",
 
+  data() {
+    return {
+      image: "",
+    };
+  },
   computed: {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["comment"]),

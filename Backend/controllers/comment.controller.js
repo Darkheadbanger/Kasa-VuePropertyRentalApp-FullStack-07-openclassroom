@@ -114,6 +114,8 @@ exports.updateComments = (req, res) => {
       Comment.findOne({
         where: {
           id: commentId,
+          // Il n'y a que l'utilisateur qui a poster le commentaire qui peut le modifier
+          userId: user.id
         },
       })
         .then((commentFind) => {

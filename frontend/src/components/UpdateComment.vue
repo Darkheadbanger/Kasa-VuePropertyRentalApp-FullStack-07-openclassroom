@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     //  getting the current user via the state by mapGetters
-    ...mapGetters(["user", "comment"]),
+    ...mapGetters(["comment"]),
   },
 };
 </script>

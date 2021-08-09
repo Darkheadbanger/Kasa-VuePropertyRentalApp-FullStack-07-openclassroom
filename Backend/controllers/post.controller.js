@@ -151,7 +151,7 @@ exports.updatePost = (req, res, next) => {
       Post.findOne({
         where: {
           id: postId,
-          // Je dois preciser
+          // Il n'y a que l'utilisateur qui a poster qui peut le modifier
           userId: user.id,
         },
       }).then((postFind) => {
@@ -273,7 +273,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res) => {
   const postId = req.params.id; // l'id du post
-  const userId = req.params.userId; //l'id de user
+  const userId = req.params.userId; //l'id de user qui est loggé (voire dans auth.jwt.js)
   User.findOne({
     //On cherche une id d'utilisateur
     attributes: ["id", "email", "userName", "isAdmin"],
@@ -284,7 +284,6 @@ exports.deletePost = (req, res) => {
       Post.findOne({
         where: {
           id: postId,
-          // userId: user.id
         },
         include: [
           {
