@@ -22,7 +22,6 @@
             <input
               class="form-control mr-sm-2 bg-light"
               v-model="postContent"
-              ref="resetInput"
               :maxlength="max"
               type="text"
               placeholder="Publier ici..."
@@ -79,7 +78,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import axios from "axios";
 export default {
   name: "PostWrite",
   data() {
@@ -114,9 +112,9 @@ export default {
       const postContent = this.postContent;
       const image = this.image;
       this.$store.dispatch("createPost", { postContent, image });
-      this.$refs["resetInput"].value = "";
       this.image = null;
       this.preview = null;
+      this.postContent = null
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL

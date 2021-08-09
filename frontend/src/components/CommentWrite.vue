@@ -22,7 +22,6 @@
           v-model="comment"
           :maxlength="max"
           type="text"
-          ref="resetInput"
           placeholder="Commenter..."
           aria-label="Commenter"
           id="commentText"
@@ -71,7 +70,6 @@
         </div>
       </template>
     </div>
-    
   </div>
 </template>
 
@@ -87,26 +85,26 @@ export default {
       comment: "",
       image: "",
       max: 280,
-      preview: ""
+      preview: "",
     };
   },
   methods: {
     handleFileUpload() {
-      console.log('enter in handleFileupload')
+      console.log("enter in handleFileupload");
       this.image = this.$refs.image.files[0];
 
       let input = event.target;
-      console.log(input)
+      console.log(input);
       if (input.files) {
-        console.log('inside condition')
+        console.log("inside condition");
         let reader = new FileReader();
         reader.onload = (e) => {
           this.preview = e.target.result;
-          console.log('assign preview', this.preview)
+          console.log("assign preview", this.preview);
         };
         this.image = input.files[0];
         reader.readAsDataURL(input.files[0]);
-        console.log('end');
+        console.log("end");
       }
     },
 
@@ -114,11 +112,10 @@ export default {
       const commentaire = this.comment;
       const image = this.image;
       const postId = this.postId;
-      console.log(postId);
       this.$store.dispatch("createComment", { commentaire, image, postId });
-      this.$refs["resetInput"].value = "";
       this.image = null;
       this.preview = null;
+      this.comment = null;
     },
 
     resetImage: function () {
