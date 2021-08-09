@@ -5,12 +5,12 @@
     <div class="container">
       <div class="profile-page tx-13">
         <Header></Header>
-        <div class="row profile-body d-flex flex-row justify-content-center">
+        <div class="profile-body d-flex flex-column flex-md-row justify-content-center">
           <!-- left wrapper start -->
-          <Profile></Profile>
+          <ProfileInformation></ProfileInformation>
           <!-- left wrapper end -->
           <!-- middle wrapper start -->
-          <div class="col-xl-6 middle-wrapper">
+          <div class="col-xl-6 row-cols middle-wrapper">
             <PostWrite></PostWrite>
             <div class="row mt-4 mt-md-4 mt-lg-0">
               <div class="col-md-12">
@@ -36,7 +36,7 @@ import Nav from "../components/Nav.vue";
 import Header from "../components/Header.vue";
 import Post from "../components/Post.vue";
 import PostWrite from "../components/PostWrite.vue";
-import Profile from "../components/profileInformation.vue";
+import ProfileInformation from "../components/profileInformation.vue";
 
 // import axios from "axios";
 
@@ -47,7 +47,7 @@ export default {
     Header,
     Post,
     PostWrite,
-    Profile,
+    ProfileInformation,
   },
 
   data() {
@@ -58,8 +58,7 @@ export default {
   },
   mounted() {
     const dynamicId = this.user.id;
-    this.$store
-      .dispatch("getAllMyPost", dynamicId)
+    this.$store.dispatch("getAllMyPost", dynamicId);
   },
   // Logique pour pouvoir aller vers la page update si on clique update
   methods: {

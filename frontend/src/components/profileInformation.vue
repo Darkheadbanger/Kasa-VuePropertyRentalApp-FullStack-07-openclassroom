@@ -1,5 +1,5 @@
 <template>
-  <div class="d-none d-md-block col-md-4 me-5">
+  <div class="d-md-block col-md-4 me-5 mb-5">
     <div class="card rounded">
       <div
         class="
@@ -36,9 +36,10 @@
           </div>
         </div>
 
-        <p>
-          Hi! I'm Amiah the Senior UI Designer at Vibrant. We hope you enjoy the
-          design and quality of Social.
+        <p class="about">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam
         </p>
         <div class="mt-3">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
@@ -46,18 +47,26 @@
           >
           <p class="text-muted">{{ formattedTime }}</p>
         </div>
-        <div class="mt-3">
+        <div class="mt-3 last-name">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase">Nom:</label>
           <p class="text-muted">{{ users.lastName }}</p>
         </div>
-        <div class="mt-3">
+        <div class="mt-3 first-name">
           <label class="tx-11 font-weight-bold mb-0 text-uppercase"
             >Prénom:</label
           >
           <p class="text-muted">{{ users.firstName }}</p>
         </div>
-        <div class="mt-3">
-          <label class="tx-11 font-weight-bold mb-0 text-uppercase"
+        <div class="mt-3 pseudeo">
+          <label
+            class="
+              tx-11
+              font-weight-bold
+              mb-0
+              text-uppercase
+              d-flex
+              justify-content-start
+            "
             >Pseudeo:</label
           >
           <p class="text-muted">{{ users.userName }}</p>
@@ -130,6 +139,18 @@ export default {
 body {
   background-color: #f9fafb;
   margin-top: 20px;
+  .about {
+    text-transform: capitalize;
+  }
+  .last-name {
+    text-transform: capitalize;
+  }
+  .first-name {
+    text-transform: capitalize;
+  }
+  .pseudeo {
+    text-transform: capitalize;
+  }
 }
 
 .profile-body {
