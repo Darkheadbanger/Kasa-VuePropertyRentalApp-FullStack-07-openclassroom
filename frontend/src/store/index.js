@@ -61,7 +61,6 @@ export default createStore({
             localStorage.setItem("userToken", response.data.token);
             axios.defaults.headers.common["Authorization"] =
               "Bearer " + response.data.token;
-
             
             commit("user", response.data.user);
             resolve(response);
@@ -294,7 +293,7 @@ export default createStore({
             password: user.thisPassword,
           })
           .then((response) => {
-            commit("updateComment", response.data.user);
+            commit("user", response.data.user);
             resolve(response);
           })
           .catch((error) => {
@@ -458,15 +457,4 @@ export default createStore({
     },
   },
 });
-// for (let i = 0; i < state.posts.length; i++) {
-//   for (let postsFind of state.posts) {
-//     if (postsFind.id == post.id) {
-//       if (state.posts[i] == post.id) {
-//         console.log(postsFind.id, "==", post.id);
-//         console.log(state.posts[i]);
-//         state.posts = post;
-//       }
-//     }
-//   }
-// }
 // Les codes à connaitre sont tous ce qui est parsing du tableau, la condition
