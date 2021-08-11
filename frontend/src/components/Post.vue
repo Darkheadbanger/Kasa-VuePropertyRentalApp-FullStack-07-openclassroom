@@ -2,11 +2,13 @@
   <div class="card-header">
     <div class="d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center justify-content-between">
-        <img
-          class="rounded-circle profile-pic"
-          src="../assets/icon-above-font.png"
-          alt=""
-        />
+        <router-link :to="{ name: 'MyProfil' }">
+          <img
+            class="rounded-circle profile-pic"
+            src="../assets/icon-above-font.png"
+            alt=""
+          />
+        </router-link>
         <div class="ml-2 d-flex flex-column me-3">
           <div v-if="post" class="ml-2 d-flex flex-column me-5">
             <span class="mt-4 text-name d-flex flex-column align-items-start"

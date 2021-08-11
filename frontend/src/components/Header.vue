@@ -20,7 +20,7 @@
               align-items-center
             "
           >
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-2">
               <div>
                 <router-link :to="{ name: 'MyProfil' }">
                   <img
