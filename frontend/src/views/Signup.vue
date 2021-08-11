@@ -22,7 +22,6 @@
                       checked="true"
                       placeholder="Votre prénom"
                       required
-                      pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"
                     />
                   </div>
                 </div>
@@ -37,7 +36,6 @@
                       checked="true"
                       placeholder="Votre nom"
                       required
-                      pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"
                     />
                   </div>
                 </div>
@@ -52,7 +50,6 @@
                       checked="true"
                       placeholder="Votre pseudeo"
                       required
-                      pattern="/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u"
                     />
                   </div>
                 </div>
@@ -107,12 +104,6 @@
                   </span>
                 </p>
                 <!-- message frontend -->
-                <p v-if="invalid" class="error">
-                  <span class="error--modifier">
-                    Veuillez remplir correctement, le nom, prenom, pseudeo,
-                    email et votre mot de passe
-                  </span>
-                </p>
                 <div id="nav">
                   <router-link class="link" to="/login"
                     >Se connecter</router-link
@@ -145,7 +136,6 @@ export default {
       showError: false,
       error: "",
       succes: "",
-      invalid: false,
     };
   },
 
@@ -157,17 +147,6 @@ export default {
       const email = this.email;
       const password = this.password;
 
-      //ici declaration de regex
-      // const regexPassword = /((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[W]).{8,64})/;
-      // const regexName =
-      //   /^(?:((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[]'’,-.s])){1,}(['’,-.]){0,1}){2,}(([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[]'’,-. ]))*(([ ]+){0,1}(((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[]'’,-.s])){1,})(['’-,.]){0,1}){2,}((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[]'’,-.s])){2,})?)*)$/;
-      // if (
-
-      //   (!password || regexPassword.test(password)) &&
-      //   (!firstName || regexName.test(firstName)) &&
-      //   (!lastName || regexName.test(lastName)) &&
-      //   (!userName || regexName.test(userName))
-      // ) {
       this.$store
         .dispatch("signup", {
           firstName,
@@ -185,12 +164,9 @@ export default {
         .catch((error) => {
           console.log(error);
           this.showError = true;
+          this.$router.push({ name: "Signup" });
           this.error = error.response.data;
         });
-      // } else {
-      //   console.log("Veuillez envoyer les informations demandé");
-      //   this.invalid = true;
-      // }
     },
   },
 };

@@ -6,8 +6,9 @@ axios.defaults.withCredentials = true;
 let token = localStorage.getItem("userToken");
 if (token) {
   axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-}
-axios.interceptors.response.use(
+  
+    // Source d'erreur
+  axios.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -18,9 +19,11 @@ axios.interceptors.response.use(
       //  we need to dispatch this user to null
       // this.$store.dispatch("user", null);
       router.push({ name: "Login" });
-      
-      //place your reentry code
     }
-    return error;
+    return Promise.reject(error);
   }
 );
+}
+
+
+

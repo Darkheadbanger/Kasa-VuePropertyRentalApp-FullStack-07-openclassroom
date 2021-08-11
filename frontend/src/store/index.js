@@ -61,6 +61,8 @@ export default createStore({
             localStorage.setItem("userToken", response.data.token);
             axios.defaults.headers.common["Authorization"] =
               "Bearer " + response.data.token;
+
+            
             commit("user", response.data.user);
             resolve(response);
           })
@@ -85,6 +87,7 @@ export default createStore({
           .then((response) => {
             commit("user", response.data.accessToken);
             // commit ('user', response.data.user)
+            
             console.log("response", response);
 
             resolve(response);

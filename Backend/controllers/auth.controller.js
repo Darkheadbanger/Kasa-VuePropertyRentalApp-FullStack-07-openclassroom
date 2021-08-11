@@ -16,13 +16,13 @@ exports.signup = async (req, res) => {
     return res.status(400).json({ error: "Le prénom et le nom est vide !" });
   } else {
     if (!userName) {
-      return res.status(401).json({ error: "Le pseudeo est vide" });
+      return res.status(400).json({ error: "Le pseudeo est vide" });
     }
     if (!email) {
-      return res.status(401).json({ error: "L'émail est vide !" });
+      return res.status(400).json({ error: "L'émail est vide !" });
     }
     if (!password) {
-      return res.status(401).json({ error: "Le mot de passe est vide" });
+      return res.status(400).json({ error: "Le mot de passe est vide" });
     }
   }
 
@@ -101,14 +101,14 @@ exports.login = async (req, res) => {
     .then((user) => {
       if (!user) {
         return res
-          .status(403)
+          .status(400)
           .json({ error: "Email ou mot de passe incorrect ! " });
       }
       bcryptjs
         .compare(password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({
+            return res.status(400).json({
               accessToken: null,
               error: "Email ou mot de passe incorrect !",
             });
@@ -139,6 +139,6 @@ exports.login = async (req, res) => {
     })
     .catch((error) => {
       console.error(error.message, "Utilisateur non trouvé");
-      return res.status(401).json({ error: "Utilisateur non trouvé" });
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
     });
 };

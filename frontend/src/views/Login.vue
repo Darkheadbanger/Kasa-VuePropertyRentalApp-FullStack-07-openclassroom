@@ -89,7 +89,7 @@ export default {
     };
   },
   methods: {
-    _loginForm: function () {
+    _loginForm() {
       console.log(this.password, this.email);
       const email = this.email;
       const password = this.password;
