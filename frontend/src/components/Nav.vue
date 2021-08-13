@@ -19,10 +19,10 @@
         />
         <span class="p2 title title__style h6 align-self-center">
           <div class="align-items-start">Welcome to</div>
-          <div>GroupomaniaNetwork</div>
+          <h1><div class="h5">GroupomaniaNetwork</div></h1>
         </span>
       </router-link>
-      <form class="d-flex">
+      <!-- <form class="d-flex">
         <div class="col-sm-6 col-md-12">
           <input
             class="form-control mr-sm-2 bg-light"
@@ -35,7 +35,7 @@
         <button type="button" class="btn btn-secondary">
           <font-awesome-icon :icon="['fas', 'search']" />
         </button>
-      </form>
+      </form> -->
 
       <nav class="navbar navbar-expand-md">
         <div class="container-fluid">

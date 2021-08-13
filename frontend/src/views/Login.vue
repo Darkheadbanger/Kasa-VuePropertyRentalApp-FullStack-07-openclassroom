@@ -1,12 +1,12 @@
 <template>
   <div id="body">
-    <h1 class="text-white">Welcome</h1>
+    <h1 class="text-title mb-3">Welcome to Groupomania</h1>
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header">
-              <font-awesome-icon icon="user" />
+              <font-awesome-icon icon="user" role="img" />
             </div>
             <div class="card-body">
               <form @submit.prevent="_loginForm">
@@ -16,6 +16,7 @@
                     <input
                       v-model="email"
                       name="email"
+                      id="email"
                       type="email"
                       checked="true"
                       placeholder="Votre email"
@@ -28,6 +29,7 @@
                     <input
                       v-model="password"
                       name="password"
+                      id="password"
                       type="password"
                       checked="true"
                       placeholder="Votre mot de passe"
@@ -113,6 +115,9 @@ export default {
   background-size: cover;
   overflow: hidden;
   height: 100vh;
+  .text-title {
+    color: $title;
+  }
   .container {
     opacity: 0.8;
     .card-body {

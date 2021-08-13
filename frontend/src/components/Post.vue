@@ -6,7 +6,7 @@
           <img
             class="rounded-circle profile-pic"
             src="../assets/icon-above-font.png"
-            alt=""
+            alt="profile image"
           />
         </router-link>
         <div class="ml-2 d-flex flex-column me-3">
@@ -44,7 +44,8 @@
                 @click="showModal(post)"
               >
                 <!-- <span>{{ post.id }}</span> -->
-                <font-awesome-icon :icon="['fas', 'edit']" /> Edit post
+                <font-awesome-icon :icon="['fas', 'edit']" role="edit" />
+                Edit post
               </button>
               <!-- <portal to="modals" v-if="showModal">
                 <product-details-modal v-bind:post="post" />
@@ -58,7 +59,7 @@
                   showButton == (user.id == post.userId || user.isAdmin == 1)
                 "
               >
-                <font-awesome-icon :icon="['fas', 'trash-alt']" />
+                <font-awesome-icon :icon="['fas', 'trash-alt']" role="trash" />
                 Supprimer post
               </button>
             </li>

@@ -14,7 +14,7 @@
       >
         <div class="d-flex mb-2">
           <div class="mr-auto p-2">
-            <h6 class="card-title mb-3">About</h6>
+            <h3 class="card-title mb-3 h5">About</h3>
           </div>
           <div class="btn-group ml-auto p-2 ms-5 button-right">
             <button

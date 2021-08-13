@@ -1,13 +1,13 @@
 <template>
   <!--loginSignup.scss-->
   <div id="body">
-    <h1 class="text-white">Welcome</h1>
+    <h1 class="text-title mb-3">Welcome to Groupomania</h1>
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header">
-              <font-awesome-icon icon="user" />
+              <font-awesome-icon icon="user" role="img" />
             </div>
             <div class="card-body">
               <form @submit.prevent="_signupForm">
@@ -18,6 +18,7 @@
                       v-on:keydown="invalid = false"
                       v-model="firstName"
                       name="firstName"
+                      id="firstName"
                       type="text"
                       checked="true"
                       placeholder="Votre prénom"
@@ -32,6 +33,7 @@
                       v-model="lastName"
                       v-on:keydown="invalid = false"
                       name="lastName"
+                      id="lastName"
                       type="text"
                       checked="true"
                       placeholder="Votre nom"
@@ -46,6 +48,7 @@
                       v-model="userName"
                       v-on:keydown="invalid = false"
                       name="userName"
+                      id="userName"
                       type="text"
                       checked="true"
                       placeholder="Votre pseudeo"
@@ -60,6 +63,7 @@
                       v-model="email"
                       v-on:keydown="invalid = false"
                       name="email"
+                      id="email"
                       type="email"
                       checked="true"
                       placeholder="Votre email"
@@ -74,6 +78,7 @@
                       v-model="password"
                       v-on:keydown="invalid = false"
                       name="password"
+                      id="password"
                       type="password"
                       checked="true"
                       placeholder="Votre mot de passe"
@@ -179,6 +184,10 @@ export default {
   background-size: cover;
   height: 100vh;
   overflow: hidden;
+  .text-title {
+    color: $title;
+  }
+
   .container {
     opacity: 0.8;
     .card-body {

@@ -50,6 +50,7 @@ export default {
   }
   .title-image {
     margin: 0 5px 0 5px;
+    color: #575757;
   }
 }
 </style>

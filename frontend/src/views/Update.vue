@@ -18,9 +18,9 @@
                     <div class="d-flex flex-column justify-content-start">
                       <div class="d-flex justify-content-start border-bottom">
                         <div class="ml-2 d-flex me-3">
-                          <span class="mt-3 mb-3"
-                            >Paramètres généraux du compte</span
-                          >
+                          <h3 class="mt-3 mb-3 h5">
+                            Paramètres généraux du compte
+                          </h3>
                         </div>
                       </div>
                       <div

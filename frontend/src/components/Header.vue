@@ -26,7 +26,7 @@
                   <img
                     class="img-xs rounded-circle profile-pic"
                     src="../assets/icon-above-font.png"
-                    alt=""
+                    alt="profile image"
                   />
                 </router-link>
               </div>
@@ -55,7 +55,7 @@
               <router-link
                 class="pt-1px text-decoration-none"
                 :to="{ name: 'Home' }"
-                >Home</router-link
+                ><h2 class="h5">Home</h2></router-link
               >
             </li>
             <span class="me-3" v-if="user.isAdmin">|</span>
@@ -110,7 +110,9 @@ export default {
 .profile-header {
   box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
   border: 1px solid #f2f4f9;
-
+  .text-home {
+    color: #065160;
+  }
   .cover {
     position: relative;
     border-radius: 0.25rem 0.25rem 0 0;
@@ -176,7 +178,7 @@ export default {
         &.active,
         &:hover a,
         &.active a {
-          color: #727cf5;
+          color: #1f30ef;
           text-decoration: underline;
         }
       }
