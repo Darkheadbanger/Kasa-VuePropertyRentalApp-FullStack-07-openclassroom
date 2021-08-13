@@ -103,7 +103,7 @@ export default {
       this.$store.dispatch("createPost", { postContent, image });
       this.image = null;
       this.preview = null;
-      this.postContent = null;
+      this.postContent = "";
     },
   },
   // Logique pour récuperer les datas depuis la base de données MySQL
