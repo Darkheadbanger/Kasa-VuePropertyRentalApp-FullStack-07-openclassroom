@@ -56,10 +56,10 @@
                   </span>
                 </p>
                 <div id="nav">
-                  <router-link class="link" to="/forgot"
+                  <!-- <router-link class="link" to="/forgot"
                     >Mot de passe oublié ?</router-link
                   >
-                  |
+                  | -->
                   <router-link class="link" to="/signup"
                     >S'inscrire</router-link
                   >
