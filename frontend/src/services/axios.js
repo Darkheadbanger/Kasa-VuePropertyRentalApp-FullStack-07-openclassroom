@@ -8,7 +8,7 @@ console.log(token);
 if (token) {
   axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
-  // Source d'erreur
+  // If token expired go to login
   axios.interceptors.response.use(
     (response) => {
       return response;
@@ -18,7 +18,7 @@ if (token) {
         console.log("error 401");
         localStorage.clear("userToken");
         //  we need to dispatch this user to null
-        // this.$store.dispatch("user", null);
+        this.$store.dispatch("user", null);
         router.push({ name: "Login" });
       }
       return Promise.reject(error);

@@ -201,7 +201,7 @@ export default {
             :active {
               border: 2px solid $cd-txt;
             }
-            :not(:focus):invalid {
+            :focus:invalid {
               background-color: $danger;
               border: 1px solid;
               color: $cd-txt--invalid;
