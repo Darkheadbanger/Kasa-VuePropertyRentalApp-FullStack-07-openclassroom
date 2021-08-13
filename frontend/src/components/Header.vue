@@ -50,10 +50,10 @@
         </div>
         <div class="header-links">
           <ul class="links d-flex align-items-center mt-3 mt-md-0">
-            <li class="header-link-item d-flex align-items-center active me-3">
+            <li class="header-link-item d-flex align-items-center me-3">
               <font-awesome-icon :icon="['fas', 'home']" />
               <router-link
-                class="pt-1px text-decoration-none"
+                class="pt-1px text-decoration-none mt-2"
                 :to="{ name: 'Home' }"
                 ><h2 class="h5">Home</h2></router-link
               >
