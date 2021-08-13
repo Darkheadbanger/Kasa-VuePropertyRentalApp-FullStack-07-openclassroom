@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "../router/index";
+import store from "../store/index";
 
 axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.withCredentials = true;
@@ -18,7 +19,7 @@ if (token) {
         console.log("error 401");
         localStorage.clear("userToken");
         //  we need to dispatch this user to null
-        this.$store.dispatch("user", null);
+        store.dispatch("user", null);
         router.push({ name: "Login" });
       }
       return Promise.reject(error);

@@ -102,7 +102,7 @@ export default {
       this.$store.dispatch("createComment", { commentaire, image, postId });
       this.image = null;
       this.preview = null;
-      this.comment = null;
+      this.comment = "";
     },
 
     resetImage: function () {
