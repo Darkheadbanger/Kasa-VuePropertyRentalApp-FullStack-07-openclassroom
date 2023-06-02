@@ -1,33 +1,27 @@
 <template>
   <div
-    class="modal fade"
     id="commentImageModal"
+    class="modal fade"
     tabindex="-1"
     aria-labelledby="commentImageModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog imageModal">
       <div class="modal-content">
-        <panZoom
-          selector=".zoomable"
-          :options="{ minZoom: 0.5, maxZoom: 1 }"
-          @init="onInit"
-        >
-          <div class="zoomable">
-            <font-awesome-icon
-              :icon="['fas', 'window-close']"
-              type="button"
-              class="button window position-absolute top-0 end-0"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            />
-            <img
-              class="img-fluid d-flex"
-              :src="comment ? comment.imageUrl : ''"
-              alt="Image de Post"
-            />
-          </div>
-        </panZoom>
+        <div class="zoomable">
+          <font-awesome-icon
+            :icon="['fas', 'window-close']"
+            type="button"
+            class="button window position-absolute top-0 end-0"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
+          <img
+            class="img-fluid d-flex"
+            :src="comment ? comment.imageUrl : ''"
+            alt="Image de Post"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +42,11 @@ export default {
     //  getting the current user via the state by mapGetters
     ...mapGetters(["comment"]),
   },
+  // methods: {
+  //   onInit(panZoomInstance) {
+  //     console.log(panZoomInstance.getTransform());
+  //   },
+  // },
 };
 </script>
 
