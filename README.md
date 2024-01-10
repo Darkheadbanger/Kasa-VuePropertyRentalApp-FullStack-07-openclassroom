@@ -83,6 +83,6 @@ Pour s'inscrire sur le social network de Groupomania, il vous faut renseigner :
 
 Une fois connecté vous pouvez voir les publications des utilisateurs et publier au choix:
     un statut
-    un statut + un image (pas de vidéos)
+    un statut + un image (pas de vidéos) 
     un statut + une image Ces publications peuvent être commentées, modifiées, supprimées. Le modérateur peut les supprimer.
 Bonne naviguation!
